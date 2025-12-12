@@ -1,0 +1,93 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+
+* {
+  box-sizing: border-box;
+  padding: 0%;
+  margin: 0;
+}
+
+:root {
+  /* Absolute */
+  --black: hsl(0, 0%, 6%);
+  --black-300: hsl(0, 0%, 30%);
+  --black-700: hsl(0, 0%, 70%);
+
+  --white: hsl(0, 0%, 97%);
+
+  /* Numerical */
+  --xs-4px: 0.25rem; /* 4px */
+  --s-8px: 0.5rem; /* 8px */
+  --sm-12px: 0.75rem; /* 12px */
+  --m-16px: 1rem; /* 16px */
+  --ml-20px: 1.25rem; /* 20px */
+  --l-24px: 1.5rem; /* 24px */
+  --lg-28px: 1.75rem; /* 28px */
+  --xl-32px: 2rem; /* 32px */
+
+  /* Text */
+  --text-heading: var(--black);
+  --text-inverse-heading: var(--white);
+  --text-body: var(--black-300);
+
+
+  /* Button */
+  --btn-background-primary: var(--black);
+  --btn-border-primary: var(--black-700);
+  --btn-border-radius: var(--s-8px);
+
+}
+
+/* utility Style */
+
+body {
+  font-family: "Lato", sans-serif;
+}
+
+a {
+  color: var(--black);
+}
+
+/* Button */
+
+.btn {
+  border-radius: var(--xs-4px);
+  padding-inline: 0.6rem;
+  padding-block: 0.6rem;
+  background-color: transparent;
+  font-size: var(--m-16px);
+  height: 48px;
+}
+.btn.primary {
+  color: var(--text-inverse-heading);
+  background-color: var(--btn-background-primary);
+}
+
+.btn.secondary {
+  border-radius: var(--xs-4px);
+  color: var(--text-heading);
+  border: 1px solid var(--btn-border-primary);
+}
+
+.btn.primary.disabled{
+     opacity: 0.8;
+     color: var(--text-body);
+}
+
+/* Form */
+
+.field {
+  padding: 4px;
+  border-radius:4px;
+  padding-inline: 0.6rem;
+  padding-block: 0.6rem;
+  border: 1px solid var(--btn-border-primary);
+}
+
+/* Page */
+
+.page{
+    padding-inline:16px;
+    padding-block: 20px;
+}
+
+/* Responsive Utility */
