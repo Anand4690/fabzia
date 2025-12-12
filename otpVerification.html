@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>OTP Verification</title>
-
+  <link rel="stylesheet" href="utility.css">
   <!-- Tailwind CDN for quick prototyping -->
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -33,7 +33,7 @@
       <!-- Back Button -->
       <button id="backBtn" class="flex items-center gap-2.5 mb-2" aria-label="Go back" type="button">
         <!-- simple chevron left -->
-        <svg class="w-6 h-6 text-[#0F0F0F]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg class="w-6 h-6 text-[var(--text-heading)]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
         <span class="sr-only">Back</span>
@@ -43,12 +43,12 @@
       <div class="flex flex-col gap-4">
         <!-- Header -->
         <div class="flex flex-col gap-1">
-          <h1 class="font-inter text-xl font-semibold leading-7 tracking-[0.04px] text-[#0F0F0F]">
+          <h1 class="font-inter text-xl font-semibold leading-7 tracking-[0.04px] text-[var(--text-heading)]">
             Enter 6-digit Code
           </h1>
           <p class="font-inter text-base font-normal leading-7 text-[#4D4D4D]">
             we have sent a verification code to <br>
-            <span id="phoneText" class="text-[#0F0F0F]">+91 63619-81038</span>
+            <span id="phoneText" class="text-[var(--text-heading)]">+91 63619-81038</span>
           </p>
         </div>
 
@@ -61,10 +61,10 @@
 
           <!-- Retry Section -->
           <div class="flex items-center gap-1">
-            <span class="font-inter text-sm font-normal leading-5 tracking-[0.04px] text-[#0F0F0F]">
+            <span class="font-inter text-sm font-normal leading-5 tracking-[0.04px] text-[var(--text-heading)]">
               Didn't receive our SMS?
             </span>
-            <span id="retryArea" class="font-inter text-sm font-normal leading-5 tracking-[0.04px] text-[#0F0F0F]">
+            <span id="retryArea" class="font-inter text-sm  font-semibold leading-5 tracking-[0.04px] text-[var(--text-heading)]">
               Retry in <span id="countdown">59</span> sec
             </span>
           </div>

@@ -9,6 +9,7 @@
 :root {
   /* Absolute */
   --black: hsl(0, 0%, 6%);
+  --green:hsl(145, 92%, 33%);
   --black-300: hsl(0, 0%, 30%);
   --black-700: hsl(0, 0%, 70%);
 
@@ -31,7 +32,7 @@
 
 
   /* Button */
-  --btn-background-primary: var(--black);
+  --btn-background-primary: var(--green);
   --btn-border-primary: var(--black-700);
   --btn-border-radius: var(--s-8px);
 

@@ -5,7 +5,7 @@
         function setEnabled(enabled) {
           if (enabled) {
             cont.classList.remove('bg-[#DEDEDE]', 'text-[#4D4D4D]', 'opacity-80');
-            cont.classList.add('bg-[#0F0F0F]', 'text-white');
+            cont.classList.add('bg-[var(--btn-background-primary)]', 'text-white');
             cont.setAttribute('aria-disabled', 'false');
             cont.disabled = false;
           } else {
@@ -27,6 +27,7 @@
         cont.addEventListener('click', function () {
           if (cont.disabled) return;
           // implement your continue flow here (e.g., navigate to OTP screen)
+
           alert('Continue clicked with phone: ' + phone.value);
         });
 
