@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Share Location</title>
+    <link rel="stylesheet" href="utility.css" />
+    <!-- Tailwind CDN (for quick prototyping). Replace with a production build for production. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div class="min-h-dvh flex flex-col">
+
+        <!-- Image -->
+        <div class="mt-auto">
+            <img src="assets/Images/share location.png" alt="">
+        </div>
+    
+        <!-- Wrapper Content -->
+        <div class="px-4 flex flex-col gap-4 ">
+    
+            <!-- Content -->
+            <div class="flex flex-col gap-2">
+              <h1 class="font-inter text-xl font-semibold leading-7 tracking-[0.04px] text-[var(--text-heading)] w-full">
+                Share your location
+              </h1>
+        
+              <p class="font-inter text-sm font-normal leading-5 tracking-[0.04px] text-[var(--text-body)] w-full">
+                Please turn on or update your location to view Turf around you
+              </p>
+            </div>
+        
+            <!-- Button Primary -->
+            <div>
+              <button class="w-full h-12 flex items-center justify-center rounded transition-all bg-[var(--btn-background-primary)] text-[var(--text-inverse-heading)]">
+                <span class="font-inter text-base font-medium leading-7">Enable Location</span>
+              </button>
+        
+              <button class="w-full h-12 flex items-center justify-center rounded transition-all underline underline-offset-2 text-[var(--text-heading)]">
+                <span class="font-inter text-base font-medium leading-7">Continue</span>
+              </button>
+            </div>
+        </div>
+    </div>
+
+  </body>
+</html>
