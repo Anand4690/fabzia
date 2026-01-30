@@ -1,47 +1,70 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Share Location</title>
-    <link rel="stylesheet" href="utility.css" />
-    <!-- Tailwind CDN (for quick prototyping). Replace with a production build for production. -->
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body>
-    <div class="min-h-dvh flex flex-col">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pick your Region</title>
 
-        <!-- Image -->
-        <div class="mt-auto">
-            <img src="assets/Images/share location.png" alt="">
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* Tap / click feedback */
+    .tap-item {
+      transition: background-color 150ms ease, transform 120ms ease;
+    }
+    .tap-item:hover { background-color: #ededed; }
+    .tap-item:active { transform: scale(0.96); }
+
+    .tap-icon {
+      transition: transform 120ms ease;
+    }
+    .tap-item:active .tap-icon { transform: scale(0.9); }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center bg-[#EDEDED] p-4 antialiased">
+
+  <div class="w-full max-w-[430px] min-h-[812px] bg-[#FFFEFE] rounded-[24px] flex flex-col overflow-hidden">
+
+    <!-- Top bar -->
+    <div class="flex flex-col border-b border-[#D7D7D7]">
+      <div class="flex items-center gap-2 px-4 pt-4 pb-3">
+        <button onclick="history.back()" class="p-1 tap-item">
+          <svg class="w-5 h-5 text-[#0F0F0F]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <h1 class="text-base font-normal text-[#0F0F0F] leading-7">Pick your Region</h1>
+      </div>
+
+      <!-- Search Input -->
+      <div class="px-4 pb-3">
+        <div class="h-12 flex items-center gap-3 px-3 border border-[#B2B2B2] rounded focus-within:border-[#0F0F0F] transition-colors">
+          <svg class="w-5 h-5 text-[#A3A3A3]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          <input id="searchInput" type="text" placeholder="Search for your city"
+            class="flex-1 text-base text-[#4D4D4D] placeholder:text-[#4D4D4D] bg-transparent outline-none leading-7" />
         </div>
-    
-        <!-- Wrapper Content -->
-        <div class="px-4 flex flex-col gap-4 ">
-    
-            <!-- Content -->
-            <div class="flex flex-col gap-2">
-              <h1 class="font-inter text-xl font-semibold leading-7 tracking-[0.04px] text-[var(--text-heading)] w-full">
-                Share your location
-              </h1>
-        
-              <p class="font-inter text-sm font-normal leading-5 tracking-[0.04px] text-[var(--text-body)] w-full">
-                Please turn on or update your location to view Turf around you
-              </p>
-            </div>
-        
-            <!-- Button Primary -->
-            <div>
-              <button class="w-full h-12 flex items-center justify-center rounded transition-all bg-[var(--btn-background-primary)] text-[var(--text-inverse-heading)]">
-                <span class="font-inter text-base font-medium leading-7">Enable Location</span>
-              </button>
-        
-              <button class="w-full h-12 flex items-center justify-center rounded transition-all underline underline-offset-2 text-[var(--text-heading)]">
-                <span class="font-inter text-base font-medium leading-7">Continue</span>
-              </button>
-            </div>
-        </div>
+      </div>
+
+      <!-- Auto Detect Location -->
+      <div id="autoDetect" class="px-4 pb-4">
+        <button class="flex items-center gap-2 tap-item">
+          <svg class="w-4 h-4 text-[#008236] tap-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21s6-5.686 6-10a6 6 0 10-12 0c0 4.314 6 10 6 10z" />
+            <circle cx="12" cy="11" r="2.5" />
+          </svg>
+          <span class="text-sm text-[#008236]">Auto Detect My Location</span>
+        </button>
+      </div>
     </div>
 
-  </body>
+    <!-- Content -->
+    <div id="content" class="flex-1 flex flex-col"></div>
+  </div>
+
+<script src="Js/ShareLocation.js" ></script>
+</body>
 </html>

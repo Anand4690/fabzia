@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Turf Booking - Sign up</title>
+
+    <!-- Tailwind CDN (for quick prototyping). Replace with a production build for production. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Optional: font family fallback. Replace with your own font imports if needed. -->
+    <style>
+    /* small toast */
+    .toast {
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 30px;
+      z-index: 60;
+      background: rgba(15,15,15,0.95);
+      color: white;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-weight: 500;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+    /* Prevent any scrolling (horizontal and vertical) */
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    /* Ensure main app container never forces overflow */
+    .app-root {
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    /* Fix OTP input width to avoid overflow and match design */
+  #otpRow input { width: 40px; max-width: 40px; }
+
+</style>
+  </head>
+
+  <body class="antialiased bg-white">
+    <!-- Container (max-width to mimic mobile) -->
+    <div class="relative w-full h-screen container-custom mx-auto overflow-hidden bg-white">
+
+      <!-- Background Image/Video Section -->
+      <div class="absolute inset-0 w-full h-full">
+        <div class="relative w-full h-full">
+          <!-- Placeholder for video - image used here -->
+          <div class="w-full h-full bg-gradient-to-b from-green-600 to-green-700 bg-image">
+            <img
+              src="/mnt/data/Onboarding.png"
+              alt="Turf background"
+              class="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Skip Button (now absolutely positioned above video) -->
+      <button id="skipBtn" class="skip-btn">
+        <span class="font-roboto text-sm font-medium leading-5 tracking-[0.1px] text-[#0F0F0F]">Skip</span>
+      </button>
+
+      <!-- Content Overlay -->
+      <div class="relative z-10 flex flex-col h-full">
+        <!-- Spacer to push content to bottom -->
+        <div class="flex-1"></div>
+
+        <!-- Bottom Form Section - fixed to bottom on small screens via CSS -->
+        <div class="bottom-panel">
+          <div class="flex flex-col gap-5">
+            <div class="flex flex-col gap-1">
+              <div class="flex flex-col gap-2">
+                <h1 class="font-inter text-xl font-semibold leading-7 tracking-[0.04px] text-[#0F0F0F] w-full">Book Turfs Faster</h1>
+                <p class="font-inter text-sm font-normal leading-5 tracking-[0.04px] text-[#4D4D4D] w-full">Sign up to check real-time availability</p>
+              </div>
+            </div>
+
+            <!-- Phone Input Section -->
+            <div class="flex flex-col gap-3">
+              <div class="flex items-center gap-2">
+                <!-- Country Code Field -->
+                <div class="flex h-12 items-center justify-center gap-2 rounded-lg border border-[#B2B2B2] px-3">
+                  <img
+                    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='23' viewBox='0 0 34 23'%3E%3Crect width='34' height='7.67' fill='%23FF9933'/%3E%3Crect y='7.67' width='34' height='7.67' fill='%23FFFFFF'/%3E%3Crect y='15.33' width='34' height='7.67' fill='%23138808'/%3E%3Ccircle cx='17' cy='11.5' r='3' fill='%23000080'/%3E%3C/svg%3E"
+                    alt="India flag"
+                    class="w-[34px] h-[22.67px]"
+                  />
+                  <span class="font-roboto text-sm font-medium leading-5 tracking-[0.25px] text-[#0F0F0F]">+91</span>
+                </div>
+
+                <!-- Phone Number Field -->
+                <div class="flex flex-1 h-12 items-center rounded-lg border border-[#B2B2B2] px-3">
+                  <input
+                    id="phone"
+                    type="tel"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
+                    placeholder="10-digit mobile number"
+                    maxlength="10"
+                    class="w-full font-roboto text-sm font-normal leading-5 tracking-[0.25px] text-[#4D4D4D] placeholder:text-[#4D4D4D] bg-transparent outline-none border-none"
+                  />
+                </div>
+              </div>
+
+              <!-- Continue Button -->
+              <button id="continueBtn" aria-disabled="true" class="flex h-12 items-center justify-center gap-2.5 rounded-lg transition-colors bg-[#DEDEDE] text-[#4D4D4D] opacity-80">
+                <span class="font-roboto text-base font-normal leading-6 tracking-[0.5px]">Continue</span>
+              </button>
+
+              <!-- Terms and Privacy -->
+              <p class="font-roboto text-xs font-normal leading-4 tracking-[0.4px] text-[#4D4D4D] text-center">
+                By continuing you agree with our <span class="underline cursor-pointer">Terms of Services</span> & <span class="underline cursor-pointer">Privacy Policy</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Small script to replicate the React behavior: enable button when 10 digits entered -->
+    <script>
+      (function () {
+        const phone = document.getElementById('phone');
+        const cont = document.getElementById('continueBtn');
+
+        function setEnabled(enabled) {
+          if (enabled) {
+            cont.classList.remove('bg-[#DEDEDE]', 'text-[#4D4D4D]', 'opacity-80');
+            cont.classList.add('bg-[#0F0F0F]', 'text-white');
+            cont.setAttribute('aria-disabled', 'false');
+            cont.disabled = false;
+          } else {
+            cont.classList.remove('bg-[#0F0F0F]', 'text-white');
+            cont.classList.add('bg-[#DEDEDE]', 'text-[#4D4D4D]', 'opacity-80');
+            cont.setAttribute('aria-disabled', 'true');
+            cont.disabled = true;
+          }
+        }
+
+        // sanitize input to digits only
+        phone.addEventListener('input', function (e) {
+          const digits = this.value.replace(/[^0-9]/g, '');
+          if (this.value !== digits) this.value = digits;
+          setEnabled(digits.length === 10);
+        });
+
+        // optional: handle click of continue
+        cont.addEventListener('click', function () {
+          if (cont.disabled) return;
+          // implement your continue flow here (e.g., navigate to OTP screen)
+          alert('Continue clicked with phone: ' + phone.value);
+        });
+
+        // skip button (example behavior)
+        document.getElementById('skipBtn').addEventListener('click', function () {
+          // implement skip behavior (e.g., navigate to home)
+          alert('Skipped');
+        });
+
+        // initialize state
+        setEnabled(false);
+      })();
+    </script>
+  </body>
+</html>
