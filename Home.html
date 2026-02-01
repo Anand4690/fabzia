@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fabzia Turf</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Utility CSS (Contains Font and Root Variables) -->
+    <link rel="stylesheet" href="utility.css">
+    <!-- Availability Filter JS -->
+    <script src="Js/availabilityFilter.js"></script>
+    
+    <style>
+        /* Custom scrollbar hiding */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            /* Font family comes from utility.css */
+            background-color: var(--bg-light); /* Desktop background */
+        }
+
+        /* Mobile Container to simulate mobile view on desktop */
+        .mobile-container {
+            max-width: 430px;
+            margin: 0 auto;
+            background-color: var(--white); /* from utility css */
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        /* Hide scrollbar for time dropdown */
+        #start-time-dropdown::-webkit-scrollbar,
+        #end-time-dropdown::-webkit-scrollbar {
+            display: none;
+        }
+        
+        #start-time-dropdown,
+        #end-time-dropdown {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-container pb-20 bg-[var(--bg-light)]">
+        <!-- Top Navigation -->
+        <header class="sticky top-0 z-40 bg-white border-b border-[var(--bg-container)] px-4 py-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <!-- Avatar -->
+                    <!-- Avatar -->
+                    <a href="EditProfile.html" class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-sm font-medium text-[var(--green)] cursor-pointer">
+                        fs
+                    </a>
+                    <!-- Location -->
+                    <div class="flex items-center gap-1 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <span class="text-sm font-normal">Mumbai</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="m6 9 6 6 6-6"/></svg>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <!-- Search Icon (Visible on Scroll) -->
+                    <a href="Search.html" id="top-nav-search" class="hidden text-[var(--text-body)] transition-opacity duration-300">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                    </a>
+                    <!-- Notification -->
+                    <a href="Notifications.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+                    </a>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="px-4 pt-5 pb-4 flex flex-col gap-5">
+            <!-- Search Bar -->
+            <a href="Search.html" class="flex items-center gap-3 w-full h-12 px-4 bg-white border border-[var(--bg-container)] rounded-lg shadow-sm hover:bg-gray-50 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-[var(--text-body)]"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <span class="text-base font-medium text-[var(--text-body)]">Search for turf</span>
+            </a>
+
+            <!-- Ad Banner with Auto-Slider -->
+            <div class="relative h-32 rounded-lg overflow-hidden shadow-md group">
+                <div id="banner-track" class="flex transition-transform duration-500 ease-in-out h-full" style="transform: translateX(0%);">
+                    <img src="assets/Images/banner_placeholder.png" alt="Banner 1" class="w-full h-full object-cover flex-shrink-0">
+                    <img src="assets/Images/banner_placeholder.png" alt="Banner 2" class="w-full h-full object-cover flex-shrink-0">
+                    <img src="assets/Images/banner_placeholder.png" alt="Banner 3" class="w-full h-full object-cover flex-shrink-0">
+                </div>
+                <!-- Slider Dots -->
+                <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1" id="banner-dots">
+                    <div class="h-2 rounded-full transition-all w-5 bg-white cursor-pointer" onclick="goToSlide(0)"></div>
+                    <div class="h-2 rounded-full transition-all w-2 bg-white/50 border border-white cursor-pointer" onclick="goToSlide(1)"></div>
+                    <div class="h-2 rounded-full transition-all w-2 bg-white/50 border border-white cursor-pointer" onclick="goToSlide(2)"></div>
+                </div>
+            </div>
+
+            <!-- Explore Turfs Section -->
+            <div id="explore-turf-section" class="transition-all duration-300">
+                <div class="flex flex-col gap-1">
+                    <!-- Title -->
+                    <div class="flex items-center justify-between h-9 py-1 bg-[var(--bg-light)]"> 
+                        <h2 class="text-lg font-medium text-[var(--text-heading)]">Explore Turfs</h2>
+                    </div>
+
+                    <!-- Sports Filter - Horizontal Scrollable -->
+                    <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide py-1 bg-[var(--bg-light)]">
+                        <!-- Availability Button (Sticky) -->
+                        <div class="sticky left-0 z-10 flex items-center bg-[var(--bg-light)] pr-2">
+                             <button id="availability-filter-btn" onclick="openAvailabilityFilter()" class="filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--text-heading)] bg-[hsl(0,0%,6%,0.05)] shadow-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-[var(--text-heading)]"><line x1="4" x2="20" y1="21" y2="21"/><line x1="4" x2="20" y1="14" y2="14"/><line x1="4" x2="20" y1="7" y2="7"/><circle cx="12" cy="14" r="2"/><circle cx="8" cy="7" r="2"/><circle cx="16" cy="21" r="2"/></svg>
+                                <span class="text-sm font-normal text-[var(--text-heading)]">Availability</span>
+                            </button>
+                            <!-- Vertical Divider -->
+                            <div class="h-8 w-px bg-[var(--black-700)] ml-2"></div>
+                        </div>
+
+                        <!-- Cricket -->
+                        <button onclick="setActiveFilter('Cricket', this)" class="filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--bg-container)] bg-white">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 22h20"></path><path d="M4 2v20"></path><path d="M20 2v20"></path><path d="m5 5 14 14"></path>
+                            </svg>
+                            <span class="text-xs font-normal text-[var(--text-heading)]">Cricket</span>
+                        </button>
+
+                        <!-- Football -->
+                        <button onclick="setActiveFilter('Football', this)" class="filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--bg-container)] bg-white">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle><path d="m12 16 4-2-2-5-4 2 2 5"></path><path d="m8.5 7.5 7 1"></path><path d="m16.5 10 3.5 2"></path><path d="m16 14 4 4"></path><path d="m12 16-1 5"></path><path d="m8 14-4 4"></path><path d="m7.5 10-3.5 2"></path>
+                            </svg>
+                            <span class="text-xs font-normal text-[var(--text-heading)]">Football</span>
+                        </button>
+
+                        <!-- Badminton -->
+                        <button onclick="setActiveFilter('Badminton', this)" class="filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--bg-container)] bg-white">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22v-6"></path><path d="m12 16 6.5-6.5c1.4-1.4 1.4-3.6 0-5-1.4-1.4-3.6-1.4-5 0L12 6 10.5 4.5c-1.4-1.4-3.6-1.4-5 0-1.4 1.4-1.4 3.6 0 5L12 16Z"></path>
+                            </svg>
+                            <span class="text-xs font-normal text-[var(--text-heading)]">Badminton</span>
+                        </button>
+
+                        <!-- Basketball -->
+                        <button onclick="setActiveFilter('Basketball', this)" class="filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--bg-container)] bg-white">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle><path d="M5.65 17.65a6 6 0 0 0 12.7 0"></path><path d="M22 12h-6.05a5.96 5.96 0 0 1-3.95-3.95H2"></path><line x1="12" y1="2" x2="12" y2="22"></line>
+                            </svg>
+                            <span class="text-xs font-normal text-[var(--text-heading)]">Basketball</span>
+                        </button>
+
+                        <!-- Tennis -->
+                        <button onclick="setActiveFilter('Tennis', this)" class="filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--bg-container)] bg-white">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle><path d="M2 12h20"></path><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                            </svg>
+                            <span class="text-xs font-normal text-[var(--text-heading)]">Tennis</span>
+                        </button>
+
+                        <!-- View All -->
+                        <button onclick="setActiveFilter('View All', this)" class="filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--bg-container)] bg-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-[var(--text-heading)]"><path d="m6 9 6 6 6-6"/></svg>
+                            <span class="text-xs font-normal text-[var(--text-heading)]">View All</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sticky Spacer -->
+             <div id="sticky-spacer" class="hidden h-[88px]"></div>
+
+            <!-- Turf Cards Grid -->
+            <div class="grid grid-cols-2 gap-x-4 gap-y-10" id="turf-grid">
+                
+                <!-- Card 1 -->
+                <div class="flex flex-col gap-2 cursor-pointer group">
+                    <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block">
+                        <img src="assets/Images/turf_placeholder.png" alt="Turf" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute bottom-1 left-2 flex items-center gap-1 bg-[var(--green-dark)] rounded-full px-2 py-0.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="w-3 h-3 text-white"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            <span class="text-xs font-medium text-[var(--text-inverse-heading)]">4.2</span>
+                        </div>
+                        <div class="absolute top-2 left-1 bg-white/90 rounded px-1 py-0.5">
+                            <span class="text-[10px] font-medium text-[var(--text-heading)]">50% OFF</span>
+                        </div>
+                    </a>
+                    <div class="flex flex-col gap-3">
+                        <div class="flex flex-col gap-1">
+                            <h3 class="text-sm font-normal text-[var(--text-heading)] leading-tight">The Multisports Turf</h3>
+                            <div class="flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3 text-[var(--text-body)]"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span class="text-xs font-normal text-[var(--text-body)]">Thane west (2km)</span>
+                            </div>
+                            <span class="text-xs font-normal text-[var(--green)]">₹200 onwards</span>
+                        </div>
+                        <button class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Book Now</button>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="flex flex-col gap-2 cursor-pointer group">
+                    <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block">
+                        <img src="assets/Images/turf_placeholder.png" alt="Turf" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute bottom-2 left-2 flex items-center gap-1 bg-[var(--green-dark)] rounded-full px-2 py-0.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="w-3 h-3 text-white"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            <span class="text-xs font-medium text-[var(--text-inverse-heading)]">4.2</span>
+                        </div>
+                        <div class="absolute top-2 left-1 bg-white/90 rounded px-1 py-0.5">
+                            <span class="text-[10px] font-medium text-[var(--text-heading)]">50% OFF</span>
+                        </div>
+                    </a>
+                    <div class="flex flex-col gap-3">
+                        <div class="flex flex-col gap-1">
+                            <h3 class="text-sm font-normal text-[var(--text-heading)] leading-tight">Play Field Turf</h3>
+                            <div class="flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3 text-[var(--text-body)]"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span class="text-xs font-normal text-[var(--text-body)]">Thane Station (3km)</span>
+                            </div>
+                            <span class="text-xs font-normal text-[var(--green)]">₹400 onwards</span>
+                        </div>
+                        <button class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Enquire Now</button>
+                    </div>
+                </div>
+
+                <!-- More cards (Duplicates for display) -->
+                 <div class="flex flex-col gap-2 cursor-pointer group">
+                    <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block">
+                        <img src="assets/Images/turf_placeholder.png" alt="Turf" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute bottom-2 left-2 flex items-center gap-1 bg-[var(--green-dark)] rounded-full px-2 py-0.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="w-3 h-3 text-white"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            <span class="text-xs font-medium text-[var(--text-inverse-heading)]">4.2</span>
+                        </div>
+                         <div class="absolute top-2 left-1 bg-white/90 rounded px-1 py-0.5">
+                            <span class="text-[10px] font-medium text-[var(--text-heading)]">50% OFF</span>
+                        </div>
+                    </a>
+                    <div class="flex flex-col gap-3">
+                        <div class="flex flex-col gap-1">
+                            <h3 class="text-sm font-normal text-[var(--text-heading)] leading-tight">The Multisports Turf</h3>
+                            <div class="flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3 text-[var(--text-body)]"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span class="text-xs font-normal text-[var(--text-body)]">Thane west (2km)</span>
+                            </div>
+                            <span class="text-xs font-normal text-[var(--green)]">₹200 onwards</span>
+                        </div>
+                        <button class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Book Now</button>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-2 cursor-pointer group">
+                    <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block">
+                        <img src="assets/Images/turf_placeholder.png" alt="Turf" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute bottom-2 left-2 flex items-center gap-1 bg-[var(--green-dark)] rounded-full px-2 py-0.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="w-3 h-3 text-white"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            <span class="text-xs font-medium text-[var(--text-inverse-heading)]">4.2</span>
+                        </div>
+                        <div class="absolute top-2 left-1 bg-white/90 rounded px-1 py-0.5">
+                            <span class="text-[10px] font-medium text-[var(--text-heading)]">50% OFF</span>
+                        </div>
+                    </a>
+                    <div class="flex flex-col gap-3">
+                        <div class="flex flex-col gap-1">
+                            <h3 class="text-sm font-normal text-[var(--text-heading)] leading-tight">Play Field Turf</h3>
+                            <div class="flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3 text-[var(--text-body)]"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span class="text-xs font-normal text-[var(--text-body)]">Thane Station (3km)</span>
+                            </div>
+                            <span class="text-xs font-normal text-[var(--green)]">₹400 onwards</span>
+                        </div>
+                        <button class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Book Now</button>
+                    </div>
+                </div>
+
+                <!-- New Cards -->
+                <div class="flex flex-col gap-2 cursor-pointer group">
+                    <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block">
+                        <img src="assets/Images/turf_placeholder.png" alt="Turf" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute bottom-1 left-2 flex items-center gap-1 bg-[var(--green-dark)] rounded-full px-2 py-0.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="w-3 h-3 text-white"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            <span class="text-xs font-medium text-[var(--text-inverse-heading)]">4.5</span>
+                        </div>
+                        <div class="absolute top-2 left-1 bg-white/90 rounded px-1 py-0.5">
+                            <span class="text-[10px] font-medium text-[var(--text-heading)]">20% OFF</span>
+                        </div>
+                    </a>
+                    <div class="flex flex-col gap-3">
+                        <div class="flex flex-col gap-1">
+                            <h3 class="text-sm font-normal text-[var(--text-heading)] leading-tight">Super Strikers</h3>
+                            <div class="flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3 text-[var(--text-body)]"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span class="text-xs font-normal text-[var(--text-body)]">Mulund (4km)</span>
+                            </div>
+                            <span class="text-xs font-normal text-[var(--green)]">₹600 onwards</span>
+                        </div>
+                        <button class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Book Now</button>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-2 cursor-pointer group">
+                    <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block">
+                        <img src="assets/Images/turf_placeholder.png" alt="Turf" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute bottom-1 left-2 flex items-center gap-1 bg-[var(--green-dark)] rounded-full px-2 py-0.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="w-3 h-3 text-white"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            <span class="text-xs font-medium text-[var(--text-inverse-heading)]">3.8</span>
+                        </div>
+                        <div class="absolute top-2 left-1 bg-white/90 rounded px-1 py-0.5">
+                            <span class="text-[10px] font-medium text-[var(--text-heading)]">10% OFF</span>
+                        </div>
+                    </a>
+                    <div class="flex flex-col gap-3">
+                        <div class="flex flex-col gap-1">
+                            <h3 class="text-sm font-normal text-[var(--text-heading)] leading-tight">Box Cricket Arena</h3>
+                            <div class="flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3 text-[var(--text-body)]"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span class="text-xs font-normal text-[var(--text-body)]">Airoli (5km)</span>
+                            </div>
+                            <span class="text-xs font-normal text-[var(--green)]">₹300 onwards</span>
+                        </div>
+                        <button class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Book Now</button>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-2 cursor-pointer group">
+                    <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block">
+                        <img src="assets/Images/turf_placeholder.png" alt="Turf" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute bottom-1 left-2 flex items-center gap-1 bg-[var(--green-dark)] rounded-full px-2 py-0.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="w-3 h-3 text-white"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            <span class="text-xs font-medium text-[var(--text-inverse-heading)]">4.8</span>
+                        </div>
+                        <div class="absolute top-2 left-1 bg-white/90 rounded px-1 py-0.5">
+                            <span class="text-[10px] font-medium text-[var(--text-heading)]">Flat ₹100 OFF</span>
+                        </div>
+                    </a>
+                    <div class="flex flex-col gap-3">
+                        <div class="flex flex-col gap-1">
+                            <h3 class="text-sm font-normal text-[var(--text-heading)] leading-tight">Champions Turf</h3>
+                            <div class="flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3 text-[var(--text-body)]"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span class="text-xs font-normal text-[var(--text-body)]">Vashi (8km)</span>
+                            </div>
+                            <span class="text-xs font-normal text-[var(--green)]">₹800 onwards</span>
+                        </div>
+                        <button class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Book Now</button>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-2 cursor-pointer group">
+                    <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block">
+                        <img src="assets/Images/turf_placeholder.png" alt="Turf" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute bottom-1 left-2 flex items-center gap-1 bg-[var(--green-dark)] rounded-full px-2 py-0.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="w-3 h-3 text-white"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            <span class="text-xs font-medium text-[var(--text-inverse-heading)]">4.0</span>
+                        </div>
+                    </a>
+                    <div class="flex flex-col gap-3">
+                        <div class="flex flex-col gap-1">
+                            <h3 class="text-sm font-normal text-[var(--text-heading)] leading-tight">Urban Sports</h3>
+                            <div class="flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3 text-[var(--text-body)]"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span class="text-xs font-normal text-[var(--text-body)]">Ghatkopar (10km)</span>
+                            </div>
+                            <span class="text-xs font-normal text-[var(--green)]">₹500 onwards</span>
+                        </div>
+                        <button class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Book Now</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    <!-- Bottom Navigation Component -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-[var(--white-pure)] border-t border-[var(--bg-container)] flex justify-center w-full z-50 max-w-[430px] mx-auto">
+        <div class="w-full max-w-[430px] h-16 flex items-center justify-between px-6">
+            
+            <!-- Home Item -->
+            <a href="#" class="nav-item flex flex-col items-center justify-center gap-1 min-w-0 group" data-target="home" onclick="setActive('home')">
+                <div class="w-6 h-6 flex items-center justify-center icon-container">
+                    <!-- Active Icon (Hidden by default) -->
+                    <svg class="active-icon hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2.73416C12.2368 2.73416 12.4658 2.81834 12.6465 2.97147L20.1465 9.33475C20.2571 9.42854 20.3462 9.54498 20.4072 9.67654C20.4682 9.80825 20.5 9.95229 20.5 10.0974V19.4998C20.5 19.765 20.3945 20.0193 20.207 20.2068C20.0195 20.3944 19.7652 20.4998 19.5 20.4998H14.75C14.6121 20.4998 14.5 20.3876 14.5 20.2498V13.4998H9.5V20.2498C9.5 20.316 9.47357 20.3797 9.42676 20.4265C9.37987 20.4734 9.3163 20.4998 9.25 20.4998H4.5C4.23478 20.4998 3.98051 20.3944 3.79297 20.2068C3.6055 20.0193 3.5 19.765 3.5 19.4998V10.0974L3.50586 9.98904C3.51759 9.88117 3.54696 9.77543 3.59277 9.67654C3.65377 9.54497 3.7429 9.42854 3.85352 9.33475L11.3535 2.97147C11.5342 2.81834 11.7632 2.73416 12 2.73416Z" fill="var(--green)" stroke="var(--green)"/>
+                    </svg>
+                    <!-- Inactive Icon (Shown by default) -->
+                    <svg class="inactive-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2.98416C12.1774 2.98416 12.349 3.04727 12.4844 3.1619L19.9844 9.52518H19.9854C20.0683 9.59554 20.1349 9.68334 20.1807 9.78201C20.2264 9.88075 20.25 9.98864 20.25 10.0974V19.4998C20.25 19.6986 20.1709 19.8894 20.0303 20.0301C19.8896 20.1707 19.6989 20.2498 19.5 20.2498H14.75V13.2498H9.25V20.2498H4.5C4.30109 20.2498 4.11038 20.1707 3.96973 20.0301C3.82914 19.8894 3.75 19.6986 3.75 19.4998V10.0974L3.75488 10.0154C3.76373 9.93481 3.78512 9.85592 3.81934 9.78201C3.86505 9.68334 3.93173 9.59554 4.01465 9.52518H4.01562L11.5156 3.1619L11.5146 3.16092C11.6161 3.07498 11.7388 3.01899 11.8682 2.99588L12 2.98416Z" stroke="var(--black)" stroke-width="1.5"/>
+                    </svg>
+                </div>
+                <span class="text-sm font-medium text-[var(--text-heading)] label">Home</span>
+            </a>
+
+            <!-- Events Item -->
+            <a href="#" class="nav-item flex flex-col items-center justify-center gap-1 min-w-0 group" data-target="events" onclick="setActive('events')">
+                <div class="w-6 h-6 flex items-center justify-center icon-container">
+                    <!-- Active Icon -->
+                    <svg class="active-icon hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_events_active)">
+                            <path d="M21.8944 13.3913L21.1692 13.3913C20.8 13.3913 20.4459 13.2446 20.1848 12.9835C19.9238 12.7225 19.7771 12.3684 19.7771 11.9992C19.7771 11.63 19.9238 11.2759 20.1848 11.0148C20.4459 10.7537 20.8 10.6071 21.1692 10.6071L21.8944 10.6071L21.8944 5.98522L16.0608 5.98522L15.5275 6.25337L14.9942 5.98522L2.10518 5.98522L2.10518 10.6097L2.83041 10.6097C3.19962 10.6097 3.55371 10.7564 3.81478 11.0174C4.07586 11.2785 4.22253 11.6326 4.22253 12.0018C4.22253 12.371 4.07586 12.7251 3.81478 12.9862C3.55371 13.2473 3.19962 13.3939 2.83041 13.3939L2.10518 13.3939L2.10518 18.0158L14.9922 18.0158L15.5255 17.7476L16.0588 18.0158L21.8925 18.0158L21.8944 13.3913ZM14.8016 6.65841L16.2514 6.65841L16.2514 8.84602L14.8013 8.84569L14.8016 6.65841ZM14.8016 9.50894L16.2521 9.50894V11.6647L14.8016 11.6647L14.8016 9.50894ZM14.8016 12.3303H16.2521V14.4861L14.8013 14.4891L14.8016 12.3303ZM14.8019 17.3396L14.8019 15.152L16.2521 15.1516L16.2521 17.3393L14.8019 17.3396Z" fill="var(--green)"/>
+                        </g>
+                        <defs>
+                            <clippath id="clip0_events_active">
+                                <rect width="24" height="24" fill="white"/>
+                            </clippath>
+                        </defs>
+                    </svg>
+                    <!-- Inactive Icon -->
+                    <svg class="inactive-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_events_inactive)">
+                            <path d="M2.04127 17.9516C1.87222 17.7826 1.76616 17.5506 1.76616 17.292L1.76947 14.3653C1.76616 13.8847 2.14402 13.4737 2.62794 13.4339C3.34389 13.3808 3.90074 12.824 3.95377 12.1081C4.01343 11.3192 3.42012 10.6264 2.62794 10.5635C2.14402 10.5237 1.76616 10.1127 1.76947 9.63208L1.76947 6.70863C1.76947 6.19156 2.18711 5.77393 2.70086 5.77724L14.6598 5.77724C14.9449 5.77724 15.2332 5.84685 15.4918 5.9728C15.5945 6.02252 15.7138 6.02252 15.81 5.9728C16.0652 5.84353 16.3569 5.77724 16.6419 5.77724L21.3022 5.77724C21.8193 5.77724 22.2369 6.19488 22.2336 6.70864L22.2336 9.63871C22.2369 10.1193 21.859 10.5303 21.3751 10.5701C20.6293 10.6264 20.046 11.2562 20.0427 12.002C20.046 12.7478 20.6293 13.3775 21.3751 13.4339C21.8624 13.4703 22.2402 13.8813 22.2369 14.3686L22.2369 17.292C22.2369 17.8091 21.8193 18.2267 21.3055 18.2234L16.6452 18.2234C16.3602 18.2234 16.0718 18.1538 15.8133 18.0279C15.7105 17.9781 15.5912 17.9781 15.4951 18.0279C15.2399 18.1571 14.9482 18.2234 14.6631 18.2234L2.69755 18.2234C2.44564 18.2234 2.21031 18.1207 2.04127 17.9516ZM3.26765 14.8426L3.26765 16.7252L14.6565 16.7252C14.7095 16.7252 14.7692 16.712 14.8156 16.6855C15.336 16.4236 15.9591 16.4236 16.4795 16.6855C16.5292 16.7087 16.5856 16.7252 16.6386 16.7252L20.7354 16.7252L20.7354 14.8492C20.1984 14.71 19.7145 14.4183 19.33 14.0073C18.8262 13.4637 18.5478 12.7544 18.5412 12.0119C18.5412 11.2695 18.8196 10.5602 19.3234 10.0166C19.7046 9.60225 20.1918 9.31388 20.7321 9.17136L20.7354 7.27874L16.6386 7.27874C16.5856 7.27874 16.5292 7.29526 16.4795 7.31843C15.9591 7.58032 15.336 7.58032 14.8156 7.31843C14.7692 7.29195 14.7095 7.27874 14.6565 7.27874L3.26765 7.27874L3.26765 9.15481C3.80463 9.29402 4.28851 9.58571 4.67304 9.99682C5.17683 10.5405 5.45523 11.2497 5.46184 11.9922C5.45523 12.7346 5.17683 13.444 4.67304 13.9875C4.2885 14.4019 3.80463 14.6902 3.26765 14.8326V14.8426Z" fill="var(--black)"/>
+                            <path d="M15.1205 8.51838C14.9847 8.38248 14.9018 8.19355 14.9018 7.98805L14.9018 6.89424C14.9018 6.48324 15.2399 6.14515 15.6509 6.14515C16.0619 6.14515 16.4 6.48324L16.4 7.98805C16.4 8.39906 16.0619 8.73714 15.6509 8.73714C15.4421 8.74046 15.2564 8.65428 15.1205 8.51838Z" fill="var(--black)"/>
+                            <path d="M15.1173 11.4385C14.9814 11.3026 14.8985 11.1137 14.8985 10.9082L14.8985 10.179C14.8952 9.76464 15.2333 9.42655 15.6476 9.42986C16.0619 9.42655 16.4 9.76463 16.3967 10.179L16.3967 10.9082C16.4 11.3225 16.0619 11.6606 15.6476 11.6573C15.4421 11.6573 15.2531 11.5744 15.1173 11.4385Z" fill="var(--black)"/>
+                            <path d="M15.1173 14.3553C14.9814 14.2194 14.8985 14.0305 14.8985 13.825L14.8985 13.0958C14.9018 12.6815 15.2366 12.3467 15.6476 12.3467C16.0619 12.35 16.3967 12.6848 16.3967 13.0958L16.3967 13.825C16.3934 14.2393 16.0586 14.5741 15.6476 14.5741C15.4421 14.5741 15.2531 14.4912 15.1173 14.3553Z" fill="var(--black)"/>
+                            <path d="M15.1205 17.6401C14.9847 17.5042 14.9018 17.3152 14.9018 17.1097L14.9018 16.0159C14.9018 15.6049 15.2399 15.2668 15.6509 15.2668C16.0619 15.2668 16.4 15.6049 16.4 16.0159L16.4 17.1097C16.4 17.5207 16.0619 17.8588 15.6509 17.8588C15.4454 17.8588 15.2564 17.776 15.1205 17.6401Z" fill="var(--black)"/>
+                        </g>
+                        <defs>
+                            <clippath id="clip0_events_inactive">
+                                <rect width="24" height="24" fill="white"/>
+                            </clippath>
+                        </defs>
+                    </svg>
+                </div>
+                <span class="text-sm font-medium text-[var(--text-heading)] label">Events</span>
+            </a>
+
+            <!-- Coaching Item -->
+            <a href="#" class="nav-item flex flex-col items-center justify-center gap-1 min-w-0 group" data-target="coaching" onclick="setActive('coaching')">
+                <div class="w-6 h-6 flex items-center justify-center icon-container">
+                    <!-- Active Icon -->
+                    <svg class="active-icon hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 12C7.33333 12 5.91667 11.4167 4.75 10.25C3.58333 9.08333 3 7.66667 3 6C3 5.81667 3.00833 5.63333 3.025 5.45C3.04167 5.26667 3.06667 5.08333 3.1 4.9C3.01667 4.93333 2.91667 4.95833 2.8 4.975C2.68333 4.99167 2.58333 5 2.5 5C1.8 5 1.20833 4.75833 0.725 4.275C0.241667 3.79167 0 3.2 0 2.5C0 1.8 0.229167 1.20833 0.6875 0.725C1.14583 0.241667 1.725 0 2.425 0C2.975 0 3.47083 0.154167 3.9125 0.4625C4.35417 0.770833 4.66667 1.16667 4.85 1.65C5.4 1.15 6.02917 0.75 6.7375 0.45C7.44583 0.15 8.2 0 9 0H20V4H15V6C15 7.66667 14.4167 9.08333 13.25 10.25C12.0833 11.4167 10.6667 12 9 12ZM2.5 3.5C2.78333 3.5 3.02083 3.40417 3.2125 3.2125C3.40417 3.02083 3.5 2.78333 3.5 2.5C3.5 2.21667 3.40417 1.97917 3.2125 1.7875C3.02083 1.59583 2.78333 1.5 2.5 1.5C2.21667 1.5 1.97917 1.59583 1.7875 1.7875C1.59583 1.97917 1.5 2.21667 1.5 2.5C1.5 2.78333 1.59583 3.02083 1.7875 3.2125C1.97917 3.40417 2.21667 3.5 2.5 3.5ZM9 9.5C9.96667 9.5 10.7917 9.15833 11.475 8.475C12.1583 7.79167 12.5 6.96667 12.5 6C12.5 5.03333 12.1583 4.20833 11.475 3.525C10.7917 2.84167 9.96667 2.5 9 2.5C8.03333 2.5 7.20833 2.84167 6.525 3.525C5.84167 4.20833 5.5 5.03333 5.5 6C5.5 6.96667 5.84167 7.79167 6.525 8.475C7.20833 9.15833 8.03333 9.5 9 9.5ZM9 8C9.55 8 10.0208 7.80417 10.4125 7.4125C10.8042 7.02083 11 6.55 11 6C11 5.45 10.8042 4.97917 10.4125 4.5875C10.0208 4.19583 9.55 4 9 4C8.45 4 7.97917 4.19583 7.5875 4.5875C7.19583 4.97917 7 5.45 7 6C7 6.55 7.19583 7.02083 7.5875 7.4125C7.97917 7.80417 8.45 8 9 8Z" fill="var(--green)" transform="translate(2, 6)"/>
+                    </svg>
+                    <!-- Inactive Icon -->
+                    <svg class="inactive-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8.019 10.923C6.51267 10.923 5.22908 10.3926 4.16825 9.33175C3.10725 8.27075 2.57675 6.98708 2.57675 5.48075C2.57675 5.27392 2.58992 5.06708 2.61625 4.86025C2.64258 4.65342 2.67558 4.46792 2.71525 4.30375C2.63842 4.33708 2.55125 4.36892 2.45375 4.36925C2.35625 4.37942 2.27067 4.3845 2.197 4.3845C1.57717 4.3845 1.056 4.17258 0.6335 3.74875C0.211167 3.32492 0 2.80608 0 2.19225C0 1.57842 0.201917 1.05958 0.60575 0.63575C1.00942 0.211916 1.51967 0 2.1365 0C2.64167 0 3.091 0.144583 3.4845 0.433749C3.87817 0.722749 4.141 1.08975 4.273 1.53475C4.75883 1.07308 5.32867 0.708333 5.9825 0.4405C6.63633 0.1725 7.31517 0.0384995 8.019 0.0384995H19.019V3.0385H13.4613V5.48075C13.4613 6.99242 12.9322 8.27742 11.874 9.33575C10.8158 10.3939 9.53083 10.923 8.019 10.923ZM2.19225 3.19225C2.47558 3.19225 2.71308 3.09642 2.90475 2.90475C3.09642 2.71308 3.19225 2.47558 3.19225 2.19225C3.19225 1.90892 3.09642 1.67142 2.90475 1.47975C2.71308 1.28808 2.47558 1.19225 2.19225 1.19225C1.90892 1.19225 1.67142 1.28808 1.47975 1.47975C1.28808 1.67142 1.19225 1.90892 1.19225 2.19225C1.19225 2.47558 1.28808 2.71308 1.47975 2.90475C1.67142 3.09642 1.90892 3.19225 2.19225 3.19225ZM8.0205 9.1155C9.02467 9.1155 9.88125 8.7605 10.5903 8.0505C11.2992 7.34067 11.6538 6.48367 11.6538 5.4795C11.6538 4.47517 11.2988 3.6185 10.589 2.9095C9.879 2.2005 9.02192 1.846 8.01775 1.846C7.01358 1.846 6.157 2.201 5.448 2.911C4.739 3.62083 4.3845 4.47783 4.3845 5.482C4.3845 6.48633 4.73942 7.343 5.44925 8.052C6.15908 8.761 7.01617 9.1155 8.0205 9.1155Z" fill="var(--black)" transform="translate(2, 7)"/>
+                    </svg>
+                </div>
+                <span class="text-sm font-medium text-[var(--text-heading)] label">Coaching</span>
+            </a>
+
+            <!-- More Item -->
+            <a href="More.html" class="nav-item flex flex-col items-center justify-center gap-1 min-w-0 group" data-target="more" onclick="setActive('more')">
+                <div class="w-6 h-6 flex items-center justify-center icon-container">
+                    <!-- Active Icon -->
+                    <svg class="active-icon hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22.75C17.937 22.75 22.75 17.937 22.75 12C22.75 6.06294 17.937 1.25 12 1.25C6.06294 1.25 1.25 6.06294 1.25 12C1.25 17.937 6.06294 22.75 12 22.75Z" fill="var(--green)"/>
+                        <path d="M7.96875 12C7.96875 12.742 7.36717 13.3438 6.625 13.3438C5.88283 13.3438 5.28125 12.742 5.28125 12C5.28125 11.258 5.88283 10.6562 6.625 10.6562C7.36717 10.6562 7.96875 11.258 7.96875 12Z" fill="#EDEDED"/>
+                        <path d="M13.3438 12C13.3438 12.7421 12.7421 13.3438 12 13.3438C11.2579 13.3438 10.6562 12.7421 10.6562 12C10.6562 11.2579 11.2579 10.6562 12 10.6562C12.7421 10.6562 13.3438 11.2579 13.3438 12Z" fill="#EDEDED"/>
+                        <path d="M18.7188 12C18.7188 12.7421 18.1171 13.3438 17.375 13.3438C16.6329 13.3438 16.0313 12.7421 16.0313 12C16.0313 11.2579 16.6329 10.6562 17.375 10.6562C18.1171 10.6562 18.7188 11.2579 18.7188 12Z" fill="#EDEDED"/>
+                    </svg>
+                    <!-- Inactive Icon -->
+                    <svg class="inactive-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21.25 12C21.25 6.89137 17.1086 2.75 12 2.75C6.89136 2.75 2.75 6.89136 2.75 12C2.75 17.1086 6.89137 21.25 12 21.25C17.1086 21.25 21.25 17.1086 21.25 12ZM8.25 12C8.25 12.6903 7.69039 13.25 7 13.25C6.30961 13.25 5.75 12.6903 5.75 12C5.75 11.3097 6.30961 10.75 7 10.75C7.69039 10.75 8.25 11.3097 8.25 12ZM13.25 12C13.25 12.6903 12.6903 13.25 12 13.25C11.3097 13.25 10.75 12.6903 10.75 12C10.75 11.3097 11.3097 10.75 12 10.75C12.6903 10.75 13.25 11.3097 13.25 12ZM18.25 12C18.25 12.6903 17.6903 13.25 17 13.25C16.3097 13.25 15.75 12.6903 15.75 12C15.75 11.3097 16.3097 10.75 17 10.75C17.6903 10.75 18.25 11.3097 18.25 12ZM22.75 12C22.75 17.937 17.937 22.75 12 22.75C6.06293 22.75 1.25 17.937 1.25 12C1.25 6.06294 6.06294 1.25 12 1.25C17.937 1.25 22.75 6.06293 22.75 12Z" fill="var(--black)"/>
+                    </svg>
+                </div>
+                <span class="text-sm font-medium text-[var(--text-heading)] label">More</span>
+            </a>
+
+        </div>
+    </nav>
+    </div>
+
+    <!-- Availability Filter Modal (Bottom Sheet) -->
+    <div id="availability-filter-modal" class="hidden fixed inset-0 z-50 flex items-end">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/50" onclick="closeAvailabilityFilter()"></div>
+        
+        <!-- Bottom Sheet -->
+        <div class="relative bg-[var(--bg-light)] w-full max-w-[430px] mx-auto rounded-t-[20px] max-h-[90vh] overflow-hidden flex flex-col">
+            <!-- Header -->
+            <div class="bg-white border-b border-[var(--bg-container)] flex items-center justify-between px-4 py-3 rounded-t-[20px]">
+                <h2 class="font-medium text-lg text-[var(--text-heading)]">Availability</h2>
+                <button onclick="closeAvailabilityFilter()" class="bg-[var(--bg-light)] w-10 h-10 rounded-full flex items-center justify-center">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="var(--text-heading)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Content -->
+            <div class="flex-1 overflow-y-auto px-4 py-6 space-y-5">
+                <!-- Date Selection -->
+                <button id="date-button" onclick="openDatePicker()" class="w-full bg-[var(--white-pure)] border border-[var(--bg-container)] rounded-lg px-4 py-3 flex items-center gap-2 shadow-sm hover:bg-gray-50 transition-colors relative">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="3" y="4" width="18" height="18" rx="2" stroke="var(--text-heading)" stroke-width="1.5"/>
+                        <line x1="16" y1="2" x2="16" y2="6" stroke="var(--text-heading)" stroke-width="1.5" stroke-linecap="round"/>
+                        <line x1="8" y1="2" x2="8" y2="6" stroke="var(--text-heading)" stroke-width="1.5" stroke-linecap="round"/>
+                        <line x1="3" y1="10" x2="21" y2="10" stroke="var(--text-heading)" stroke-width="1.5"/>
+                    </svg>
+                    <div class="flex flex-col items-start flex-1">
+                        <p class="text-sm text-[var(--text-body)]">Date</p>
+                        <p id="selected-date-display" class="text-sm font-semibold text-[var(--text-heading)]">Select Date</p>
+                    </div>
+                    <span id="date-reset-text" onclick="event.stopPropagation(); resetDate()" class="hidden text-sm text-[var(--text-heading)] cursor-pointer self-center">Reset</span>
+                </button>
+
+                <!-- Preferred Time -->
+                <div class="space-y-2">
+                    <p class="font-semibold text-base text-[var(--text-heading)] py-3">Preferred Time</p>
+                    <div class="flex items-center gap-2">
+                        <button id="bin-button" onclick="resetTime()" class="w-7 h-7 flex items-center justify-center hidden">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="var(--text-heading)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <div id="time-container" class="flex-1 flex items-center gap-1 opacity-50 relative">
+                            <div class="flex-1 relative">
+                                <button onclick="event.preventDefault(); event.stopPropagation(); openTimePicker('start')" class="w-full bg-[var(--white-pure)] border border-[var(--bg-container)] rounded-lg h-10 px-4 flex items-center cursor-pointer">
+                                    <span id="start-time-display" class="text-sm font-semibold text-[var(--text-heading)]">0:00</span>
+                                </button>
+                                <div id="start-time-dropdown" class="hidden absolute top-full left-0 right-0 mt-1 bg-white border border-[var(--bg-container)] rounded-lg shadow-lg z-50 max-h-[160px] overflow-y-auto scrollbar-hide"></div>
+                            </div>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 18L15 12L9 6" stroke="var(--text-heading)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <div class="flex-1 relative">
+                                <button onclick="event.preventDefault(); event.stopPropagation(); openTimePicker('end')" class="w-full bg-[var(--white-pure)] border border-[var(--bg-container)] rounded-lg h-10 px-4 flex items-center cursor-pointer">
+                                    <span id="end-time-display" class="text-sm font-semibold text-[var(--text-heading)]">0:00</span>
+                                </button>
+                                <div id="end-time-dropdown" class="hidden absolute top-full left-0 right-0 mt-1 bg-white border border-[var(--bg-container)] rounded-lg shadow-lg z-50 max-h-[160px] overflow-y-auto scrollbar-hide"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Duration -->
+                <div class="space-y-2">
+                    <p class="font-semibold text-base text-[var(--text-heading)] py-3">Duration</p>
+                    <div class="flex gap-[15px]">
+                        <button onclick="selectDuration('1 hour')" class="duration-btn border border-[var(--bg-container)] bg-white rounded-lg h-10 px-4 text-sm font-semibold text-[var(--text-heading)] transition-colors" data-duration="1 hour">1 hour</button>
+                        <button onclick="selectDuration('2 hour')" class="duration-btn border border-[var(--bg-container)] bg-white rounded-lg h-10 px-4 text-sm font-semibold text-[var(--text-heading)] transition-colors" data-duration="2 hour">2 hour</button>
+                        <button onclick="selectDuration('3 hour')" class="duration-btn border border-[var(--bg-container)] bg-white rounded-lg h-10 px-4 text-sm font-semibold text-[var(--text-heading)] transition-colors" data-duration="3 hour">3 hour</button>
+                        <button onclick="selectDuration('4 hour')" class="duration-btn border border-[var(--bg-container)] bg-white rounded-lg h-10 px-4 text-sm font-semibold text-[var(--text-heading)] transition-colors" data-duration="4 hour">4 hour</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="bg-white border-t border-[var(--bg-container)] px-4 py-2 flex gap-2 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.3),0px_1px_3px_0px_rgba(0,0,0,0.15)]">
+                <button onclick="resetAllFilters()" class="flex-1 h-12 px-4 py-2.5 rounded-lg text-base font-normal text-[var(--text-heading)]">Reset</button>
+                <button onclick="closeAvailabilityFilter()" class="flex-1 h-12 bg-[var(--green)] text-[var(--text-inverse-heading)] rounded-lg px-5 py-2.5 text-base font-normal">
+                    Show (12) turf
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Date Picker Modal (Bottom Sheet) -->
+    <div id="date-picker-modal" class="hidden fixed inset-0 z-[60] flex items-end">
+        <div class="absolute inset-0 bg-black/50" onclick="closeDatePicker()"></div>
+        <div class="relative bg-[#f5f5f5] rounded-t-2xl w-full max-w-[430px] mx-auto max-h-[90vh] overflow-hidden">
+            <!-- Date Picker Header -->
+            <div class="bg-white border-b border-[var(--bg-container)] px-3 py-4 flex items-center justify-between rounded-t-2xl">
+                <div class="flex items-center gap-2">
+                    <button id="prev-month" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 18L9 12L15 6" stroke="var(--text-body)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="flex items-center gap-2">
+                        <span id="month-display" class="text-sm font-medium text-[var(--text-body)]">January</span>
+                        <span id="year-display" class="text-sm font-medium text-[var(--text-body)]">2026</span>
+                    </div>
+                    <button id="next-month" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 18L15 12L9 6" stroke="#49454f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Calendar Grid -->
+            <div class="p-3">
+                <!-- Days of week -->
+                <div class="grid grid-cols-7 gap-0 mb-2">
+                    <div class="w-12 h-12 flex items-center justify-center text-base text-[#1d1b20]">S</div>
+                    <div class="w-12 h-12 flex items-center justify-center text-base text-[#1d1b20]">M</div>
+                    <div class="w-12 h-12 flex items-center justify-center text-base text-[#1d1b20]">T</div>
+                    <div class="w-12 h-12 flex items-center justify-center text-base text-[#1d1b20]">W</div>
+                    <div class="w-12 h-12 flex items-center justify-center text-base text-[#1d1b20]">T</div>
+                    <div class="w-12 h-12 flex items-center justify-center text-base text-[#1d1b20]">F</div>
+                    <div class="w-12 h-12 flex items-center justify-center text-base text-[#1d1b20]">S</div>
+                </div>
+                <!-- Calendar days -->
+                <div id="calendar-grid" class="grid grid-cols-7 gap-0"></div>
+            </div>
+
+            <!-- Date Picker Footer -->
+            <div class="bg-white border-t border-[var(--bg-container)] px-3 py-2 flex justify-end gap-2">
+                <button onclick="closeDatePicker()" class="h-12 px-4 text-sm font-medium text-[var(--text-heading)]">Cancel</button>
+                <button onclick="closeDatePicker()" class="h-12 px-4 text-sm font-medium text-[var(--text-heading)]">OK</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Logic Script -->
+    <script>
+        // Banner Slider Logic
+        const bannerTrack = document.getElementById('banner-track');
+        const dots = document.getElementById('banner-dots').children;
+        let currentSlide = 0;
+        const totalSlides = 3;
+
+        function updateSlider() {
+            bannerTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Update dots
+            for (let i = 0; i < dots.length; i++) {
+                if (i === currentSlide) {
+                    dots[i].className = "h-2 rounded-full transition-all w-5 bg-white cursor-pointer";
+                } else {
+                    dots[i].className = "h-2 rounded-full transition-all w-2 bg-white/50 border border-white cursor-pointer";
+                }
+            }
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlider();
+        }
+
+        // Auto slide
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        }, 3000);
+
+        // Sticky Header Logic
+        const exploreSection = document.getElementById('explore-turf-section');
+        const stickySpacer = document.getElementById('sticky-spacer');
+        const topNavSearch = document.getElementById('top-nav-search');
+        
+        // Correct header height calculation (approx 56px + border)
+        const headerHeight = 57; 
+        const gap = 16; // reduced gap
+
+        window.addEventListener('scroll', () => {
+            const banner = document.querySelector('.relative.h-32');
+            if (!banner) return;
+            
+            const bannerRect = banner.getBoundingClientRect();
+            
+            // Check if banner is fully scrolled out of view plus the gap
+            if (bannerRect.bottom <= (headerHeight - gap)) {
+                 if (!exploreSection.classList.contains('fixed')) {
+                     exploreSection.classList.add('fixed', 'top-[57px]', 'left-0', 'right-0', 'bg-[var(--bg-light)]', 'z-30', 'px-4', 'pt-3', 'pb-2', 'max-w-[430px]', 'mx-auto', 'border-b', 'border-[var(--bg-container)]', 'shadow-sm');
+                     stickySpacer.classList.remove('hidden');
+                     
+                     // Show search icon in top nav
+                     if(topNavSearch) topNavSearch.classList.remove('hidden');
+                 }
+            } else {
+                 if (exploreSection.classList.contains('fixed')) {
+                     exploreSection.classList.remove('fixed', 'top-[57px]', 'left-0', 'right-0', 'bg-[var(--bg-light)]', 'z-30', 'px-4', 'pt-3', 'pb-2', 'max-w-[430px]', 'mx-auto', 'border-b', 'border-[var(--bg-container)]', 'shadow-sm');
+                     stickySpacer.classList.add('hidden');
+                     
+                      // Hide search icon in top nav
+                     if(topNavSearch) topNavSearch.classList.add('hidden');
+                 }
+            }
+        });
+
+        // Filter Active State Logic
+        function setActiveFilter(filterName, btnElement) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                // Reset to default style
+                btn.className = "filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--bg-container)] bg-white transition-colors duration-200";
+                
+                // Reset SVG color if needed (logic can be extended here)
+            });
+
+            // Set active style (Brand Green tint)
+            btnElement.className = "filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--green)] bg-[var(--green)]/10 transition-colors duration-200";
+        }    
+
+        function setActive(targetId) {
+            // Get all nav items
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            navItems.forEach(item => {
+                const isActive = item.getAttribute('data-target') === targetId;
+                const activeIcon = item.querySelector('.active-icon');
+                const inactiveIcon = item.querySelector('.inactive-icon');
+                const label = item.querySelector('.label');
+
+                if (isActive) {
+                    activeIcon.classList.remove('hidden');
+                    inactiveIcon.classList.add('hidden');
+                    label.classList.remove('text-[var(--text-heading)]');
+                    label.classList.add('text-[var(--green)]');
+                } else {
+                    activeIcon.classList.add('hidden');
+                    inactiveIcon.classList.remove('hidden');
+                    label.classList.add('text-[var(--text-heading)]');
+                    label.classList.remove('text-[var(--green)]');
+                }
+            });
+        }
+
+        // Set default active tab
+        setActive('home');
+    </script>
+</body>
+</html>

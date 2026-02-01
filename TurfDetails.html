@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turf Details - Fabzia Turf</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Utility CSS -->
+    <link rel="stylesheet" href="utility.css">
+    
+    <style>
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+        }
+        
+        /* Smooth scrolling for anchor links if needed */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="bg-[var(--bg-light)] font-lato text-[var(--text-body)] antialiased">
+
+    <!-- Container for mobile view -->
+    <div class="max-w-[430px] mx-auto bg-[var(--bg-light)] min-h-screen relative shadow-2xl">
+
+        <!-- Hero Section with Image Slider -->
+        <div id="hero-container" class="relative h-[272px] w-full overflow-hidden group">
+            <div id="hero-slider" class="flex h-full transition-transform duration-500 ease-out">
+                <!-- Slide 1 -->
+                <div class="w-full h-full flex-shrink-0 relative">
+                    <img src="assets/Images/turf_hero.jpg" alt="Turf Image 1" class="w-full h-full object-cover">
+                    <!-- Gradient Overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/10"></div>
+                </div>
+                <!-- Slide 2 (Duplicate for demo) -->
+                <div class="w-full h-full flex-shrink-0 relative">
+                    <img src="assets/Images/turf_placeholder.png" alt="Turf Image 2" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/10"></div>
+                </div>
+                <!-- Slide 3 (Duplicate for demo) -->
+                <div class="w-full h-full flex-shrink-0 relative">
+                    <img src="assets/Images/turf_hero.jpg" alt="Turf Image 3" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/10"></div>
+                </div>
+            </div>
+
+            <!-- Slider Dots -->
+            <div class="absolute bottom-10 left-0 right-0 flex justify-center gap-1.5 z-20" id="slider-dots">
+                <!-- Dots injected by JS -->
+            </div>
+
+            <!-- Header Actions -->
+            <div class="absolute top-4 left-4 right-4 flex justify-between items-center z-20">
+                <a href="Home.html" class="w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-sm active:scale-95 transition-transform">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[var(--text-heading)]"><path d="m15 18-6-6 6-6"/></svg>
+                </a>
+                <button class="w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-sm active:scale-95 transition-transform">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-[var(--text-heading)]"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Sticky Top Navigation (Hidden by default, shows on scroll) -->
+        <div id="sticky-nav" class="fixed top-0 left-0 right-0 max-w-[430px] mx-auto bg-white/95 backdrop-blur-md border-b border-[var(--bg-container)] z-40 transition-transform duration-300 -translate-y-full shadow-sm">
+            <div class="flex items-center justify-between px-4 h-16">
+                <div class="flex items-center gap-3">
+                    <a href="Home.html" class="flex items-center justify-center active:scale-95 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[var(--text-heading)]"><path d="m15 18-6-6 6-6"/></svg>
+                    </a>
+                    <div class="flex flex-col">
+                        <h2 class="text-sm font-semibold text-[var(--text-heading)] leading-tight line-clamp-1">The Multisports Turf (TMT)</h2>
+                        <div class="flex items-center gap-1.5 text-xs text-[var(--text-body)]">
+                            <svg class="w-3 h-3 text-[var(--text-body)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                            <span>Thane West (2km)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button class="flex items-center justify-center active:scale-95 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[var(--text-heading)]"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Card -->
+        <div class="bg-white rounded-t-[28px] -mt-6 relative z-10 px-5 pt-6 pb-28 space-y-6 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.02)]">
+            
+            <!-- Title & Info -->
+            <div class="space-y-2 text-center">
+                <h1 class="text-[22px] font-bold text-[var(--text-heading)] leading-tight">The Multisports Turf (TMT)</h1>
+                <div class="flex items-center justify-center gap-2 text-sm text-[var(--text-body)]">
+                    <div class="flex items-center gap-1">
+                        <svg class="w-4 h-4 text-[var(--text-body)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <span>Thane West (2km)</span>
+                    </div>
+                    <div class="w-1 h-1 rounded-full bg-[var(--text-placeholder)]"></div>
+                    <span>1300 sq ft</span>
+                    <div class="w-1 h-1 rounded-full bg-[var(--text-placeholder)]"></div>
+                    <span>7am - 11pm</span>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-3 divide-x divide-[var(--bg-container)] border-b border-[var(--bg-container)] pb-6">
+                <!-- Rating -->
+                <div class="flex flex-col items-center gap-1 px-2">
+                    <div class="flex items-center gap-1.5 align-baseline">
+                        <span class="text-base font-bold text-[var(--text-heading)]">4.5</span>
+                        <svg class="w-4 h-4 fill-[var(--green)] text-[var(--green)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <span class="text-xs font-medium text-[var(--text-body)]">Ratings</span>
+                </div>
+                <!-- Fab Cash -->
+                <div class="flex flex-col items-center gap-1 px-2">
+                    <svg class="w-5 h-5 text-[var(--text-heading)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                    <span class="text-xs font-medium text-[var(--text-body)]">Fab Cash</span>
+                </div>
+                <!-- Offers -->
+                <div class="flex flex-col items-center gap-1 px-2">
+                    <svg class="w-5 h-5 text-[var(--text-heading)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"/><path d="M7 7h.01"/></svg>
+                    <span class="text-xs font-medium text-[var(--text-body)]">Offers</span>
+                </div>
+            </div>
+
+            <!-- Available Sports -->
+            <div class="space-y-3">
+                <h2 class="text-lg font-semibold text-[var(--text-heading)]">Available sports</h2>
+                <div class="flex flex-wrap gap-3">
+                    <!-- Tennis -->
+                    <div class="h-9 px-3 flex items-center gap-2 rounded-lg border border-[var(--bg-container)]">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><g clip-path="url(#clip0_tennis)"><path d="M8.00016 14.6667C11.682 14.6667 14.6668 11.6819 14.6668 8.00001C14.6668 4.31811 11.682 1.33334 8.00016 1.33334C4.31826 1.33334 1.3335 4.31811 1.3335 8.00001C1.3335 11.6819 4.31826 14.6667 8.00016 14.6667Z" stroke="var(--text-heading)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M12.3812 2.97488C10.6034 5.99449 10.6034 9.45646 12.3812 13.0251" stroke="var(--text-heading)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.61865 2.97488C5.39643 5.99449 5.39651 9.45646 3.61865 13.0251" stroke="var(--text-heading)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></g><defs><clippath id="clip0_tennis"><rect width="16" height="16" fill="white"/></clippath></defs></svg>
+                        <span class="text-xs font-medium text-[var(--text-heading)]">Tennis</span>
+                    </div>
+                    <!-- Football -->
+                    <div class="h-9 px-3 flex items-center gap-2 rounded-lg border border-[var(--bg-container)]">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 2.5C4.96243 2.5 2.5 4.96243 2.5 8C2.5 11.0376 4.96243 13.5 8 13.5C11.0376 13.5 13.5 11.0376 13.5 8C13.5 4.96243 11.0376 2.5 8 2.5ZM1.5 8C1.5 4.41015 4.41015 1.5 8 1.5C11.5899 1.5 14.5 4.41015 14.5 8C14.5 11.5899 11.5899 14.5 8 14.5C4.41015 14.5 1.5 11.5899 1.5 8Z" fill="var(--text-heading)"/></svg>
+                        <span class="text-xs font-medium text-[var(--text-heading)]">Football</span>
+                    </div>
+                    <!-- Badminton -->
+                    <div class="h-9 px-3 flex items-center gap-2 rounded-lg border border-[var(--bg-container)]">
+                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.43235 10.6588L5.37409 14.6005L4.6324 15.3422C2.39302 17.2935 -1.61128 14.5836 0.690673 11.4005L1.43235 10.6588Z" fill="var(--text-heading)"/></svg>
+                        <span class="text-xs font-medium text-[var(--text-heading)]">Badminton</span>
+                    </div>
+                    <!-- Cricket -->
+                    <div class="h-9 px-3 flex items-center gap-2 rounded-lg border border-[var(--bg-container)]">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10.0275 8.52707L4.36085 2.86041C4.23419 2.73374 4.06085 2.66707 3.88752 2.66707C3.71419 2.66707 3.54752 2.73374 3.42085 2.86041L1.52752 4.75374C1.26752 5.01374 1.26752 5.44041 1.52752 5.70041L7.19419 11.3671C7.32752 11.5004 7.49419 11.5604 7.66752 11.5604C7.84085 11.5604 8.00752 11.4937 8.14085 11.3671L10.0275 9.48041C10.2875 9.21374 10.2875 8.78707 10.0275 8.52707Z" fill="var(--text-heading)"/></svg>
+                        <span class="text-xs font-medium text-[var(--text-heading)]">Cricket</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Offers Section -->
+            <div class="space-y-3">
+                <h2 class="text-lg font-semibold text-[var(--text-heading)]">Offers</h2>
+                <div class="flex gap-3 overflow-x-auto pb-2 scrollbar-hide -mx-2 px-2">
+                    <!-- Offer 1 -->
+                    <div class="flex-shrink-0 w-[200px] p-3 rounded-xl bg-[var(--bg-light)] border border-[var(--bg-container)] space-y-2">
+                        <div class="flex items-center gap-1.5">
+                            <svg class="w-4 h-4 text-[var(--text-heading)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"/><path d="M7 7h.01"/></svg>
+                            <span class="text-xs font-bold text-[var(--text-heading)] uppercase tracking-wide">FIRSTBUY</span>
+                        </div>
+                        <div class="h-px bg-[var(--bg-container)] w-full"></div>
+                        <p class="text-xs text-[var(--text-body)] leading-relaxed">Get a Off on your first turf booking with Fabzia</p>
+                    </div>
+                   <!-- Offer 2 -->
+                   <div class="flex-shrink-0 w-[200px] p-3 rounded-xl bg-[var(--bg-light)] border border-[var(--bg-container)] space-y-2">
+                        <div class="flex items-center gap-1.5">
+                            <svg class="w-4 h-4 text-[var(--text-heading)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"/><path d="M7 7h.01"/></svg>
+                            <span class="text-xs font-bold text-[var(--text-heading)] uppercase tracking-wide">FAB2026</span>
+                        </div>
+                        <div class="h-px bg-[var(--bg-container)] w-full"></div>
+                        <p class="text-xs text-[var(--text-body)] leading-relaxed">Get a Off on your first turf booking with Fabzia</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="space-y-2">
+                <h2 class="text-lg font-semibold text-[var(--text-heading)]">Description</h2>
+                <div class="relative">
+                    <p id="description-text" class="text-sm text-[var(--text-body)] leading-relaxed">
+                        One Big Turf, located near The Blue Roof Club, can be divided into two equal-sized turfs. It offers ample outdoor space for events and parking. The...
+                    </p>
+                    <button id="toggle-desc-btn" class="flex items-center gap-1 text-sm font-medium text-[var(--green-dark)] mt-1 hover:underline">
+                        <span>Show more</span>
+                        <svg class="w-4 h-4 transition-transform duration-200" id="desc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Amenities -->
+            <div class="space-y-3">
+                <h2 class="text-lg font-semibold text-[var(--text-heading)]">Amenities</h2>
+                <div class="grid grid-cols-1 gap-3">
+                    <div class="flex items-center gap-3 p-1">
+                        <div class="w-8 h-8 rounded-full bg-[var(--bg-light)] flex items-center justify-center">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M6.37276 3.75L6.375 3.75H17.625L17.6272 3.75C18.3222 3.75208 18.9881 4.02907 19.4795 4.52048C19.9709 5.0119 20.2479 5.6778 20.25 6.37276L20.25 6.375V11.25C20.25 11.6642 19.9142 12 19.5 12H4.5C4.08579 12 3.75 11.6642 3.75 11.25V6.375L3.75 6.37276C3.75208 5.6778 4.02907 5.0119 4.52048 4.52048C5.0119 4.02907 5.6778 3.75208 6.37276 3.75Z" fill="var(--text-body)"/></svg>
+                        </div>
+                        <span class="text-sm font-medium text-[var(--text-heading)]">Restroom</span>
+                    </div>
+                    <div class="flex items-center gap-3 p-1">
+                         <div class="w-8 h-8 rounded-full bg-[var(--bg-light)] flex items-center justify-center">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><g clip-path="url(#clip0_park)"><path d="M18 4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4Z" stroke="var(--text-body)" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 16V8H13C13.5304 8 14.0391 8.21071 14.4142 8.58579C14.7893 8.96086 15 9.46957 15 10C15 10.5304 14.7893 11.0391 14.4142 11.4142C14.0391 11.7893 13.5304 12 13 12H9" stroke="var(--text-body)" stroke-linecap="round" stroke-linejoin="round"/></g><defs><clippath id="clip0_park"><rect width="24" height="24" fill="white"/></clippath></defs></svg>
+                        </div>
+                        <span class="text-sm font-medium text-[var(--text-heading)]">Parking</span>
+                    </div>
+                    <div class="flex items-center gap-3 p-1">
+                         <div class="w-8 h-8 rounded-full bg-[var(--bg-light)] flex items-center justify-center">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><g clip-path="url(#clip1_water)"><path d="M10 5H14V3C14 2.73478 13.8946 2.48043 13.7071 2.29289C13.5196 2.10536 13.2652 2 13 2H11C10.7348 2 10.4804 2.10536 10.2929 2.29289C10.1054 2.48043 10 2.73478 10 3V5Z" stroke="var(--text-body)" stroke-linecap="round" stroke-linejoin="round"/></g><defs><clippath id="clip1_water"><rect width="24" height="24" fill="white"/></clippath></defs></svg>
+                        </div>
+                        <span class="text-sm font-medium text-[var(--text-heading)]">Drinking Water</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Location -->
+            <div class="space-y-3">
+                 <h2 class="text-lg font-semibold text-[var(--text-heading)]">Location</h2>
+                 <p class="text-sm text-[var(--text-body)] leading-relaxed">
+                    O, Pan Khanda Rd, Gowniwada, NR BlueRoof Club, Owale, Thane West, Mumbai, 400615, Maharashtra
+                 </p>
+                 <div class="w-full h-[200px] rounded-xl overflow-hidden bg-[var(--bg-light)]">
+                     <!-- Placeholder map -->
+                     <div class="w-full h-full flex items-center justify-center bg-[var(--bg-light)] text-[var(--text-placeholder)]">
+                         <div class="flex flex-col items-center gap-2">
+                             <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
+                             <span class="text-xs">Map Loading...</span>
+                         </div>
+                     </div>
+                 </div>
+            </div>
+
+            <!-- Reviews -->
+            <div class="space-y-4 pt-4 border-t border-[var(--bg-container)]">
+                <div class="flex items-center justify-between">
+                     <h2 class="text-lg font-semibold text-[var(--text-heading)]">Ratings and Reviews</h2>
+                     <a href="Reviews.html" class="p-1"><svg class="w-5 h-5 text-[var(--text-heading)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></a>
+                </div>
+
+                <div class="flex flex-col items-center gap-1 py-2">
+                    <span class="text-5xl font-bold text-[var(--text-heading)]">4.5</span>
+                    <div class="flex gap-0.5">
+                         <svg class="w-5 h-5 fill-[var(--green)] text-[var(--green)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                         <svg class="w-5 h-5 fill-[var(--green)] text-[var(--green)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                         <svg class="w-5 h-5 fill-[var(--green)] text-[var(--green)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                         <svg class="w-5 h-5 fill-[var(--green)] text-[var(--green)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                         <svg class="w-5 h-5 fill-transparent text-[var(--green)]" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <span class="text-xs text-[var(--text-body)] mt-1">based on 12 reviews</span>
+                </div>
+
+                <!-- Review Card -->
+                <div class="space-y-4">
+                     <div class="space-y-2 pb-3 border-b border-[var(--bg-container)]/50 last:border-0">
+                         <div class="flex gap-3">
+                             <img src="assets/Images/avatar_placeholder.png" class="w-10 h-10 rounded-full bg-[var(--bg-light)] object-cover" alt="User">
+                             <div>
+                                 <h4 class="text-sm font-semibold text-[var(--text-heading)]">Hope Lewis</h4>
+                                 <span class="text-xs text-[var(--text-placeholder)]">12/1/26</span>
+                             </div>
+                         </div>
+                         <div class="flex gap-0.5">
+                             <svg class="w-3.5 h-3.5 fill-[var(--green)] text-[var(--green)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                             <svg class="w-3.5 h-3.5 fill-[var(--green)] text-[var(--green)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                             <svg class="w-3.5 h-3.5 fill-[var(--green)] text-[var(--green)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                             <svg class="w-3.5 h-3.5 fill-[var(--bg-container)] text-[var(--bg-container)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                             <svg class="w-3.5 h-3.5 fill-[var(--bg-container)] text-[var(--bg-container)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                         </div>
+                         <p class="text-sm text-[var(--text-body)] leading-6">
+                            Special thanks to the management for setting up a standard game arena in panorama,Ramayana locality-place is well maintained.
+                         </p>
+                     </div>
+
+                     <!-- Review 2 -->
+                     <div class="space-y-2 pb-3 border-b border-[var(--bg-container)]/50 last:border-0">
+                         <div class="flex gap-3">
+                             <img src="assets/Images/avatar_placeholder.png" class="w-10 h-10 rounded-full bg-gray-200 object-cover" alt="User">
+                             <div>
+                                 <h4 class="text-sm font-semibold text-[var(--text-heading)]">John Doe</h4>
+                                 <span class="text-xs text-[var(--text-placeholder)]">14/1/26</span>
+                             </div>
+                         </div>
+                         <div class="flex gap-0.5">
+                             <svg class="w-3.5 h-3.5 fill-[var(--green)] text-[var(--green)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                             <svg class="w-3.5 h-3.5 fill-[var(--green)] text-[var(--green)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                             <svg class="w-3.5 h-3.5 fill-[var(--green)] text-[var(--green)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                             <svg class="w-3.5 h-3.5 fill-[var(--green)] text-[var(--green)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                             <svg class="w-3.5 h-3.5 fill-[var(--bg-container)] text-[var(--bg-container)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                         </div>
+                         <p class="text-sm text-[var(--text-body)] leading-6">
+                            Great experience! The turf quality is top-notch and the location is convenient.
+                         </p>
+                     </div>
+                     
+                     <a href="Reviews.html" class="w-full py-2 flex justify-start gap-1 text-[var(--green-dark)] font-medium text-sm">
+                          View all reviews
+                          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                     </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Sticky Footer -->
+        <div class="fixed bottom-0 left-0 right-0 max-w-[430px] mx-auto bg-white border-t border-[var(--bg-container)] p-4 flex items-center justify-between z-50 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+            <div class="flex flex-col">
+                <div class="flex items-baseline gap-1">
+                    <span class="text-xl font-bold text-[var(--text-heading)]">₹600</span>
+                    <span class="text-sm text-[var(--text-body)] line-through opacity-60">₹800</span>
+                </div>
+                <span class="text-xs font-medium text-[var(--green)]">onwards</span>
+            </div>
+            <button class="bg-[var(--green-dark)] hover:bg-opacity-90 active:scale-95 transition-all text-white px-8 py-3 rounded-xl font-semibold shadow-lg shadow-green-900/10">
+                Book Now
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Logic Script -->
+    <script>
+        // --- Slider Logic ---
+        const slider = document.getElementById('hero-slider');
+        const dotsContainer = document.getElementById('slider-dots');
+        const slides = slider.children;
+        const totalSlides = slides.length;
+        let currentSlide = 0;
+
+        // Init Dots
+        for(let i=0; i<totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = `h-1.5 rounded-full transition-all duration-300 ${i===0 ? 'w-5 bg-white' : 'w-1.5 bg-white/50'}`;
+            dotsContainer.appendChild(dot);
+        }
+        
+        const dots = dotsContainer.children;
+
+        function updateSlider() {
+            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Update dots
+            Array.from(dots).forEach((dot, index) => {
+                if(index === currentSlide) {
+                    dot.className = 'h-1.5 rounded-full transition-all duration-300 w-5 bg-white shadow-sm';
+                } else {
+                    dot.className = 'h-1.5 rounded-full transition-all duration-300 w-1.5 bg-white/50';
+                }
+            });
+        }
+
+        // Auto play
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        }, 3500);
+
+
+        // --- Description Toggle Logic ---
+        const fullDesc = "One Big Turf, located near The Blue Roof Club, can be divided into two equal-sized turfs. It offers ample outdoor space for events and parking. The turf is well-maintained and perfect for various sports activities. With excellent facilities and strategic location, it's an ideal choice for sports enthusiasts.";
+        const truncDesc = "One Big Turf, located near The Blue Roof Club, can be divided into two equal-sized turfs. It offers ample outdoor space for events and parking. The...";
+        
+        const descText = document.getElementById('description-text');
+        const toggleBtn = document.getElementById('toggle-desc-btn');
+        const chevron = document.getElementById('desc-chevron');
+        let isExpanded = false;
+
+        toggleBtn.addEventListener('click', () => {
+            isExpanded = !isExpanded;
+            
+            if(isExpanded) {
+                descText.textContent = fullDesc;
+                toggleBtn.querySelector('span').textContent = 'Show less';
+                chevron.style.transform = 'rotate(180deg)';
+            } else {
+                descText.textContent = truncDesc;
+                toggleBtn.querySelector('span').textContent = 'Show more';
+                chevron.style.transform = 'rotate(0deg)';
+            }
+        });
+
+    </script>
+
+    <script>
+        // --- Sticky Nav Logic ---
+        const stickyNav = document.getElementById('sticky-nav');
+        const heroContainer = document.getElementById('hero-container');
+        
+        window.addEventListener('scroll', () => {
+            if (!heroContainer || !stickyNav) return;
+            const heroBottom = heroContainer.getBoundingClientRect().bottom;
+            
+            // Show sticky nav when hero image is scrolled past (bottom of hero passes top of viewport)
+            if (heroBottom <= 60) { // Slight offset for better feel
+                stickyNav.classList.remove('-translate-y-full');
+                stickyNav.classList.add('translate-y-0');
+            } else {
+                stickyNav.classList.add('-translate-y-full');
+                stickyNav.classList.remove('translate-y-0');
+            }
+        });
+    </script>
+</body>
+</html>

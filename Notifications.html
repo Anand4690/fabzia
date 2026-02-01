@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications - Fabzia Turf</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Utility CSS -->
+    <link rel="stylesheet" href="utility.css">
+    
+    <style>
+        /* Sticky navigation */
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background-color: white;
+        }
+        
+        /* Mobile Container */
+        .mobile-container {
+            max-width: 430px;
+            margin: 0 auto;
+            background-color: var(--bg-light);
+            min-height: 100vh;
+            position: relative;
+        }
+    </style>
+</head>
+<body class="bg-[var(--bg-light)] font-lato text-[var(--text-body)] antialiased">
+
+    <div class="mobile-container">
+        <!-- Top Navigation Bar - Sticky -->
+        <nav class="sticky-nav bg-white border-b border-[var(--bg-container)] w-full">
+            <div class="flex gap-2 items-center px-1 py-2 h-16">
+                <!-- Back Button -->
+                <button onclick="window.history.back()" class="flex items-center justify-center w-12 h-12 cursor-pointer flex-shrink-0">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 18L9 12L15 6" stroke="var(--text-heading)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                
+                <!-- Title -->
+                <div class="flex flex-1 flex-col h-full justify-center min-w-0">
+                    <h1 class="font-normal text-[18px] leading-[28px] text-[var(--text-heading)] tracking-[0.04px] text-center">
+                        Notifications
+                    </h1>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Notifications List -->
+        <div class="px-4 py-4 space-y-2">
+            
+            <!-- Notification Card 1 - Booking Confirmed -->
+            <div class="bg-white rounded-lg px-4 py-3 relative">
+                <!-- Unread Indicator -->
+                <div class="absolute top-3 right-3 w-2.5 h-2.5 bg-[var(--green)] rounded-full"></div>
+                
+                <div class="flex items-center justify-between mb-2">
+                    <div class="flex gap-2 items-center">
+                        <!-- Checkmark Icon -->
+                        <div class="w-6 h-6 bg-[var(--green)] rounded-full flex items-center justify-center flex-shrink-0">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 6L9 17L4 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h2 class="font-semibold text-base leading-[28px] text-[var(--text-heading)]">
+                            Booking Confirmed
+                        </h2>
+                    </div>
+                </div>
+                
+                <div class="pl-9 space-y-1">
+                    <p class="font-normal text-sm leading-[1.5] text-[var(--text-body)] tracking-[0.04px]">
+                        Multi-Sports Turf • 12th Jan
+                    </p>
+                    <button class="font-semibold text-sm leading-[1.6] text-[#34733d] tracking-[0.04px] h-[22px]">
+                        View details
+                    </button>
+                </div>
+            </div>
+
+            <!-- Notification Card 2 - Booking Confirmed -->
+            <div class="bg-white rounded-lg px-4 py-3 relative">
+                <!-- Unread Indicator -->
+                <div class="absolute top-3 right-3 w-2.5 h-2.5 bg-[var(--green)] rounded-full"></div>
+                
+                <div class="flex items-center justify-between mb-2">
+                    <div class="flex gap-2 items-center">
+                        <!-- Checkmark Icon -->
+                        <div class="w-6 h-6 bg-[var(--green)] rounded-full flex items-center justify-center flex-shrink-0">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 6L9 17L4 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h2 class="font-semibold text-base leading-[28px] text-[#0f0f0f]">
+                            Booking Confirmed
+                        </h2>
+                    </div>
+                </div>
+                
+                <div class="pl-9 space-y-1">
+                    <p class="font-normal text-sm leading-[1.5] text-[#4d4d4d] tracking-[0.04px]">
+                        Multi-Sports Turf • 12th Jan
+                    </p>
+                    <button class="font-semibold text-sm leading-[1.6] text-[#34733d] tracking-[0.04px] h-[22px]">
+                        View details
+                    </button>
+                </div>
+            </div>
+
+            <!-- Notification Card 3 - Payment Pending -->
+            <div class="bg-white rounded-lg px-4 py-3 relative">
+                <!-- Unread Indicator -->
+                <div class="absolute top-3 right-3 w-2.5 h-2.5 bg-[var(--green)] rounded-full"></div>
+                
+                <div class="flex items-center justify-between mb-2">
+                    <div class="flex gap-2 items-center">
+                        <!-- Info Icon -->
+                        <div class="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="10" stroke="white" stroke-width="2"/>
+                                <path d="M12 16V12M12 8H12.01" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h2 class="font-semibold text-base leading-[28px] text-[#0f0f0f]">
+                            Anand payment is pending
+                        </h2>
+                    </div>
+                </div>
+                
+                <div class="pl-9 space-y-1">
+                    <p class="font-normal text-sm leading-[1.5] text-[#4d4d4d] tracking-[0.04px]">
+                        National Turf • 13th Jan
+                    </p>
+                    <button class="font-semibold text-sm leading-[1.6] text-[var(--green-dark)] tracking-[0.04px] h-[22px]">
+                        Pay Now
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

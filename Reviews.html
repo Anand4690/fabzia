@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews - Fabzia Turf</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Utility CSS -->
+    <link rel="stylesheet" href="utility.css">
+    
+    <style>
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Sticky navigation */
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background-color: white;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 375px) {
+            .sticky-nav h1 {
+                font-size: 16px;
+            }
+        }
+        
+        /* Ensure proper text truncation */
+        .nav-title {
+            max-width: calc(100% - 80px);
+        }
+    </style>
+</head>
+<body class="bg-[var(--bg-light)] font-lato text-[var(--text-body)] antialiased min-h-screen">
+
+    <!-- Container for mobile view -->
+    <div class="max-w-[430px] mx-auto bg-[var(--bg-light)] min-h-screen relative shadow-2xl">
+
+        <!-- Top Navigation Bar - Sticky -->
+        <nav class="sticky-nav bg-white border-b border-[var(--bg-container)] w-full overflow-hidden">
+            <div class="flex gap-2 items-center px-1 py-2 h-16">
+                <!-- Back Button -->
+                <a href="TurfDetails.html" class="flex items-center justify-center w-12 h-12 cursor-pointer flex-shrink-0">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 18L9 12L15 6" stroke="var(--text-heading)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+                
+                <!-- Title and Subtitle Container -->
+                <div class="flex flex-1 flex-col h-full justify-center min-w-0">
+                    <!-- Title Row with Rating Badge -->
+                    <div class="flex gap-2 items-center">
+                        <h1 class="nav-title font-medium text-[18px] leading-[28px] text-[var(--text-heading)] tracking-[0.04px] whitespace-nowrap overflow-hidden text-ellipsis">
+                            The Multisports Turf
+                        </h1>
+                        <!-- Rating Chip -->
+                        <div class="bg-[var(--green)]/10 flex gap-[2px] items-center justify-center px-[6px] py-[2px] rounded-[16px] flex-shrink-0">
+                            <span class="text-xs font-semibold text-[var(--text-heading)] leading-[1.6] tracking-[-0.12px]">4.5</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5">
+                                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="var(--text-heading)"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <!-- Subtitle -->
+                    <p class="font-normal text-sm leading-[1.5] text-[var(--text-body)] tracking-[0.04px]">
+                        Ratings and reviews
+                    </p>
+                </div>
+            </div>
+        </nav>
+
+        <div class="px-4 py-3 flex gap-2 overflow-x-auto scrollbar-hide bg-[var(--bg-light)]">
+            <button class="px-2 py-1 h-8 rounded-[8px] border border-[var(--black-700)] bg-white text-[var(--text-heading)] text-sm font-normal leading-[1.5] tracking-[0.04px] whitespace-nowrap flex-shrink-0 active:bg-gray-50 active:scale-95 transition-all">
+                Most Relevant
+            </button>
+            <button class="px-2 py-1 h-8 rounded-[8px] border border-[var(--black-700)] bg-white text-[var(--text-heading)] text-sm font-normal leading-[1.5] tracking-[0.04px] whitespace-nowrap flex-shrink-0 active:bg-gray-50 active:scale-95 transition-all">
+                Highest
+            </button>
+            <button class="filter-btn px-3 py-1.5 h-auto rounded-[8px] border border-[var(--black-700)] bg-white text-[var(--text-heading)] text-sm font-normal leading-normal tracking-[0.04px] whitespace-nowrap flex-shrink-0 active:scale-95 transition-all" data-selected="false">
+                Lowest
+            </button>
+            <button class="filter-btn px-3 py-1.5 h-auto rounded-[8px] border border-[var(--black-700)] bg-white text-[var(--text-heading)] text-sm font-normal leading-normal tracking-[0.04px] whitespace-nowrap flex-shrink-0 active:scale-95 transition-all" data-selected="false">
+                Newest
+            </button>
+            <button class="filter-btn px-3 py-1.5 h-auto rounded-[8px] border border-[var(--black-700)] bg-white text-[var(--text-heading)] text-sm font-normal leading-normal tracking-[0.04px] whitespace-nowrap flex-shrink-0 active:scale-95 transition-all" data-selected="false">
+                Oldest
+            </button>
+            <button class="filter-btn px-3 py-1.5 h-auto rounded-[8px] border border-[var(--black-700)] bg-white text-[var(--text-heading)] text-sm font-normal leading-normal tracking-[0.04px] whitespace-nowrap flex-shrink-0 active:scale-95 transition-all" data-selected="false">
+                Images Only
+            </button>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const filterBtns = document.querySelectorAll('.filter-btn');
+                const filterRow = document.getElementById('filter-row');
+
+                // Add shadow on scroll
+                window.addEventListener('scroll', () => {
+                   if (window.scrollY > 10) {
+                       filterRow.classList.add('border-[var(--bg-container)]');
+                   } else {
+                       filterRow.classList.remove('border-[var(--bg-container)]');
+                   }
+                });
+
+                filterBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const isSelected = btn.getAttribute('data-selected') === 'true';
+                        
+                        if (!isSelected) {
+                            // Select
+                            btn.setAttribute('data-selected', 'true');
+                            btn.classList.remove('border-[var(--black-700)]', 'bg-white', 'text-[var(--text-heading)]');
+                            btn.classList.add('border-[var(--green)]', 'bg-[var(--green)]/10', 'text-[var(--text-heading)]', 'font-medium');
+                        } else {
+                            // Deselect
+                            btn.setAttribute('data-selected', 'false');
+                            btn.classList.add('border-[var(--black-700)]', 'bg-white', 'text-[var(--text-heading)]');
+                            btn.classList.remove('border-[var(--green)]', 'bg-[var(--green)]/10', 'text-[var(--text-heading)]', 'font-medium');
+                        }
+                    });
+                });
+            });
+        </script>
+        
+
+        <!-- Reviews List -->
+        <div class="px-5 py-6 space-y-6">
+            
+            <!-- Review 1 -->
+            <div class="space-y-2">
+                <div class="flex items-start gap-2">
+                    <img src="assets/Images/avatar_placeholder.png" alt="Hope Lewis" class="w-[43px] h-[43px] rounded-full bg-gray-200 flex-shrink-0 object-cover">
+                    <div class="flex-1 space-y-1">
+                        <div class="flex flex-col gap-1">
+                            <span class="text-sm font-medium text-[var(--text-heading)] tracking-[0.04px]">Hope Lewis</span>
+                            <span class="text-xs text-[var(--text-body)]">12/1/26</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="flex gap-0.5">
+                        <svg class="w-4 h-4 fill-[var(--green)] text-[var(--green)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="w-4 h-4 fill-[var(--green)] text-[var(--green)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="w-4 h-4 fill-[var(--green)] text-[var(--green)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="w-4 h-4 fill-[var(--bg-container)] text-[var(--bg-container)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="w-4 h-4 fill-[var(--bg-container)] text-[var(--bg-container)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                </div>
+                <p class="text-sm leading-[21px] text-[var(--text-body)] tracking-[0.04px]">
+                    Special thanks to the management for setting up a standard game arena in panorama,Ramayana locality-place is well maintained. It has a great parking facility for two wheeler and four wheeler.
+                </p>
+                <div class="pt-4 border-b border-[var(--bg-container)]"></div>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="space-y-2">
+                <div class="flex items-start gap-2">
+                    <img src="assets/Images/avatar_placeholder.png" alt="Hope Lewis" class="w-[43px] h-[43px] rounded-full bg-gray-200 flex-shrink-0 object-cover">
+                    <div class="flex-1 space-y-1">
+                        <div class="flex flex-col gap-1">
+                            <span class="text-sm font-medium text-[var(--text-heading)] tracking-[0.04px]">Hope Lewis</span>
+                            <span class="text-xs text-[var(--text-body)]">12/1/26</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="flex gap-0.5">
+                        <svg class="w-4 h-4 fill-[var(--green)] text-[var(--green)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="w-4 h-4 fill-[var(--green)] text-[var(--green)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="w-4 h-4 fill-[var(--green)] text-[var(--green)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="w-4 h-4 fill-[var(--bg-container)] text-[var(--bg-container)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="w-4 h-4 fill-[var(--bg-container)] text-[var(--bg-container)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                </div>
+                <p class="text-sm leading-[21px] text-[var(--text-body)] tracking-[0.04px]">
+                    Special thanks to the management for setting up a standard game arena in panorama,Ramayana locality-place is well maintained. It has a great parking facility for two wheeler and four wheeler.
+                </p>
+                <div class="pt-4 border-b border-[var(--bg-container)]"></div>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="space-y-2">
+                <div class="flex items-start gap-2">
+                    <img src="assets/Images/avatar_placeholder.png" alt="Sarah Johnson" class="w-[43px] h-[43px] rounded-full bg-gray-200 flex-shrink-0 object-cover">
+                    <div class="flex-1 space-y-1">
+                        <div class="flex flex-col gap-1">
+                            <span class="text-sm font-medium text-[var(--text-heading)] tracking-[0.04px]">Sarah Johnson</span>
+                            <span class="text-xs text-[var(--text-body)]">12/1/26</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="flex gap-0.5">
+                        <svg class="w-4 h-4 fill-[var(--green)] text-[var(--green)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="w-4 h-4 fill-[var(--green)] text-[var(--green)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="w-4 h-4 fill-[var(--green)] text-[var(--green)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="w-4 h-4 fill-[var(--green)] text-[var(--green)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="w-4 h-4 fill-[var(--green)] text-[var(--green)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                </div>
+                <p class="text-sm leading-[21px] text-[var(--text-body)] tracking-[0.04px]">
+                    Excellent turf with great facilities. The staff is very professional and helpful. Highly recommend this place for sports activities!
+                </p>
+                <div class="pt-4 border-b border-[var(--bg-container)]"></div>
+            </div>
+
+            <!-- Review 4 -->
+             <div class="space-y-2">
+                <div class="flex items-start gap-2">
+                    <img src="assets/Images/avatar_placeholder.png" alt="Mike Wilson" class="w-[43px] h-[43px] rounded-full bg-[var(--bg-light)] flex-shrink-0 object-cover">
+                    <div class="flex-1 space-y-1">
+                        <div class="flex flex-col gap-1">
+                            <span class="text-sm font-medium text-[var(--text-heading)] tracking-[0.04px]">Mike Wilson</span>
+                            <span class="text-xs text-[var(--text-body)]">12/1/26</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                     <div class="flex gap-0.5">
+                        <svg class="w-4 h-4 fill-[var(--green)] text-[var(--green)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="w-4 h-4 fill-[var(--green)] text-[var(--green)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="w-4 h-4 fill-[var(--green)] text-[var(--green)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="w-4 h-4 fill-[var(--green)] text-[var(--green)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg class="w-4 h-4 fill-[var(--bg-container)] text-[var(--bg-container)]" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                </div>
+                <p class="text-sm leading-[21px] text-[var(--text-body)] tracking-[0.04px]">
+                    Good experience overall. The turf is well-maintained and the booking process was smooth. Would visit again.
+                </p>
+                <!-- Last item border check could be here if dynamically generated, but hardcoded fine for now -->
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

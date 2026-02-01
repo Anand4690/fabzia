@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile - Fabzia Turf</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Utility CSS -->
+    <link rel="stylesheet" href="utility.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        .font-inter {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom scrollbar for dropdown */
+        .scrollbar-custom::-webkit-scrollbar {
+            width: 4px;
+        }
+        .scrollbar-custom::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .scrollbar-custom::-webkit-scrollbar-thumb {
+            background: #D7D7D7;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-lato text-[var(--text-body)] antialiased flex items-center justify-center min-h-screen">
+
+    <!-- Mobile Container -->
+    <div class="relative w-full max-w-[430px] h-screen max-h-[812px] bg-[var(--white-pure)] shadow-2xl overflow-hidden flex flex-col">
+        
+        <!-- Top Navigation -->
+        <div class="flex items-center gap-2 px-1 py-2 border-b border-[var(--bg-container)] bg-[#FFFEFE] h-16 z-10">
+            <button id="backBtn" class="flex items-center justify-center w-12 h-12 flex-shrink-0 hover:bg-gray-50 rounded-full transition-colors">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M16.9662 5.25017L10.2162 12.0002L16.9662 18.7502L15.3752 20.3412L7.03418 12.0002L15.3752 3.65918L16.9662 5.25017Z" fill="var(--text-heading)"/>
+                </svg>
+            </button>
+            <div class="flex-1">
+                <h1 class="text-[var(--text-heading)] text-[18px] font-normal leading-[28px] tracking-[0.04px] font-inter">
+                    Edit Profile
+                </h1>
+            </div>
+        </div>
+
+
+
+        <!-- Form Section -->
+        <div class="flex-1 px-4 pt-0 pb-4 overflow-y-auto scrollbar-custom">
+            
+            <!-- Profile Image Section (Moved inside scrollable area) -->
+            <div class="flex justify-center items-center h-[141px] flex-shrink-0 relative">
+                <div class="relative group cursor-pointer">
+                    <img src="https://api.builder.io/api/v1/image/assets/TEMP/8d54f6aaa86b6c16bda6d9dd49e1a354fc7aff74?width=192" alt="Profile" class="w-24 h-24 rounded-full object-cover border-2 border-transparent group-hover:border-[var(--green)] transition-all">
+                    <button class="absolute bottom-0 right-0 bg-[var(--green)] rounded-full p-2 shadow-lg hover:brightness-110 transition-all" aria-label="Edit profile picture">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M23 19C23 19.5304 22.7893 20.0391 22.4142 20.4142C22.0391 20.7893 21.5304 21 21 21H3C2.46957 21 1.96086 20.7893 1.58579 20.4142C1.21071 20.0391 1 19.5304 1 19V8C1 7.46957 1.21071 6.96086 1.58579 6.58579C1.96086 6.21071 2.46957 6 3 6H7L9 3H15L17 6H21C21.5304 6 22.0391 6.21071 22.4142 6.58579C22.7893 6.96086 23 7.46957 23 8V19Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 17C14.2091 17 16 15.2091 16 13C16 10.7909 14.2091 9 12 9C9.79086 9 8 10.7909 8 13C8 15.2091 9.79086 17 12 17Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-5">
+                
+                <!-- Name Input -->
+                <div class="input-group flex h-12 px-[10px] items-center gap-[10px] rounded-[4px] border border-[var(--black-700)] bg-[var(--white-pure)] transition-colors focus-within:border-[var(--green)] focus-within:ring-1 focus-within:ring-[var(--green)]">
+                    <input type="text" id="nameInput" value="Anand" class="flex-1 text-[var(--text-body)] font-inter text-[16px] font-medium leading-[28px] outline-none bg-transparent placeholder-[var(--text-placeholder)]">
+                </div>
+
+                <!-- Email Input -->
+                <div class="input-group flex h-12 px-[10px] items-center gap-[10px] rounded-[4px] border border-[var(--black-700)] bg-[var(--white-pure)] transition-colors focus-within:border-[var(--green)] focus-within:ring-1 focus-within:ring-[var(--green)]">
+                    <input type="email" id="emailInput" value="anand@gmail.com" class="flex-1 text-[var(--text-body)] font-inter text-[16px] font-medium leading-[28px] outline-none bg-transparent placeholder-[var(--text-placeholder)]">
+                </div>
+
+                <!-- Phone Input (Read-only) -->
+                <div class="relative">
+                    <div id="phoneInputContainer" class="flex h-12 px-[10px] items-center gap-[10px] rounded-[4px] border border-[var(--black-700)] bg-[var(--white-pure)] cursor-not-allowed opacity-80">
+                        <div class="flex-1 text-[var(--text-body)] font-inter text-[16px] font-medium leading-[28px] select-none">
+                            +91 12345-54321
+                        </div>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 7V13" stroke="var(--text-heading)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 17.0101L12.01 16.999" stroke="var(--text-heading)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="var(--text-heading)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <!-- Phone Alert (Hidden by default) -->
+                    <div id="phoneAlert" class="absolute top-full left-0 right-0 mt-2 bg-[#0F172A] text-white px-4 py-2 rounded-md text-sm z-20 hidden opacity-0 transition-opacity duration-300">
+                        Phone number cannot be edited
+                    </div>
+                </div>
+
+                <!-- Sports Preference Dropdown -->
+                <div class="relative">
+                    <button id="sportDropdownBtn" class="flex w-full h-12 px-[10px] justify-between items-center rounded-[4px] border border-[var(--black-700)] bg-[var(--white-pure)] hover:bg-gray-50 transition-colors">
+                        <span id="selectedSportText" class="text-[var(--text-body)] font-inter text-[16px] font-medium leading-[28px]">Sports Preference</span>
+                        <svg id="dropdownArrow" class="transition-transform duration-300" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 15.4L6 9.4L7.4 8L12 12.6L16.6 8L18 9.4L12 15.4Z" fill="var(--text-heading)"/>
+                        </svg>
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <div id="sportDropdownList" class="absolute top-full left-0 right-0 mt-1 bg-[var(--white-pure)] border border-[var(--bg-container)] rounded-[4px] shadow-lg max-h-60 overflow-y-auto hidden z-30 scrollbar-custom">
+                        <!-- Options injected by JS -->
+                    </div>
+                </div>
+
+                <!-- Address Input -->
+                <div class="input-group flex h-12 px-[10px] items-center gap-[10px] rounded-[4px] border border-[var(--black-700)] bg-[var(--white-pure)] transition-colors focus-within:border-[var(--green)] focus-within:ring-1 focus-within:ring-[var(--green)]">
+                    <input type="text" id="addressInput" placeholder="Enter Address" class="flex-1 text-[var(--text-body)] font-inter text-[16px] font-medium leading-[28px] outline-none bg-transparent placeholder-[var(--text-placeholder)]">
+                </div>
+
+                <!-- Community Checkboxes -->
+                <div class="flex flex-col">
+                    <button id="whatsappCheckbox" class="flex py-3 items-center gap-2 group">
+                        <div class="w-5 h-5 rounded-full border-[1.5px] border-[var(--text-heading)] flex items-center justify-center flex-shrink-0 transition-colors">
+                            <div class="w-2.5 h-2.5 rounded-full bg-[var(--green)] scale-0 transition-transform duration-200 indicator"></div>
+                        </div>
+                        <span class="text-[var(--text-heading)] font-inter text-[14px] font-medium leading-[150%] tracking-[0.04px] text-left">
+                            Add me to Whats app Community
+                        </span>
+                    </button>
+                    <button id="instagramCheckbox" class="flex py-3 items-center gap-2 group">
+                        <div class="w-5 h-5 rounded-full border-[1.5px] border-[var(--text-heading)] flex items-center justify-center flex-shrink-0 transition-colors">
+                            <div class="w-2.5 h-2.5 rounded-full bg-[var(--green)] scale-0 transition-transform duration-200 indicator"></div>
+                        </div>
+                        <span class="text-[var(--text-heading)] font-inter text-[14px] font-medium leading-[150%] tracking-[0.04px] text-left">
+                            Add me to Instagram Community
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Action Buttons -->
+        <div class="flex px-4 py-2 justify-between items-center border-t border-[var(--bg-container)] bg-[var(--white-pure)] shadow-[0_1px_2px_0_rgba(0,0,0,0.30),0_1px_3px_1px_rgba(0,0,0,0.15)] h-16 flex-shrink-0 z-10">
+            <button id="cancelBtn" class="flex w-[162px] h-12 px-[10px] justify-center items-center gap-[10px] rounded-lg hover:bg-gray-100 transition-colors">
+                <span class="text-[var(--text-heading)] font-roboto text-[16px] font-normal leading-[24px] tracking-[0.5px]">
+                    cancel
+                </span>
+            </button>
+            <button id="updateBtn" class="flex w-[162px] h-12 px-[10px] justify-center items-center gap-[10px] rounded-lg bg-[var(--green)] hover:opacity-90 transition-opacity shadow-md">
+                <span class="text-[var(--white-pure)] font-roboto text-[16px] font-normal leading-[24px] tracking-[0.5px]">
+                    Update
+                </span>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Logic Script -->
+    <script src="Js/EditProfile.js"></script>
+</body>
+</html>

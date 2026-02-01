@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Fabzia Turf</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Utility CSS -->
+    <link rel="stylesheet" href="utility.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        .font-inter {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-lato text-[var(--text-body)] antialiased flex items-center justify-center min-h-screen">
+
+    <!-- Mobile Container -->
+    <div class="relative w-full max-w-[430px] h-screen max-h-[812px] bg-[var(--white-pure)] shadow-2xl overflow-hidden flex flex-col">
+        
+        <!-- Top Navigation -->
+        <div class="flex items-center gap-2 px-1 py-2 border-b border-[var(--bg-container)] bg-[#FFFEFE] h-16 flex-shrink-0">
+            <button onclick="window.history.back()" class="flex items-center justify-center w-12 h-12 flex-shrink-0 hover:bg-gray-50 rounded-full transition-colors">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M16.9662 5.25017L10.2162 12.0002L16.9662 18.7502L15.3752 20.3412L7.03418 12.0002L15.3752 3.65918L16.9662 5.25017Z" fill="var(--text-heading)"/>
+                </svg>
+            </button>
+            <div class="flex-1">
+                <h1 class="text-[var(--text-heading)] text-[18px] font-normal leading-[28px] tracking-[0.04px] font-inter">
+                    Profile
+                </h1>
+            </div>
+        </div>
+
+        <!-- Profile Header Section -->
+        <div class="border-b border-[var(--bg-container)] px-4 py-6 flex-shrink-0 bg-white">
+            <div class="flex items-center gap-4">
+                <img src="https://api.builder.io/api/v1/image/assets/TEMP/8d54f6aaa86b6c16bda6d9dd49e1a354fc7aff74?width=192" alt="Profile" class="w-16 h-16 rounded-full object-cover flex-shrink-0 border-2 border-white shadow-sm">
+                <div class="flex-1 min-w-0">
+                    <h2 class="text-[var(--text-heading)] text-[20px] font-semibold leading-[28px] font-inter">
+                        Anand
+                    </h2>
+                    <p class="text-[var(--text-body)] text-[14px] font-normal leading-[20px] font-inter truncate">
+                        adam.hatway@gmail.com
+                    </p>
+                </div>
+                <a href="EditProfile.html" class="text-[var(--green)] text-[16px] font-medium leading-[24px] font-inter flex-shrink-0 hover:underline">
+                    Edit
+                </a>
+            </div>
+        </div>
+
+        <!-- Menu Items -->
+        <div class="flex-1 bg-[var(--white-pure)] overflow-y-auto">
+            <a href="Booking.html" class="flex items-center justify-between px-6 py-5 border-b border-[var(--bg-light)] hover:bg-[var(--bg-light)] transition-colors group">
+                <span class="text-[var(--text-heading)] text-[18px] font-medium leading-[24px] font-inter group-hover:text-[var(--green)] transition-colors">
+                    Booking
+                </span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8.29289 5.29289C8.68342 4.90237 9.31658 4.90237 9.70711 5.29289L15.7071 11.2929C16.0976 11.6834 16.0976 12.3166 15.7071 12.7071L9.70711 18.7071C9.31658 19.0976 8.68342 19.0976 8.29289 18.7071C7.90237 18.3166 7.90237 17.6834 8.29289 17.2929L13.5858 12L8.29289 6.70711C7.90237 6.31658 7.90237 5.68342 8.29289 5.29289Z" fill="var(--text-heading)" id="chevron1"/>
+                </svg>
+            </a>
+
+            <a href="Wallet.html" class="flex items-center justify-between px-6 py-5 border-b border-[var(--bg-light)] hover:bg-[var(--bg-light)] transition-colors group">
+                <span class="text-[var(--text-heading)] text-[18px] font-medium leading-[24px] font-inter group-hover:text-[var(--green)] transition-colors">
+                    Wallet
+                </span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8.29289 5.29289C8.68342 4.90237 9.31658 4.90237 9.70711 5.29289L15.7071 11.2929C16.0976 11.6834 16.0976 12.3166 15.7071 12.7071L9.70711 18.7071C9.31658 19.0976 8.68342 19.0976 8.29289 18.7071C7.90237 18.3166 7.90237 17.6834 8.29289 17.2929L13.5858 12L8.29289 6.70711C7.90237 6.31658 7.90237 5.68342 8.29289 5.29289Z" fill="var(--text-heading)"/>
+                </svg>
+            </a>
+        </div>
+
+        <!-- Log Out Button -->
+        <div class="px-6 py-6 border-t border-[var(--bg-container)]">
+            <button onclick="handleLogout()" class="flex items-center gap-3 text-[var(--text-heading)] text-[18px] font-medium leading-[24px] font-inter hover:text-red-600 transition-colors group w-full">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="group-hover:stroke-red-600 stroke-[var(--text-heading)] transition-colors">
+                    <path d="M17 8L21 12M21 12L17 16M21 12H9M12 3H7C5.89543 3 5 3.89543 5 5V19C5 20.1046 5.89543 21 7 21H12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Log out
+            </button>
+        </div>
+        
+        <!-- Bottom Nav Spacer (70px height approx) - Removed as we are likely replacing the bottom stack -->
+        
+        <!-- Bottom Navigation Component (Copied from Home.html/Bottomnav.html structure for consistency) -->
+        <nav class="bg-[var(--white-pure)] border-t border-[var(--bg-container)] flex justify-center w-full z-50">
+            <div class="w-full h-16 flex items-center justify-between px-6">
+                <!-- Home Item -->
+                <a href="Home.html" class="nav-item flex flex-col items-center justify-center gap-1 min-w-0 group" data-target="home">
+                    <div class="w-6 h-6 flex items-center justify-center icon-container">
+                        <svg class="inactive-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2.98416C12.1774 2.98416 12.349 3.04727 12.4844 3.1619L19.9844 9.52518H19.9854C20.0683 9.59554 20.1349 9.68334 20.1807 9.78201C20.2264 9.88075 20.25 9.98864 20.25 10.0974V19.4998C20.25 19.6986 20.1709 19.8894 20.0303 20.0301C19.8896 20.1707 19.6989 20.2498 19.5 20.2498H14.75V13.2498H9.25V20.2498H4.5C4.30109 20.2498 4.11038 20.1707 3.96973 20.0301C3.82914 19.8894 3.75 19.6986 3.75 19.4998V10.0974L3.75488 10.0154C3.76373 9.93481 3.78512 9.85592 3.81934 9.78201C3.86505 9.68334 3.93173 9.59554 4.01465 9.52518H4.01562L11.5156 3.1619L11.5146 3.16092C11.6161 3.07498 11.7388 3.01899 11.8682 2.99588L12 2.98416Z" stroke="var(--black)" stroke-width="1.5"/>
+                        </svg>
+                    </div>
+                    <span class="text-sm font-medium text-[var(--text-heading)] label">Home</span>
+                </a>
+
+                <!-- Events Item -->
+                <a href="#" class="nav-item flex flex-col items-center justify-center gap-1 min-w-0 group" data-target="events">
+                    <div class="w-6 h-6 flex items-center justify-center icon-container">
+                        <svg class="inactive-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2.04127 17.9516C1.87222 17.7826 1.76616 17.5506 1.76616 17.292L1.76947 14.3653C1.76616 13.8847 2.14402 13.4737 2.62794 13.4339C3.34389 13.3808 3.90074 12.824 3.95377 12.1081C4.01343 11.3192 3.42012 10.6264 2.62794 10.5635C2.14402 10.5237 1.76616 10.1127 1.76947 9.63208L1.76947 6.70863C1.76947 6.19156 2.18711 5.77393 2.70086 5.77724L14.6598 5.77724C14.9449 5.77724 15.2332 5.84685 15.4918 5.9728C15.5945 6.02252 15.7138 6.02252 15.81 5.9728C16.0652 5.84353 16.3569 5.77724 16.6419 5.77724L21.3022 5.77724C21.8193 5.77724 22.2369 6.19488 22.2336 6.70864L22.2336 9.63871C22.2369 10.1193 21.859 10.5303 21.3751 10.5701C20.6293 10.6264 20.046 11.2562 20.0427 12.002C20.046 12.7478 20.6293 13.3775 21.3751 13.4339C21.8624 13.4703 22.2402 13.8813 22.2369 14.3686L22.2369 17.292C22.2369 17.8091 21.8193 18.2267 21.3055 18.2234L16.6452 18.2234C16.3602 18.2234 16.0718 18.1538 15.8133 18.0279C15.7105 17.9781 15.5912 17.9781 15.4951 18.0279C15.2399 18.1571 14.9482 18.2234 14.6631 18.2234L2.69755 18.2234C2.44564 18.2234 2.21031 18.1207 2.04127 17.9516Z" fill="var(--black)"/>
+                        </svg>
+                    </div>
+                    <span class="text-sm font-medium text-[var(--text-heading)] label">Events</span>
+                </a>
+
+                <!-- Coaching Item -->
+                <a href="#" class="nav-item flex flex-col items-center justify-center gap-1 min-w-0 group" data-target="coaching">
+                     <div class="w-6 h-6 flex items-center justify-center icon-container">
+                        <svg class="inactive-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.019 10.923C6.51267 10.923 5.22908 10.3926 4.16825 9.33175C3.10725 8.27075 2.57675 6.98708 2.57675 5.48075C2.57675 5.27392 2.58992 5.06708 2.61625 4.86025C2.64258 4.65342 2.67558 4.46792 2.71525 4.30375C2.63842 4.33708 2.55125 4.36892 2.45375 4.36925C2.35625 4.37942 2.27067 4.3845 2.197 4.3845C1.57717 4.3845 1.056 4.17258 0.6335 3.74875C0.211167 3.32492 0 2.80608 0 2.19225C0 1.57842 0.201917 1.05958 0.60575 0.63575C1.00942 0.211916 1.51967 0 2.1365 0C2.64167 0 3.091 0.144583 3.4845 0.433749C3.87817 0.722749 4.141 1.08975 4.273 1.53475C4.75883 1.07308 5.32867 0.708333 5.9825 0.4405C6.63633 0.1725 7.31517 0.0384995 8.019 0.0384995H19.019V3.0385H13.4613V5.48075C13.4613 6.99242 12.9322 8.27742 11.874 9.33575C10.8158 10.3939 9.53083 10.923 8.019 10.923ZM2.19225 3.19225C2.47558 3.19225 2.71308 3.09642 2.90475 2.90475C3.09642 2.71308 3.19225 2.47558 3.19225 2.19225C3.19225 1.90892 3.09642 1.67142 2.90475 1.47975C2.71308 1.28808 2.47558 1.19225 2.19225 1.19225C1.90892 1.19225 1.67142 1.28808 1.47975 1.47975C1.28808 1.67142 1.19225 1.90892 1.19225 2.19225C1.19225 2.47558 1.28808 2.71308 1.47975 2.90475C1.67142 3.09642 1.90892 3.19225 2.19225 3.19225ZM8.0205 9.1155C9.02467 9.1155 9.88125 8.7605 10.5903 8.0505C11.2992 7.34067 11.6538 6.48367 11.6538 5.4795C11.6538 4.47517 11.2988 3.6185 10.589 2.9095C9.879 2.2005 9.02192 1.846 8.01775 1.846C7.01358 1.846 6.157 2.201 5.448 2.911C4.739 3.62083 4.3845 4.47783 4.3845 5.482C4.3845 6.48633 4.73942 7.343 5.44925 8.052C6.15908 8.761 7.01617 9.1155 8.0205 9.1155Z" fill="var(--black)" transform="translate(2, 7)"/>
+                        </svg>
+                    </div>
+                    <span class="text-sm font-medium text-[var(--text-heading)] label">Coaching</span>
+                </a>
+
+                <!-- More Item (Active) -->
+                <a href="#" class="nav-item flex flex-col items-center justify-center gap-1 min-w-0 group" data-target="more">
+                    <div class="w-6 h-6 flex items-center justify-center icon-container">
+                        <svg class="active-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 22.75C17.937 22.75 22.75 17.937 22.75 12C22.75 6.06294 17.937 1.25 12 1.25C6.06294 1.25 1.25 6.06294 1.25 12C1.25 17.937 6.06294 22.75 12 22.75Z" fill="var(--green)"/>
+                            <path d="M7.96875 12C7.96875 12.742 7.36717 13.3438 6.625 13.3438C5.88283 13.3438 5.28125 12.742 5.28125 12C5.28125 11.258 5.88283 10.6562 6.625 10.6562C7.36717 10.6562 7.96875 11.258 7.96875 12Z" fill="#EDEDED"/>
+                            <path d="M13.3438 12C13.3438 12.7421 12.7421 13.3438 12 13.3438C11.2579 13.3438 10.6562 12.7421 10.6562 12C10.6562 11.2579 11.2579 10.6562 12 10.6562C12.7421 10.6562 13.3438 11.2579 13.3438 12Z" fill="#EDEDED"/>
+                            <path d="M18.7188 12C18.7188 12.7421 18.1171 13.3438 17.375 13.3438C16.6329 13.3438 16.0313 12.7421 16.0313 12C16.0313 11.2579 16.6329 10.6562 17.375 10.6562C18.1171 10.6562 18.7188 11.2579 18.7188 12Z" fill="#EDEDED"/>
+                        </svg>
+                    </div>
+                    <span class="text-sm font-medium text-[var(--green)] label">More</span>
+                </a>
+
+            </div>
+        </nav>
+
+    </div>
+
+    <!-- Logic Script -->
+    <script>
+        function handleLogout() {
+            // Usually we would clear session/local storage here
+            if(confirm("Are you sure you want to log out?")) {
+                window.location.href = "onBoarding.html"; // Navigate back to onboarding
+            }
+        }
+    </script>
+</body>
+</html>

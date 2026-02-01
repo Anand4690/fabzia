@@ -128,10 +128,10 @@
         if (all.length === 6) {
           continueBtn.disabled = false;
           continueBtn.classList.remove('bg-[#DEDEDE]', 'text-[#4D4D4D]', 'opacity-80');
-          continueBtn.classList.add('bg-[#07A348]', 'text-[#E6E5E5]');
+          continueBtn.classList.add('bg-[var(--green)]', 'text-white');
         } else {
           continueBtn.disabled = true;
-          continueBtn.classList.remove('bg-[#07A348]', 'text-[#E6E5E5]');
+          continueBtn.classList.remove('bg-[var(--green)]', 'text-white');
           continueBtn.classList.add('bg-[#DEDEDE]', 'text-[#4D4D4D]', 'opacity-80');
         }
       }
@@ -140,15 +140,16 @@
         if (otpString === CORRECT_OTP) {
           isSuccess = true;
           isError = false;
-          showToast('OTP verified');
+          showToast('OTP verified', 'success');
           updateInputStyles();
-          // simulate navigation after 2s
+          // navigate to next screen
           setTimeout(() => {
-            // window.location.href = '/dashboard'; // enable when needed
-          }, 2000);
+            window.location.href = 'shareLocation.html';
+          }, 800);
         } else {
           isError = true;
           isSuccess = false;
+          showToast('Invalid OTP. Please try again.', 'error');
           updateInputStyles();
           // brief shake / error feedback and reset
           setTimeout(() => {
@@ -211,12 +212,19 @@
       }
 
       // simple toast
-      function showToast(message, duration = 1600) {
+      function showToast(message, type = 'default', duration = 3000) {
         const t = document.createElement('div');
-        t.className = 'toast';
+        t.className = `toast ${type}`;
         t.textContent = message;
         toastRoot.appendChild(t);
-        setTimeout(() => t.remove(), duration);
+        
+        // trigger animation
+        setTimeout(() => t.classList.add('show'), 10);
+        
+        setTimeout(() => {
+          t.classList.remove('show');
+          setTimeout(() => t.remove(), 300);
+        }, duration);
       }
 
       // initialize

@@ -26,15 +26,14 @@
         // optional: handle click of continue
         cont.addEventListener('click', function () {
           if (cont.disabled) return;
-          // implement your continue flow here (e.g., navigate to OTP screen)
-
-          alert('Continue clicked with phone: ' + phone.value);
+          // navigate to OTP screen
+          window.location.href = `otpVerification.html?phone=${phone.value}`;
         });
 
         // skip button (example behavior)
         document.getElementById('skipBtn').addEventListener('click', function () {
-          // implement skip behavior (e.g., navigate to home)
-          alert('Skipped');
+          // navigate to home
+          window.location.href = 'Home.html';
         });
 
         // initialize state

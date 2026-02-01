@@ -14,15 +14,22 @@
       position: fixed;
       left: 50%;
       transform: translateX(-50%);
-      bottom: 30px;
+      bottom: 100px;
       z-index: 60;
-      background: rgba(15,15,15,0.95);
+      background: #333;
       color: white;
-      padding: 10px 14px;
-      border-radius: 8px;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-size: 14px;
       font-weight: 500;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      white-space: nowrap;
+      transition: all 0.3s ease;
+      opacity: 0;
     }
+    .toast.show { opacity: 1; bottom: 80px; }
+    .toast.error { background: #ef4444; }
+    .toast.success { background: var(--green); }
   </style>
 </head>
 <body class="bg-white antialiased">
@@ -46,7 +53,7 @@
           <h1 class="font-inter text-xl font-semibold leading-7 tracking-[0.04px] text-[var(--text-heading)]">
             Enter 6-digit Code
           </h1>
-          <p class="font-inter text-base font-normal leading-7 text-[#4D4D4D]">
+          <p class="font-inter text-base font-normal leading-7 text-[var(--text-body)]">
             we have sent a verification code to <br>
             <span id="phoneText" class="text-[var(--text-heading)]">+91 63619-81038</span>
           </p>
@@ -75,7 +82,7 @@
     <!-- Continue Button - Fixed at bottom -->
     <div class="px-4  pt-4">
       <button id="continueBtn" disabled
-        class="w-full h-12 flex items-center justify-center rounded-lg transition-all bg-[#DEDEDE] text-[#4D4D4D] opacity-80">
+        class="w-full h-12 flex items-center justify-center rounded-lg transition-all bg-[var(--bg-container)] text-[var(--text-body)] opacity-80">
         <span class="font-inter text-base font-medium leading-7">Continue</span>
       </button>
     </div>

@@ -13,6 +13,11 @@
   --black-300: hsl(0, 0%, 30%);
   --black-700: hsl(0, 0%, 70%);
 
+  --green-dark: #046c4e;
+  --bg-light: #f5f5f5;
+  --bg-container: #e5e5e5;
+  --white-pure: #ffffff;
+
   --white: hsl(0, 0%, 97%);
 
   /* Numerical */
@@ -29,6 +34,7 @@
   --text-heading: var(--black);
   --text-inverse-heading: var(--white);
   --text-body: var(--black-300);
+  --text-placeholder: var(--black-700);
 
 
   /* Button */
