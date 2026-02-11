@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details</title> <!-- Matching typical mobile page title pattern, or 'Apply Coupon' -->
+    <link rel="stylesheet" href="utility.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'text-heading': 'var(--text-heading)',
+                        'text-body': 'var(--text-body)',
+                        'text-inverse': 'var(--black-700)',
+                        'container-border': 'var(--bg-container)', // Mapping to utility variable
+                        'surface-light': 'var(--bg-light)',
+                        'brand-green': 'var(--green)',
+                    },
+                    fontFamily: {
+                        'lato': ['Lato', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Lato font is already imported in utility.css but adding here just in case ensures it loads if utility.css has issues, 
+         though the prompt says use utility.css. utility.css has the import at the top. -->
+</head>
+<body class="bg-surface-light font-lato antialiased text-text-heading">
+
+    <div class="min-h-screen bg-surface-light flex flex-col max-w-[430px] mx-auto relative shadow-2xl">
+        
+        <!-- Sticky Header -->
+        <header class="sticky top-0 z-40 bg-white border-b border-container-border">
+            <div class="flex items-center gap-2 px-1 py-2">
+                <a href="Checkout.html" class="w-12 h-12 flex items-center justify-center hover:bg-gray-50 rounded-lg transition-colors" aria-label="Go back">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-text-heading">
+                        <path d="m12 19-7-7 7-7"/>
+                        <path d="M19 12H5"/>
+                    </svg>
+                </a>
+                <div class="flex flex-col justify-center flex-1">
+                    <h1 class="text-lg text-text-heading leading-7 tracking-[0.04px]">
+                        Apply Coupon
+                    </h1>
+                    <p class="text-xs text-text-body leading-[130%] tracking-[0.04px]">
+                        Your Cart : ₹2051
+                    </p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto p-4 flex flex-col gap-6">
+            
+            <!-- Selected Coupons Section (Hidden by default) -->
+            <section id="selected-section" class="hidden space-y-3">
+                <h2 class="text-base font-bold text-text-heading leading-7">
+                    Selected Coupons
+                </h2>
+                <div class="p-4 flex flex-col gap-2 rounded-lg border border-[#07A348] bg-[#F6FBF5] transition-all duration-300">
+                    <div class="flex justify-between items-start">
+                        <div class="flex flex-col">
+                            <h3 id="selected-code" class="text-base font-semibold text-[#008236] leading-7">
+                                <!-- Code injected here -->
+                            </h3>
+                            <p id="selected-savings" class="text-sm text-[#008236] leading-[21px] tracking-[0.04px]">
+                                <!-- Savings injected here -->
+                            </p>
+                        </div>
+                        <button onclick="removeCoupon()" class="px-0 py-1 text-sm font-medium text-[#DB0303] leading-[21px] tracking-[0.04px] hover:underline transition-all">
+                            Remove
+                        </button>
+                    </div>
+                    <div class="pt-2 border-t border-dashed border-[#07A348]/30">
+                        <p id="selected-desc" class="text-sm text-text-body leading-[21px] tracking-[0.04px]">
+                            <!-- Description injected here -->
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Available Offers Section -->
+            <section class="space-y-3">
+                <h2 class="text-base font-bold text-text-heading leading-7">
+                    Available Offers
+                </h2>
+                <div id="coupons-list" class="flex flex-col gap-3">
+                    <!-- Coupons injected via JS -->
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- JavaScript logic to handle state -->
+    <script>
+        // Coupon Data matches the user provided React code exactly
+        const availableCoupons = [
+            {
+                id: "1",
+                code: "TURF2025",
+                savings: "save ₹125 on this order!",
+                description: "Use code TURF2025 & get FLAT ₹500 Off on orders above ₹500",
+            },
+            {
+                id: "2",
+                code: "TURF2025",
+                savings: "save ₹125 on this order!",
+                description: "Use code TURF2025 & get FLAT ₹500 Off on orders above ₹500",
+            },
+            {
+                id: "3",
+                code: "TURF2025",
+                savings: "save ₹125 on this order!",
+                description: "Use code TURF2025 & get FLAT ₹500 Off on orders above ₹500",
+            },
+        ];
+
+        let selectedCouponId = null;
+
+        // Render Function
+        function render() {
+            const selectedSection = document.getElementById('selected-section');
+            const couponsList = document.getElementById('coupons-list');
+            
+            // 1. Handle Selected Section
+            if (selectedCouponId) {
+                // Determine coupon from ID. Since data is static, we can just find it.
+                // Note: User's data has duplicate IDs? No, IDs are "1", "2", "3".
+                const coupon = availableCoupons.find(c => c.id === selectedCouponId);
+                if (coupon) {
+                    selectedSection.classList.remove('hidden');
+                    // We need to recreate the HTML for the selected section or just update text.
+                    // The HTML structure for selected section provided in the body is good.
+                    // We just need to ensure the remove button works.
+                    // We can re-render the inner HTML or just update fields. 
+                    // Updating fields is cleaner if structure is static.
+                    // But wait, the section is hidden nicely.
+                    
+                    // We need to inject values into the 'selected-section' elements
+                    const codeEl = selectedSection.querySelector('h3');
+                    const savingsEl = selectedSection.querySelector('p.text-sm');
+                    const descEl = selectedSection.querySelector('.border-t p');
+                    const removeBtn = selectedSection.querySelector('button');
+
+                    if(codeEl) codeEl.textContent = coupon.code;
+                    if(savingsEl) savingsEl.textContent = coupon.savings;
+                    if(descEl) descEl.textContent = coupon.description;
+                    if(removeBtn) removeBtn.onclick = removeCoupon;
+                }
+            } else {
+                selectedSection.classList.add('hidden');
+            }
+
+            // 2. Handle Available List
+            couponsList.innerHTML = ''; // Clear list
+            
+            availableCoupons.forEach(coupon => {
+                const isSelected = selectedCouponId === coupon.id;
+                const isDisabled = selectedCouponId !== null && selectedCouponId !== coupon.id;
+
+                // Container classes
+                let containerClasses = "p-4 flex flex-col gap-2 rounded-lg border transition-all ";
+                if (isDisabled) {
+                    containerClasses += "border-container-border bg-white opacity-60";
+                } else {
+                    containerClasses += "border-container-border bg-white";
+                }
+
+                // Text coloring
+                const titleColor = isDisabled ? "text-text-inverse" : "text-black";
+                const savingsColor = isDisabled ? "text-text-inverse" : "text-[#008236]";
+                const descColor = isDisabled ? "text-text-inverse" : "text-text-body";
+                const buttonClass = isDisabled 
+                    ? "text-text-inverse cursor-not-allowed" 
+                    : "text-[#008236] hover:underline";
+
+                const card = document.createElement('div');
+                card.className = containerClasses;
+
+                // Inner HTML
+                let buttonHtml = '';
+                if (!isSelected) {
+                    buttonHtml = `<button 
+                        onclick="applyCoupon('${coupon.id}')" 
+                        ${isDisabled ? 'disabled' : ''}
+                        class="px-0 py-1 text-sm leading-[21px] tracking-[0.04px] transition-all ${buttonClass}">
+                        Apply
+                    </button>`;
+                }
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div class="flex flex-col">
+                            <h3 class="text-base font-semibold leading-7 ${titleColor}">
+                                ${coupon.code}
+                            </h3>
+                            <p class="text-sm leading-[21px] tracking-[0.04px] ${savingsColor}">
+                                ${coupon.savings}
+                            </p>
+                        </div>
+                        ${buttonHtml}
+                    </div>
+                    <div class="pt-2 border-t border-dashed border-container-border">
+                        <p class="text-xs leading-[18px] ${descColor}">
+                            ${coupon.description}
+                        </p>
+                    </div>
+                `;
+
+                couponsList.appendChild(card);
+            });
+        }
+
+        // Actions
+        function applyCoupon(id) {
+            selectedCouponId = id;
+            localStorage.setItem('couponApplied', 'true');
+            localStorage.setItem('selectedCouponId', id); // Save the ID
+            render();
+        }
+
+        function removeCoupon() {
+            selectedCouponId = null;
+            localStorage.setItem('couponApplied', 'false');
+            localStorage.removeItem('selectedCouponId'); // Remove the ID
+            render();
+        }
+
+        // Initial Render & State Restoration
+        window.addEventListener('load', () => {
+            const storedId = localStorage.getItem('selectedCouponId');
+            if (storedId) {
+                selectedCouponId = storedId;
+            }
+            render();
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Slot - The Multisports Turf</title>
+    
+    <!-- Utility CSS -->
+    <link rel="stylesheet" href="utility.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'text-heading': 'hsl(0, 0%, 10%)',
+                        'text-body': 'hsl(0, 0%, 24%)',
+                        'text-inverse': 'hsl(0, 0%, 64%)',
+                        'text-brand': 'hsl(150, 100%, 26%)',
+                        'brand-green': 'hsl(145, 94%, 34%)',
+                        'brand-green-dark': 'hsl(128, 100%, 21%)',
+                        'bg-page': 'hsl(0, 0%, 100%)',
+                        'container-border': 'hsl(0, 0%, 84%)',
+                        'partial': 'hsl(43, 94%, 47%)',
+                        'available': 'hsl(75, 99%, 34%)',
+                        'sold': 'hsl(0, 0%, 93%)',
+                        'selected': 'hsl(150, 100%, 26%)',
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                        'lato': ['Lato', 'sans-serif'], // From utility.css
+                    },
+                    maxWidth: {
+                        'booking': '430px',
+                    },
+                    boxShadow: {
+                        'filter': '0 2px 4px 0 rgba(0,0,0,0.2)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .scrollbar-hide {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f5f5; /* Page background outside mobile container */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="min-h-screen bg-white max-w-booking mx-auto relative flex flex-col shadow-2xl">
+        
+        <!-- Top Navigation - Sticky -->
+        <div class="sticky top-0 z-50 bg-white border-b border-container-border px-1 py-2 flex items-center gap-2">
+            <button onclick="window.location.href='TurfDetails.html'" class="w-12 h-12 flex items-center justify-center hover:bg-gray-50 rounded-full transition-colors">
+                <i data-lucide="chevron-left" class="w-6 h-6 text-text-heading"></i>
+            </button>
+            <div class="flex-1">
+                <h1 class="text-lg font-normal text-text-heading leading-7">
+                    The Multisports Turf
+                </h1>
+                <p class="text-xs text-text-body leading-tight">
+                    Manpada, Thane west , Mumbai
+                </p>
+            </div>
+        </div>
+
+        <!-- Month Display - Sticky -->
+        <div class="sticky top-[64px] z-40 bg-white py-2 text-center border-b border-container-border">
+            <span class="text-sm font-semibold text-text-heading capitalize">December</span>
+        </div>
+
+        <!-- Calendar - Sticky -->
+        <div class="sticky top-[105px] z-40 bg-white py-2 px-2 flex items-center gap-1 h-[74px]">
+            <button class="flex-shrink-0 w-8 h-full flex items-center justify-center">
+                <i data-lucide="chevron-left" class="w-6 h-6 text-text-heading" stroke-width="1.5"></i>
+            </button>
+
+            <div id="days-container" class="flex-1 flex gap-1 overflow-x-auto scrollbar-hide">
+                <!-- Days will be injected here by JS -->
+            </div>
+
+            <button class="flex-shrink-0 w-8 h-full flex items-center justify-center">
+                <i data-lucide="chevron-right" class="w-6 h-6 text-text-heading" stroke-width="1.5"></i>
+            </button>
+        </div>
+
+        <!-- Squad Size Selector - Sticky -->
+        <div class="sticky top-[178px] z-30 bg-[#FAFAFA] border-b border-container-border">
+            <button
+                onclick="toggleSquadSelector()"
+                class="w-full px-4 py-3 flex items-center justify-between hover:bg-gray-50 transition-colors"
+            >
+                <div class="flex items-center gap-2">
+                    <span class="text-sm font-medium text-text-heading whitespace-nowrap">
+                        Select Squad Size
+                    </span>
+                    <div id="selected-squad-display" class="px-4 py-1 rounded-2xl border border-[#B2B2B2] text-xs text-text-brand">
+                        8v8
+                    </div>
+                </div>
+                <i id="squad-chevron" data-lucide="chevron-down" class="w-4 h-4 flex-shrink-0" stroke-width="1.5"></i>
+            </button>
+
+            <!-- Squad Size Options -->
+            <div id="squad-options" class="hidden px-4 pb-4 pt-4 flex gap-4 bg-white border-b border-container-border animate-in slide-in-from-top duration-200">
+                <div id="squad-buttons-container" class="flex flex-col gap-3 w-fit">
+                    <!-- Squad buttons injected by JS -->
+                </div>
+                <!-- Visual placeholder for squad size -->
+                <div class="w-40 h-40 rounded-[9px] bg-[#22C55E] flex-shrink-0"></div>
+            </div>
+        </div>
+
+        <!-- Time Filters - Sticky -->
+        <div class="sticky top-[226px] z-20 bg-white px-4 py-3 flex items-center gap-2.5 shadow-filter">
+            <div id="filters-container" class="flex gap-2.5">
+                <!-- Filters injected by JS -->
+            </div>
+        </div>
+
+        <!-- Slot Legend - Sticky -->
+        <div class="sticky top-[274px] z-20 px-4 py-3 flex items-center gap-3 bg-white border-b border-container-border overflow-x-auto scrollbar-hide">
+            <div class="flex items-center gap-2 flex-shrink-0">
+                <div class="w-5 h-5 rounded bg-partial"></div>
+                <span class="text-xs text-black whitespace-nowrap">Partial</span>
+            </div>
+            <div class="flex items-center gap-2 flex-shrink-0">
+                <div class="w-5 h-5 rounded border border-available"></div>
+                <span class="text-xs text-black whitespace-nowrap">Available</span>
+            </div>
+            <div class="flex items-center gap-2 flex-shrink-0">
+                <div class="w-5 h-5 rounded bg-sold"></div>
+                <span class="text-xs text-black whitespace-nowrap">Sold</span>
+            </div>
+            <div class="flex items-center gap-2 flex-shrink-0">
+                <div class="w-5 h-5 rounded bg-selected"></div>
+                <span class="text-xs text-black whitespace-nowrap">Selected</span>
+            </div>
+        </div>
+
+        <!-- Time Slots Grid - Scrollable -->
+        <div class="flex-1 overflow-y-auto pb-24 px-4 pt-4">
+            <div id="slots-grid" class="grid grid-cols-2 gap-4">
+                <!-- Slots injected by JS -->
+            </div>
+        </div>
+
+        <!-- Bottom Bar - Sticky -->
+        <div class="sticky bottom-0 z-50 bg-white border-t border-container-border px-4 py-3 flex items-center justify-between gap-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+            <button
+                onclick="openBottomSheet()"
+                class="flex items-center gap-1 text-text-heading hover:opacity-80 transition-opacity"
+            >
+                <span class="font-semibold">3 Slots</span>
+                <i data-lucide="chevron-up" class="w-4 h-4"></i>
+            </button>
+            <button onclick="window.location.href='Checkout.html'" class="flex-1 max-w-[201px] bg-selected text-white font-semibold rounded-lg px-5 py-2.5 flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+                <span>Pay</span>
+                <span>₹1500</span>
+            </button>
+        </div>
+
+        <!-- Bottom Sheet Overlay -->
+        <div id="bottom-sheet-overlay" onclick="closeBottomSheet()" class="fixed inset-0 bg-black/20 z-[60] hidden transition-opacity"></div>
+        
+        <!-- Bottom Sheet Content -->
+        <div id="bottom-sheet-content" class="fixed bottom-0 left-0 right-0 z-[70] max-w-booking mx-auto bg-white rounded-t-lg shadow-2xl transition-transform transform translate-y-full duration-300">
+            <div class="bg-[#F5F5F5] px-4 py-2 flex items-center justify-between rounded-t-lg">
+                <span class="text-sm text-text-heading font-medium">Confirm Your Slot</span>
+                <button onclick="closeBottomSheet()">
+                    <i data-lucide="x" class="w-5 h-5 text-text-heading"></i>
+                </button>
+            </div>
+            
+            <div class="pb-4">
+                <div id="selected-slots-list">
+                    <!-- Selected slots static data -->
+                    <div class="px-4 py-2 border-b border-container-border">
+                        <div class="text-sm font-medium text-text-heading leading-tight">
+                            12 AM- 12.30 PM
+                        </div>
+                        <div class="text-xs text-text-body mt-1">
+                            7v7 (Half 1)
+                        </div>
+                    </div>
+                    <div class="px-4 py-2 border-b border-container-border">
+                        <div class="text-sm font-medium text-text-heading leading-tight">
+                            12 AM- 12.30 PM
+                        </div>
+                        <div class="text-xs text-text-body mt-1">
+                            7v7 (Half 2)
+                        </div>
+                    </div>
+                    <div class="px-4 py-2 border-b border-container-border">
+                        <div class="text-sm font-medium text-text-heading leading-tight">
+                            12 AM- 12.30 PM
+                        </div>
+                        <div class="text-xs text-text-body mt-1">
+                            7v7 (Half 1)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="px-4 pt-4">
+                    <button onclick="closeBottomSheet()" class="w-full bg-brand-green-dark text-white font-semibold rounded-lg px-5 py-2.5 hover:opacity-90 transition-opacity">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // --- Data ---
+        let days = [
+            { day: "Mon", date: 10, state: "disabled" },
+            { day: "Tue", date: 11, state: "selected" },
+            { day: "Wed", date: 12, state: "rest" },
+            { day: "Thu", date: 13, state: "rest" },
+            { day: "Fri", date: 14, state: "rest" },
+            { day: "Sat", date: 15, state: "rest" },
+        ];
+
+        let slots = [
+            { time: "16:00 to 16:30", price: 750, state: "sold" },
+            { time: "16:30 - 17:00", price: 750, state: "sold" },
+            { time: "17:00 to 17:30", price: 750, state: "sold" },
+            { time: "17:30 - 18:00", price: 750, state: "available" },
+            { time: "18:00 to 18:30", price: 750, state: "available" },
+            { time: "18:30 - 19:00", price: 750, state: "partial" },
+            { time: "19:00 to 19:30", price: 750, state: "available" },
+            { time: "19:30 - 20:00", price: 750, state: "selected" },
+            { time: "20:00 to 20:30", price: 750, state: "sold" },
+            { time: "20:30 - 21:00", price: 750, state: "available" },
+        ];
+
+        const squadSizes = [
+            "5-a-side (5v5)",
+            "7-a-side (7v7)",
+            "8v8",
+            "9-a-side (9v9)",
+        ];
+
+        const filters = ["Morning", "Afternoon", "Evening"];
+        
+        // --- State ---
+        let selectedSquad = "8v8";
+        let isSquadOpen = false;
+        let activeFilter = null;
+        let isBottomSheetOpen = false;
+
+        // --- Render Functions ---
+
+        function renderDays() {
+            const container = document.getElementById('days-container');
+            container.innerHTML = '';
+            
+            days.forEach((day, index) => {
+                const btn = document.createElement('button');
+                btn.className = "flex-1 min-w-[50px] flex flex-col items-center justify-center gap-1 py-1 px-2 transition-all";
+                if (day.state === "disabled") btn.disabled = true;
+                btn.onclick = () => handleDayClick(index);
+
+                // Text Color Logic
+                let textClass = "text-text-body";
+                if (day.state === "selected") textClass = "text-text-brand";
+                else if (day.state === "disabled") textClass = "text-text-inverse";
+
+                // Number Render Logic
+                let dateHtml = '';
+                if (day.state === "selected") {
+                    dateHtml = `<div class="w-7 h-7 rounded-full bg-brand-green flex items-center justify-center shadow-sm">
+                        <span class="text-lg font-semibold text-white leading-7">${day.date}</span>
+                    </div>`;
+                } else {
+                    let dateTextClass = "text-text-heading";
+                    if(day.state === "disabled") dateTextClass = "text-text-inverse";
+                    dateHtml = `<div class="text-lg font-semibold leading-7 ${dateTextClass}">${day.date}</div>`;
+                }
+
+                btn.innerHTML = `
+                    <div class="text-xs font-semibold leading-tight tracking-tight ${textClass}">${day.day}</div>
+                    ${dateHtml}
+                `;
+                container.appendChild(btn);
+            });
+        }
+
+        function renderSquadOptions() {
+            const container = document.getElementById('squad-buttons-container');
+            container.innerHTML = '';
+            
+            squadSizes.forEach(size => {
+                const btn = document.createElement('button');
+                const isSelected = selectedSquad === size;
+                btn.className = `px-4 py-1 h-7 rounded-2xl text-xs transition-all flex items-center justify-center whitespace-nowrap ${
+                    isSelected 
+                    ? "bg-brand-green text-white" 
+                    : "border border-[#B2B2B2] text-text-heading hover:bg-gray-50 bg-white"
+                }`;
+                btn.textContent = size;
+                btn.onclick = () => selectSquad(size);
+                container.appendChild(btn);
+            });
+            
+            // Update display trigger
+            document.getElementById('selected-squad-display').textContent = selectedSquad;
+            
+            // Toggle Chevron
+            const chevron = document.getElementById('squad-chevron');
+            if (isSquadOpen) {
+                chevron.setAttribute('data-lucide', 'chevron-up');
+                document.getElementById('squad-options').classList.remove('hidden');
+            } else {
+                chevron.setAttribute('data-lucide', 'chevron-down');
+                document.getElementById('squad-options').classList.add('hidden');
+            }
+            lucide.createIcons();
+        }
+
+        function renderFilters() {
+            const container = document.getElementById('filters-container');
+            container.innerHTML = '';
+            
+            filters.forEach(filter => {
+                const btn = document.createElement('button');
+                const isActive = activeFilter === filter;
+                btn.className = `px-4 py-1 rounded-2xl text-xs whitespace-nowrap transition-all ${
+                    isActive 
+                    ? "bg-brand-green text-white font-medium" 
+                    : "bg-white border border-[#B2B2B2] text-text-heading hover:bg-gray-50"
+                }`;
+                btn.textContent = filter;
+                btn.onclick = () => toggleFilter(filter);
+                container.appendChild(btn);
+            });
+        }
+
+        function renderSlots() {
+            const container = document.getElementById('slots-grid');
+            container.innerHTML = '';
+
+            slots.forEach((slot, index) => {
+                const btn = document.createElement('button');
+                btn.onclick = () => handleSlotClick(index);
+                btn.disabled = slot.state === "sold";
+
+                let baseClasses = "flex flex-col items-center justify-center rounded-lg h-[70px] cursor-pointer transition-all border";
+                let colorClasses = "";
+
+                switch (slot.state) {
+                    case "available":
+                        colorClasses = "bg-white border-2 border-available hover:bg-gray-50";
+                        break;
+                    case "selected":
+                        colorClasses = "bg-selected text-white font-semibold border-selected";
+                        break;
+                    case "partial":
+                        colorClasses = "bg-white border-2 border-partial text-text-heading hover:bg-gray-50";
+                        break;
+                    case "partial-selected":
+                        colorClasses = "bg-partial text-text-heading font-semibold border-2 border-partial";
+                        break;
+                    case "sold":
+                        colorClasses = "bg-sold text-text-inverse cursor-not-allowed border-transparent";
+                        break;
+                    default:
+                        colorClasses = "bg-white border-container-border text-text-inverse";
+                }
+                
+                btn.className = `${baseClasses} ${colorClasses}`;
+                
+                const isBold = slot.state === "selected" || slot.state === "partial-selected";
+
+                btn.innerHTML = `
+                    <div class="text-sm ${isBold ? 'font-semibold' : ''}">${slot.time}</div>
+                    <div class="text-sm ${isBold ? 'font-semibold' : ''}">₹${slot.price}</div>
+                `;
+                
+                container.appendChild(btn);
+            });
+        }
+
+        // --- Actions ---
+
+        function handleDayClick(index) {
+            if (days[index].state === "disabled") return;
+            
+            days = days.map((day, i) => {
+                if (i === index) return { ...day, state: "selected" };
+                if (day.state === "selected") return { ...day, state: "rest" };
+                return day;
+            });
+            renderDays();
+        }
+
+        function handleSlotClick(index) {
+            const currentState = slots[index].state;
+            
+            if (currentState === "available") {
+                slots[index].state = "selected";
+            } else if (currentState === "selected") {
+                slots[index].state = "available";
+            } else if (currentState === "partial") {
+                slots[index].state = "partial-selected";
+            } else if (currentState === "partial-selected") {
+                slots[index].state = "partial";
+            }
+            renderSlots();
+        }
+
+        function toggleSquadSelector() {
+            isSquadOpen = !isSquadOpen;
+            renderSquadOptions();
+        }
+
+        function selectSquad(size) {
+            selectedSquad = size;
+            renderSquadOptions(); // Re-render to show selection
+        }
+
+        function toggleFilter(filter) {
+            activeFilter = activeFilter === filter ? null : filter;
+            renderFilters();
+        }
+
+        function openBottomSheet() {
+            document.getElementById('bottom-sheet-overlay').classList.remove('hidden');
+            document.getElementById('bottom-sheet-content').classList.remove('translate-y-full');
+        }
+
+        function closeBottomSheet() {
+            document.getElementById('bottom-sheet-content').classList.add('translate-y-full');
+            setTimeout(() => {
+                document.getElementById('bottom-sheet-overlay').classList.add('hidden');
+            }, 300); // Wait for transition
+        }
+
+        // --- Initialization ---
+        window.onload = () => {
+            renderDays();
+            renderSquadOptions();
+            renderFilters();
+            renderSlots();
+            lucide.createIcons();
+        };
+
+    </script>
+</body>
+</html>

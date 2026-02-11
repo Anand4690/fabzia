@@ -23,7 +23,7 @@
         name: "Anand",
         email: "anand@gmail.com",
         phone: "+91 12345-54321",
-        selectedSport: "",
+        selectedSports: [], // Changed to array for multi-select
         address: "",
         whatsappCommunity: false,
         instagramCommunity: false,
@@ -37,6 +37,7 @@
     const dropdownArrow = document.getElementById('dropdownArrow');
     const sportDropdownList = document.getElementById('sportDropdownList');
     const selectedSportText = document.getElementById('selectedSportText');
+    const selectedSportsChips = document.getElementById('selectedSportsChips');
     const whatsappCheckbox = document.getElementById('whatsappCheckbox');
     const instagramCheckbox = document.getElementById('instagramCheckbox');
     const updateBtn = document.getElementById('updateBtn');
@@ -63,9 +64,13 @@
     function populateSportsDropdown() {
         SPORTS_LIST.forEach(sport => {
             const btn = document.createElement('button');
-            btn.className = 'w-full px-4 py-3 text-left text-[var(--text-body)] font-inter text-[16px] font-medium hover:bg-gray-50 transition-colors';
+            btn.className = 'dropdown-option w-full px-4 py-3 text-left text-[var(--text-body)] font-inter text-[16px] font-medium hover:bg-gray-50 transition-colors';
             btn.textContent = sport;
-            btn.addEventListener('click', () => selectSport(sport));
+            btn.dataset.sport = sport;
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleSportSelection(sport);
+            });
             sportDropdownList.appendChild(btn);
         });
     }
@@ -156,24 +161,95 @@
         }
     }
 
-    function selectSport(sport) {
-        state.selectedSport = sport;
-        selectedSportText.textContent = sport;
-        toggleDropdown(false);
-        // Optional: Add visual feedback for selection if desired
-        selectedSportText.classList.add('text-[var(--text-heading)]');
+    function toggleSportSelection(sport) {
+        const index = state.selectedSports.indexOf(sport);
+        
+        if (index > -1) {
+            // Remove sport
+            state.selectedSports.splice(index, 1);
+        } else {
+            // Add sport
+            state.selectedSports.push(sport);
+        }
+
+        updateSportsUI();
+    }
+
+    function removeSport(sport) {
+        const index = state.selectedSports.indexOf(sport);
+        if (index > -1) {
+            state.selectedSports.splice(index, 1);
+            updateSportsUI();
+        }
+    }
+
+    function updateSportsUI() {
+        // Update dropdown button text
+        if (state.selectedSports.length === 0) {
+            selectedSportText.textContent = "Sports Preference";
+            selectedSportText.classList.remove('text-[var(--text-heading)]');
+        } else if (state.selectedSports.length === 1) {
+            selectedSportText.textContent = state.selectedSports[0];
+            selectedSportText.classList.add('text-[var(--text-heading)]');
+        } else {
+            selectedSportText.textContent = `${state.selectedSports.length} Sports Selected`;
+            selectedSportText.classList.add('text-[var(--text-heading)]');
+        }
+
+        // Update dropdown options to show selected state
+        const allOptions = sportDropdownList.querySelectorAll('.dropdown-option');
+        allOptions.forEach(option => {
+            const sport = option.dataset.sport;
+            if (state.selectedSports.includes(sport)) {
+                option.classList.add('selected');
+            } else {
+                option.classList.remove('selected');
+            }
+        });
+
+        // Update chips display
+        if (state.selectedSports.length > 0) {
+            selectedSportsChips.classList.remove('hidden');
+            selectedSportsChips.innerHTML = '';
+            
+            state.selectedSports.forEach(sport => {
+                const chip = createSportChip(sport);
+                selectedSportsChips.appendChild(chip);
+            });
+        } else {
+            selectedSportsChips.classList.add('hidden');
+        }
+    }
+
+    function createSportChip(sport) {
+        const chip = document.createElement('div');
+        chip.className = 'sport-chip';
+        
+        const sportName = document.createElement('span');
+        sportName.textContent = sport;
+        
+        const removeBtn = document.createElement('button');
+        removeBtn.innerHTML = `
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 3L3 9M3 3L9 9" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        `;
+        removeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            removeSport(sport);
+        });
+        
+        chip.appendChild(sportName);
+        chip.appendChild(removeBtn);
+        
+        return chip;
     }
 
     function updateCheckboxUI(btnElement, isChecked) {
         const indicator = btnElement.querySelector('.indicator');
-        const circle = btnElement.querySelector('div:first-child'); // The outer circle container
         
         if (isChecked) {
             indicator.classList.remove('scale-0');
-            // Make border green if selected? Design usually keeps border or changes it. React code kept border-#0F172A.
-            // Let's keep it consistent with React code: border is present, checkmark appears.
-            // Actually React code: w-5 h-5 rounded-full border-[1.5px] border-[#0F172A] ...
-            // The checkmark is a green dot.
         } else {
             indicator.classList.add('scale-0');
         }
@@ -190,8 +266,6 @@
         setTimeout(() => {
             updateBtn.querySelector('span').textContent = originalText;
             updateBtn.classList.remove('bg-green-700');
-            // Assuming navigation back or stay? User didn't specify.
-            // Usually updates stay or show toast. I'll show toast-like behavior on button.
         }, 1500);
     }
 
@@ -199,3 +273,4 @@
     init();
 
 })();
+

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select City - Fabzia Turf</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Utility CSS (Contains Font and Root Variables) -->
+    <link rel="stylesheet" href="utility.css">
+    
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Custom scrollbar hiding */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            font-family: 'Inter', 'Lato', sans-serif;
+        }
+
+        /* Mobile Container */
+        .mobile-container {
+            max-width: 430px;
+            margin: 0 auto;
+            background-color: #FFFEFE;
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        /* Search input focus styles - Black border */
+        .search-input:focus {
+            outline: none;
+            border-color: var(--black);
+            box-shadow: 0 0 0 1px var(--black);
+        }
+
+        /* City card styles */
+        .city-card {
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid #D7D7D7;
+        }
+
+        .city-card:hover {
+            border-color: var(--green);
+            background-color: #f0fdf4;
+        }
+
+        .city-card.selected {
+            border-color: var(--green);
+            background-color: #e8f5e9;
+            position: relative;
+        }
+
+        .city-card.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 24px;
+            height: 24px;
+            background-color: var(--green);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* Continue button disabled state - Grey */
+        #continueBtn:disabled {
+            background-color: var(--black-700);
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        /* Continue button enabled state - Green */
+        #continueBtn:not(:disabled) {
+            background-color: var(--green);
+        }
+
+        #continueBtn:not(:disabled):hover {
+            opacity: 0.9;
+        }
+
+        /* Popular badge */
+        .popular-badge {
+            background-color: var(--green);
+            color: white;
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container flex flex-col">
+        <!-- Main Content -->
+        <main class="flex-1 px-4 pt-8 pb-24 overflow-y-auto scrollbar-hide">
+            <!-- Header Section -->
+            <div class="flex flex-col gap-2 mb-6">
+                <!-- Back Button -->
+                <button onclick="window.history.back()" class="flex items-center justify-center w-12 h-12 -ml-3 hover:bg-gray-50 rounded-full transition-colors self-start">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M16.9662 5.25017L10.2162 12.0002L16.9662 18.7502L15.3752 20.3412L7.03418 12.0002L15.3752 3.65918L16.9662 5.25017Z" fill="var(--text-heading)"/>
+                    </svg>
+                </button>
+
+                <!-- Title and Description -->
+                <div class="flex flex-col gap-1">
+                    <h1 class="text-[var(--text-heading)] text-[20px] font-semibold leading-[28px] tracking-[0.04px]">
+                        Select Your City
+                    </h1>
+                    <p class="text-[var(--text-body)] text-[14px] font-normal leading-[1.5]">
+                        Choose your city to find nearby turfs
+                    </p>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="mb-6">
+                <div class="relative">
+                    <svg class="absolute left-3 top-1/2 transform -translate-y-1/2" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 17C13.4183 17 17 13.4183 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17Z" stroke="var(--text-body)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M19 19L14.65 14.65" stroke="var(--text-body)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <input
+                        id="searchInput"
+                        type="text"
+                        placeholder="Search for your city"
+                        class="search-input w-full h-12 pl-11 pr-4 border border-[#D7D7D7] rounded bg-white text-[var(--text-heading)] text-[16px] font-normal leading-[28px] placeholder:text-[var(--text-body)] transition-all"
+                    />
+                </div>
+            </div>
+
+            <!-- Popular Cities Section -->
+            <div class="mb-4">
+                <h2 class="text-[var(--text-heading)] text-[16px] font-semibold mb-3">
+                    Popular Cities
+                </h2>
+            </div>
+
+            <!-- Cities Grid -->
+            <div id="citiesGrid" class="grid grid-cols-2 gap-3 mb-6">
+                <!-- Cities will be dynamically added here -->
+            </div>
+
+            <!-- All Cities Section -->
+            <div class="mb-4">
+                <h2 class="text-[var(--text-heading)] text-[16px] font-semibold mb-3">
+                    All Cities
+                </h2>
+            </div>
+
+            <!-- All Cities List -->
+            <div id="allCitiesList" class="flex flex-col gap-3">
+                <!-- Cities will be dynamically added here -->
+            </div>
+        </main>
+
+        <!-- Sticky Bottom Button -->
+        <div class="fixed bottom-0 left-0 right-0 max-w-[430px] mx-auto bg-white border-t border-[#D7D7D7] px-4 py-4 z-30">
+            <button
+                id="continueBtn"
+                class="w-full h-12 text-white rounded font-semibold text-[18px] leading-[28px] transition-all shadow-sm"
+                disabled
+            >
+                Continue
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script src="Js/SelectCity.js"></script>
+</body>
+</html>

@@ -25,6 +25,53 @@
             background: #D7D7D7;
             border-radius: 2px;
         }
+        
+        /* Chip styles for selected sports */
+        .sport-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background-color: var(--green);
+            color: white;
+            border-radius: 16px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .sport-chip:hover {
+            background-color: #046c4e;
+        }
+
+        .sport-chip button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3);
+            transition: background-color 0.2s ease;
+        }
+
+        .sport-chip button:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Dropdown option selected state */
+        .dropdown-option.selected {
+            background-color: #e8f5e9;
+            position: relative;
+        }
+
+        .dropdown-option.selected::after {
+            content: '✓';
+            position: absolute;
+            right: 16px;
+            color: var(--green);
+            font-weight: bold;
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-lato text-[var(--text-body)] antialiased flex items-center justify-center min-h-screen">
@@ -95,16 +142,23 @@
                 </div>
 
                 <!-- Sports Preference Dropdown -->
-                <div class="relative">
-                    <button id="sportDropdownBtn" class="flex w-full h-12 px-[10px] justify-between items-center rounded-[4px] border border-[var(--black-700)] bg-[var(--white-pure)] hover:bg-gray-50 transition-colors">
-                        <span id="selectedSportText" class="text-[var(--text-body)] font-inter text-[16px] font-medium leading-[28px]">Sports Preference</span>
-                        <svg id="dropdownArrow" class="transition-transform duration-300" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 15.4L6 9.4L7.4 8L12 12.6L16.6 8L18 9.4L12 15.4Z" fill="var(--text-heading)"/>
-                        </svg>
-                    </button>
-                    <!-- Dropdown Menu -->
-                    <div id="sportDropdownList" class="absolute top-full left-0 right-0 mt-1 bg-[var(--white-pure)] border border-[var(--bg-container)] rounded-[4px] shadow-lg max-h-60 overflow-y-auto hidden z-30 scrollbar-custom">
-                        <!-- Options injected by JS -->
+                <div class="flex flex-col gap-2">
+                    <div class="relative">
+                        <button id="sportDropdownBtn" class="flex w-full h-12 px-[10px] justify-between items-center rounded-[4px] border border-[var(--black-700)] bg-[var(--white-pure)] hover:bg-gray-50 transition-colors">
+                            <span id="selectedSportText" class="text-[var(--text-body)] font-inter text-[16px] font-medium leading-[28px]">Sports Preference</span>
+                            <svg id="dropdownArrow" class="transition-transform duration-300" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 15.4L6 9.4L7.4 8L12 12.6L16.6 8L18 9.4L12 15.4Z" fill="var(--text-heading)"/>
+                            </svg>
+                        </button>
+                        <!-- Dropdown Menu -->
+                        <div id="sportDropdownList" class="absolute top-full left-0 right-0 mt-1 bg-[var(--white-pure)] border border-[var(--bg-container)] rounded-[4px] shadow-lg max-h-60 overflow-y-auto hidden z-30 scrollbar-custom">
+                            <!-- Options injected by JS -->
+                        </div>
+                    </div>
+                    
+                    <!-- Selected Sports Chips -->
+                    <div id="selectedSportsChips" class="flex flex-wrap gap-2 min-h-[32px] hidden">
+                        <!-- Chips will be dynamically added here -->
                     </div>
                 </div>
 

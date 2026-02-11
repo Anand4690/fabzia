@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Fabzia Turf</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Utility CSS (Contains Font and Root Variables) -->
+    <link rel="stylesheet" href="utility.css">
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'success-green': '#046c4e',
+                        'success-green-foreground': '#ffffff',
+                        'phonepe-purple': '#5f259f',
+                        'container-border': '#e5e5e5',
+                        'bg-gray': '#f5f5f5',
+                        'text-heading': 'hsl(0, 0%, 6%)',
+                        'text-body': 'hsl(0, 0%, 30%)',
+                        'text-inverse': 'hsl(0, 0%, 70%)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom scrollbar hiding */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            font-family: 'Lato', sans-serif;
+        }
+
+        /* Mobile Container */
+        .mobile-container {
+            max-width: 430px;
+            margin: 0 auto;
+            background-color: var(--white-pure);
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        /* Fix checkbox blur issue - Force hardware acceleration and proper rendering */
+        input[type="checkbox"] {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+
+        /* Prevent text blur on checkbox state change */
+        label, span, p, div {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transform: translateZ(0);
+        }
+
+        /* Custom checkbox styles to prevent blur */
+        .custom-checkbox {
+            position: relative;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .custom-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+
+        .custom-checkbox .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            border: 2px solid #9ca3af;
+            border-radius: 4px;
+            background-color: white;
+            transition: all 0.2s ease;
+            will-change: background-color, border-color;
+        }
+
+        .custom-checkbox input:checked ~ .checkmark {
+            background-color: var(--text-heading);
+            border-color: var(--text-heading);
+        }
+
+        .custom-checkbox .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .custom-checkbox input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        /* Smooth transitions for expandable sections */
+        .expandable-content {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            overflow: hidden;
+        }
+
+        /* PhonePe icon styling */
+        .phonepe-icon {
+            width: 24px;
+            height: 24px;
+            background: #5f259f;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Modal Transitions */
+        .modal-enter {
+            opacity: 1 !important;
+        }
+        .modal-enter .modal-content {
+            transform: scale(1) !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container flex flex-col">
+        <!-- Sticky Header -->
+        <header class="sticky top-0 z-40 bg-white border-b border-container-border">
+            <div class="flex items-center gap-3 px-4 py-3">
+                <button
+                    class="p-2 -ml-2 hover:bg-gray-50 rounded-lg transition-colors"
+                    aria-label="Go back"
+                    onclick="handleBackClick()"
+                >
+                    <!-- Arrow Left Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-text-heading">
+                        <path d="m12 19-7-7 7-7"/>
+                        <path d="M19 12H5"/>
+                    </svg>
+                </button>
+                <h1 class="text-lg font-medium text-text-heading">
+                    The Multisports Turf
+                </h1>
+            </div>
+        </header>
+
+        <!-- Main Content - Scrollable -->
+        <main class="flex-1 overflow-y-auto pb-4">
+            <!-- Slot Details Section -->
+            <section class="border-b border-container-border">
+                <button
+                    onclick="toggleSlotDetails()"
+                    class="w-full px-4 py-3 flex items-center justify-between hover:bg-gray-50 transition-colors"
+                >
+                    <div class="text-left">
+                        <h2 class="text-base font-medium text-text-heading leading-7">
+                            Slot Details (5)
+                        </h2>
+                        <p id="slot-date" class="text-sm text-text-body leading-[21px] tracking-[0.04px] mt-0.5 hidden">
+                            Feb 15
+                        </p>
+                    </div>
+                    <div class="w-10 h-10 flex items-center justify-center rounded-full bg-bg-gray flex-shrink-0">
+                        <!-- Chevron Down Icon -->
+                        <svg id="slot-chevron-down" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-text-heading">
+                            <path d="m6 9 6 6 6-6"/>
+                        </svg>
+                        <!-- Chevron Up Icon -->
+                        <svg id="slot-chevron-up" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-text-heading hidden">
+                            <path d="m18 15-6-6-6 6"/>
+                        </svg>
+                    </div>
+                </button>
+
+                <!-- Expandable Slot Details Content -->
+                <div id="slot-details-content" class="expandable-content max-h-0 opacity-0">
+                    <div class="px-4 pb-4">
+                        <!-- Horizontal Scrollable Slots -->
+                        <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                            <div class="flex-shrink-0 w-[147px] px-0 py-3 flex flex-col items-center gap-1 border border-container-border rounded-lg bg-white">
+                                <p class="text-sm font-medium text-text-heading text-center leading-[21px] tracking-[0.04px]">
+                                    12 AM- 12.30 PM
+                                </p>
+                                <p class="text-xs text-text-body text-center leading-[18px]">
+                                    7v7 (Half 1)
+                                </p>
+                            </div>
+                            <div class="flex-shrink-0 w-[147px] px-0 py-3 flex flex-col items-center gap-1 border border-container-border rounded-lg bg-white">
+                                <p class="text-sm font-medium text-text-heading text-center leading-[21px] tracking-[0.04px]">
+                                    1 PM- 2.30 PM
+                                </p>
+                                <p class="text-xs text-text-body text-center leading-[18px]">
+                                    5v5 (Half 2)
+                                </p>
+                            </div>
+                            <div class="flex-shrink-0 w-[147px] px-0 py-3 flex flex-col items-center gap-1 border border-container-border rounded-lg bg-white">
+                                <p class="text-sm font-medium text-text-heading text-center leading-[21px] tracking-[0.04px]">
+                                    1 PM- 2.30 PM
+                                </p>
+                                <p class="text-xs text-text-body text-center leading-[18px]">
+                                    5v5 (Half 2)
+                                </p>
+                            </div>
+                            <div class="flex-shrink-0 w-[147px] px-0 py-3 flex flex-col items-center gap-1 border border-container-border rounded-lg bg-white">
+                                <p class="text-sm font-medium text-text-heading text-center leading-[21px] tracking-[0.04px]">
+                                    1 PM- 2.30 PM
+                                </p>
+                                <p class="text-xs text-text-body text-center leading-[18px]">
+                                    5v5 (Half 2)
+                                </p>
+                            </div>
+                            <div class="flex-shrink-0 w-[147px] px-0 py-3 flex flex-col items-center gap-1 border border-container-border rounded-lg bg-white">
+                                <p class="text-sm font-medium text-text-heading text-center leading-[21px] tracking-[0.04px]">
+                                    12 AM- 12.30 PM
+                                </p>
+                                <p class="text-xs text-text-body text-center leading-[18px]">
+                                    7v7 (Half 1)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Booking Summary -->
+            <section class="px-4 py-6 space-y-6">
+                <h2 class="text-base font-medium text-text-heading">
+                    Booking summary
+                </h2>
+
+                <!-- Total Amount -->
+                <div class="border border-container-border rounded bg-white">
+                    <button
+                        onclick="toggleTotalAmount()"
+                        class="w-full p-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
+                    >
+                        <div class="flex items-center gap-1">
+                            <span class="text-base font-medium text-text-heading leading-7">
+                                Total Amount
+                            </span>
+                            <!-- Chevron Down Icon -->
+                            <svg id="total-chevron-down" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-text-heading">
+                                <path d="m6 9 6 6 6-6"/>
+                            </svg>
+                            <!-- Chevron Up Icon -->
+                            <svg id="total-chevron-up" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-text-heading hidden">
+                                <path d="m18 15-6-6-6 6"/>
+                            </svg>
+                        </div>
+                        <span class="text-base font-medium text-text-heading leading-7">
+                            ₹1,770
+                        </span>
+                    </button>
+
+                    <!-- Expandable Price Breakdown -->
+                    <div id="total-breakdown" class="expandable-content max-h-0 opacity-0">
+                        <div class="px-4 pb-3 space-y-3.5">
+                            <div class="flex items-center justify-between h-[21px]">
+                                <span class="text-sm text-text-body leading-[21px] tracking-[0.04px]">
+                                    Total Slot Base Price (Incl. Taxes)
+                                </span>
+                                <span class="text-sm text-text-heading leading-[21px] tracking-[0.04px]">
+                                    ₹2,000
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-between h-[21px]">
+                                <span class="text-sm text-text-body leading-[21px] tracking-[0.04px]">
+                                    Convenience Fees
+                                </span>
+                                <span class="text-sm text-text-heading leading-[21px] tracking-[0.04px]">
+                                    + ₹0
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-between h-[21px]">
+                                <span class="text-sm text-text-body leading-[21px] tracking-[0.04px]">
+                                    wallet
+                                </span>
+                                <span class="text-sm text-text-heading leading-[21px] tracking-[0.04px]">
+                                    - ₹150
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-between h-[21px]">
+                                <span class="text-sm text-text-body leading-[21px] tracking-[0.04px]">
+                                    Promo code
+                                </span>
+                                <span class="text-sm text-text-heading leading-[21px] tracking-[0.04px]">
+                                    - ₹100
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fab Cash Reward -->
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-yellow-400 flex items-center justify-center flex-shrink-0">
+                        <!-- Coins Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-white">
+                            <circle cx="8" cy="8" r="6"/>
+                            <path d="M18.09 10.37A6 6 0 1 1 10.34 18"/>
+                            <path d="M7 6h1v4"/>
+                            <path d="m16.71 13.88.7.71-2.82 2.82"/>
+                        </svg>
+                    </div>
+                    <p class="text-sm text-text-heading">
+                        You earn 50 Fab cash
+                    </p>
+                </div>
+
+                <!-- Apply Offers Section -->
+                <div id="offers-section">
+                    <!-- Default State: Button -->
+                    <button id="apply-offers-btn" onclick="applyOffer()" class="w-full p-4 flex items-center justify-between border border-container-border rounded-lg hover:bg-gray-50 transition-colors">
+                        <div class="flex items-center gap-3">
+                            <!-- Percent Icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-text-heading">
+                                <line x1="19" x2="5" y1="5" y2="19"/>
+                                <circle cx="6.5" cy="6.5" r="2.5"/>
+                                <circle cx="17.5" cy="17.5" r="2.5"/>
+                            </svg>
+                            <span class="text-base text-text-heading">
+                                Apply Offers
+                            </span>
+                        </div>
+                        <!-- Chevron Right Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-text-body">
+                            <path d="m9 18 6-6-6-6"/>
+                        </svg>
+                    </button>
+
+                    <!-- Applied State: Savings Card (Hidden by default) -->
+                    <div id="applied-offer-card" class="hidden flex w-full justify-between items-center gap-2 px-3 py-2 rounded-lg border border-container-border bg-white">
+                        <div class="flex items-center gap-2 flex-1 min-w-0">
+                            <!-- Coupon Icon -->
+                            <svg class="flex-shrink-0" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0_444_3468)">
+                                    <path d="M9 15L15 9" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M9.5 10C9.77614 10 10 9.77614 10 9.5C10 9.22386 9.77614 9 9.5 9C9.22386 9 9 9.22386 9 9.5C9 9.77614 9.22386 10 9.5 10Z" fill="#1A1A1A" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M14.5 15C14.7761 15 15 14.7761 15 14.5C15 14.2239 14.7761 14 14.5 14C14.2239 14 14 14.2239 14 14.5C14 14.7761 14.2239 15 14.5 15Z" fill="#D9D9D9" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M5 7.19997C5 6.6165 5.23179 6.05692 5.64437 5.64434C6.05695 5.23176 6.61653 4.99997 7.2 4.99997H8.2C8.7809 4.99964 9.33809 4.76957 9.75 4.35997L10.45 3.65997C10.6545 3.45437 10.8975 3.29121 11.1652 3.17988C11.433 3.06855 11.7201 3.01123 12.01 3.01123C12.3 3.01123 12.587 3.06855 12.8548 3.17988C13.1225 3.29121 13.3656 3.45437 13.57 3.65997L14.27 4.35997C14.6819 4.76957 15.2391 4.99964 15.82 4.99997H16.82C17.4035 4.99997 17.9631 5.23176 18.3756 5.64434C18.7882 6.05692 19.02 6.6165 19.02 7.19997V8.19997C19.0203 8.78087 19.2504 9.33806 19.66 9.74997L20.36 10.45C20.5656 10.6544 20.7288 10.8975 20.8401 11.1652C20.9514 11.4329 21.0087 11.72 21.0087 12.01C21.0087 12.2999 20.9514 12.587 20.8401 12.8547C20.7288 13.1225 20.5656 13.3655 20.36 13.57L19.66 14.27C19.2504 14.6819 19.0203 15.2391 19.02 15.82V16.82C19.02 17.4034 18.7882 17.963 18.3756 18.3756C17.9631 18.7882 17.4035 19.02 16.82 19.02H15.82C15.2391 19.0203 14.6819 19.2504 14.27 19.66L13.57 20.36C13.3656 20.5656 13.1225 20.7287 12.8548 20.8401C12.587 20.9514 12.3 21.0087 12.01 21.0087C11.7201 21.0087 11.433 20.9514 11.1652 20.8401C10.8975 20.7287 10.6545 20.5656 10.45 20.36L9.75 19.66C9.33809 19.2504 8.7809 19.0203 8.2 19.02H7.2C6.61653 19.02 6.05695 18.7882 5.64437 18.3756C5.23179 17.963 5 17.4034 5 16.82V15.82C4.99967 15.2391 4.76961 14.6819 4.36 14.27L3.66 13.57C3.4544 13.3655 3.29125 13.1225 3.17991 12.8547C3.06858 12.587 3.01126 12.2999 3.01126 12.01C3.01126 11.72 3.06858 11.4329 3.17991 11.1652C3.29125 10.8975 3.4544 10.6544 3.66 10.45L4.36 9.74997C4.76961 9.33806 4.99967 8.78087 5 8.19997V7.19997" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_444_3468">
+                                        <rect width="24" height="24" fill="white"/>
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                            
+                            <div class="flex flex-col items-start gap-0 min-w-0">
+                                <div class="text-sm leading-[150%] tracking-[0.04px] font-normal text-black">
+                                    ₹100 saved with TURF2025
+                                </div>
+                                <button onclick="location.href='Coupons.html'" class="flex items-center gap-0 text-text-body hover:opacity-80 transition-opacity">
+                                    <span class="text-xs leading-[150%] font-normal">View all coupons</span>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M6.47 4L5.53 4.94L8.58333 8L5.53 11.06L6.47 12L10.47 8L6.47 4Z" fill="#4D4D4D"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Applied Badge -->
+                        <div class="flex items-center gap-1 p-1 rounded-2xl flex-shrink-0">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5.86334 10.5831L3.08334 7.80312L2.13667 8.74312L5.86334 12.4698L13.8633 4.46978L12.9233 3.52979L5.86334 10.5831Z" fill="#07A348"/>
+                            </svg>
+                            <span class="text-xs leading-[150%] font-normal text-[#07A348]">Applied</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Apply Wallet Balance -->
+                <div id="wallet-section">
+                     <!-- Default State: Button -->
+                    <button id="apply-wallet-btn" onclick="applyWallet()" class="w-full p-4 flex items-center justify-between border border-container-border rounded-lg hover:bg-gray-50 transition-colors">
+                        <div class="flex items-center gap-3">
+                            <!-- Wallet Icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-text-heading">
+                                <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/>
+                                <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>
+                            </svg>
+                            <span class="text-base text-text-heading">
+                                Apply Wallet Balance
+                            </span>
+                        </div>
+                        <span class="text-sm font-medium text-success-green">
+                            Apply
+                        </span>
+                    </button>
+
+                    <!-- Applied State: Savings Card (Hidden by default) -->
+                    <div id="applied-wallet-card" class="hidden flex w-full justify-between items-center gap-2 px-3 py-2 rounded-lg border border-container-border bg-white">
+                        <div class="flex items-center gap-2 flex-1 min-w-0">
+                            <!-- Wallet Icon Checked -->
+                             <svg class="flex-shrink-0" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 7.50022C3.67157 7.50022 3 8.17179 3 9.00022V18.0002C3 18.8286 3.67157 19.5002 4.5 19.5002H19.5C20.3284 19.5002 21 18.8286 21 18.0002V9.00022C21 8.17179 20.3284 7.50022 19.5 7.50022H4.5ZM1.5 9.00022C1.5 7.34337 2.84315 6.00022 4.5 6.00022H19.5C21.1569 6.00022 22.5 7.34337 22.5 9.00022V18.0002C22.5 19.6571 21.1569 21.0002 19.5 21.0002H4.5C2.84315 21.0002 1.5 19.6571 1.5 18.0002V9.00022Z" fill="#1A1A1A"/>
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M16.3672 2.30423C16.812 2.22061 17.2698 2.23561 17.7083 2.34822C18.1493 2.46146 18.5598 2.67064 18.9106 2.96082C19.2614 3.25099 19.5439 3.61502 19.7378 4.02693C19.9317 4.43883 20.0324 4.88846 20.0325 5.34373V6.75022H18.5325V5.34421C18.5324 5.10976 18.4806 4.87798 18.3807 4.66586C18.2808 4.45367 18.1353 4.26614 17.9546 4.11665C17.7738 3.96717 17.5624 3.85941 17.3352 3.80107C17.108 3.74273 16.8708 3.73525 16.6404 3.77915C16.6357 3.78005 16.6309 3.78091 16.6262 3.78172L4.289 5.88742C3.927 5.95794 3.60059 6.15184 3.36549 6.43617C3.12901 6.72217 2.99975 7.08173 3 7.45284L3 9.75022H1.5V7.45357C1.49963 6.73337 1.75054 6.03537 2.20949 5.48032C2.66854 4.92514 3.30695 4.54756 4.0146 4.4127C4.01933 4.4118 4.02407 4.41094 4.02882 4.41013L16.3672 2.30423Z" fill="#1A1A1A"/>
+                                <path d="M17.25 15.0002C16.9533 15.0002 16.6633 14.9122 16.4166 14.7474C16.17 14.5826 15.9777 14.3483 15.8642 14.0742C15.7506 13.8002 15.7209 13.4986 15.7788 13.2076C15.8367 12.9166 15.9796 12.6493 16.1893 12.4396C16.3991 12.2298 16.6664 12.0869 16.9574 12.029C17.2483 11.9712 17.5499 12.0009 17.824 12.1144C18.0981 12.2279 18.3324 12.4202 18.4972 12.6669C18.662 12.9135 18.75 13.2036 18.75 13.5002C18.75 13.898 18.592 14.2796 18.3107 14.5609C18.0294 14.8422 17.6478 15.0002 17.25 15.0002Z" fill="#1A1A1A"/>
+                            </svg>
+                            
+                            <div class="flex flex-col items-start gap-0 min-w-0">
+                                <div class="text-sm leading-[150%] tracking-[0.04px] font-medium text-text-heading">
+                                    ₹150 saved with Wallet
+                                </div>
+                            </div>
+                        </div>
+
+                         <!-- Remove Button -->
+                        <div class="flex items-center gap-1 p-1 rounded-2xl flex-shrink-0">
+                            <button onclick="removeWallet()" class="px-2 py-1 hover:opacity-80 transition-opacity">
+                                <span class="text-xs leading-[160%] tracking-[-0.12px] font-semibold text-[#DB0303]">Remove</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GST Number Section -->
+                <div class="space-y-4">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <!-- Custom Checkbox -->
+                        <div class="custom-checkbox">
+                            <input
+                                type="checkbox"
+                                id="gst-checkbox"
+                                onchange="toggleGSTFields()"
+                            />
+                            <span class="checkmark"></span>
+                        </div>
+                        <span class="text-sm text-text-body leading-[21px] tracking-[0.04px]">
+                            I have GST number <span class="text-text-body">(optional)</span>
+                        </span>
+                    </label>
+
+                    <!-- GST Form Fields - Expandable -->
+                    <div id="gst-fields" class="expandable-content space-y-3 max-h-0 opacity-0">
+                        <input
+                            id="registration-input"
+                            type="text"
+                            placeholder="Registration Number"
+                            onfocus="scrollToInput(this)"
+                            class="w-full h-12 px-3 border border-container-border rounded bg-white text-sm text-text-heading placeholder:text-text-inverse leading-[21px] tracking-[0.04px] focus:outline-none focus:border-text-heading transition-colors"
+                        />
+                        <input
+                            id="company-input"
+                            type="text"
+                            placeholder="Company Name"
+                            onfocus="scrollToInput(this)"
+                            class="w-full h-12 px-3 border border-container-border rounded bg-white text-sm text-text-heading placeholder:text-text-inverse leading-[21px] tracking-[0.04px] focus:outline-none focus:border-text-heading transition-colors"
+                        />
+                        <input
+                            id="address-input"
+                            type="text"
+                            placeholder="Address"
+                            onfocus="scrollToInput(this)"
+                            class="w-full h-12 px-3 border border-container-border rounded bg-white text-sm text-text-heading placeholder:text-text-inverse leading-[21px] tracking-[0.04px] focus:outline-none focus:border-text-heading transition-colors"
+                        />
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Sticky Bottom - Payment Section -->
+        <div class="sticky bottom-0 bg-white border-t border-container-border z-30 mt-auto">
+            <!-- Total and Payment Method -->
+            <div class="px-4 py-3 flex items-center justify-between border-b border-container-border">
+                <div>
+                    <p class="text-xs text-text-body mb-0.5">Total</p>
+                    <p class="text-xl font-semibold text-text-heading">₹1,700</p>
+                </div>
+                <button class="flex items-center gap-2 px-4 py-2 bg-phonepe-purple/10 rounded-lg hover:bg-phonepe-purple/20 transition-colors">
+                    <div class="phonepe-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                            <path d="M12 2L2 7V17L12 22L22 17V7L12 2Z" />
+                        </svg>
+                    </div>
+                    <span class="text-sm font-medium text-text-heading">Phone Pe</span>
+                    <!-- Chevron Up Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-text-heading">
+                        <path d="m18 15-6-6-6 6"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="px-4 py-4 space-y-3">
+                <button class="w-full py-3.5 bg-success-green text-success-green-foreground rounded-lg font-medium text-base hover:bg-success-green/90 transition-colors shadow-sm">
+                    Pay ₹1951 & Book Slot
+                </button>
+                <button class="w-full py-3.5 bg-white border border-container-border text-text-heading rounded-lg font-medium text-base hover:bg-gray-50 transition-colors">
+                    Pay ₹300 to reserve Slot
+                </button>
+                <p class="text-xs text-center text-text-body leading-relaxed">
+                    By continuing you agree with our 
+                    <a href="#" class="underline text-text-heading">Terms of Services</a> & 
+                    <a href="#" class="underline text-text-heading">Privacy Policy</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Cancel Booking Modal -->
+    <div id="cancel-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-2xl p-6 w-[85%] max-w-[320px] shadow-xl transform scale-95 transition-transform duration-300" id="cancel-modal-content">
+            <h3 class="text-lg font-semibold text-text-heading mb-2">Cancel Booking?</h3>
+            <p class="text-sm text-text-body mb-6">Are you sure you want to cancel this booking?</p>
+            <div class="flex gap-3">
+                <button onclick="closeCancelModal()" class="flex-1 py-2.5 rounded-lg border border-container-border text-text-heading font-medium hover:bg-gray-50 transition-colors">
+                    No
+                </button>
+                <button onclick="window.location.href='TurfDetails.html'" class="flex-1 py-2.5 rounded-lg bg-[#DB0303] text-white font-medium hover:bg-[#b00202] transition-colors">
+                    Yes
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Toggle Slot Details
+        function toggleSlotDetails() {
+            const content = document.getElementById('slot-details-content');
+            const date = document.getElementById('slot-date');
+            const chevronDown = document.getElementById('slot-chevron-down');
+            const chevronUp = document.getElementById('slot-chevron-up');
+            
+            if (content.classList.contains('max-h-0')) {
+                content.classList.remove('max-h-0', 'opacity-0');
+                content.classList.add('max-h-96', 'opacity-100');
+                date.classList.remove('hidden');
+                chevronDown.classList.add('hidden');
+                chevronUp.classList.remove('hidden');
+            } else {
+                content.classList.add('max-h-0', 'opacity-0');
+                content.classList.remove('max-h-96', 'opacity-100');
+                date.classList.add('hidden');
+                chevronDown.classList.remove('hidden');
+                chevronUp.classList.add('hidden');
+            }
+        }
+
+        // Toggle Total Amount
+        function toggleTotalAmount() {
+            const breakdown = document.getElementById('total-breakdown');
+            const chevronDown = document.getElementById('total-chevron-down');
+            const chevronUp = document.getElementById('total-chevron-up');
+            
+            if (breakdown.classList.contains('max-h-0')) {
+                breakdown.classList.remove('max-h-0', 'opacity-0');
+                breakdown.classList.add('max-h-96', 'opacity-100');
+                chevronDown.classList.add('hidden');
+                chevronUp.classList.remove('hidden');
+            } else {
+                breakdown.classList.add('max-h-0', 'opacity-0');
+                breakdown.classList.remove('max-h-96', 'opacity-100');
+                chevronDown.classList.remove('hidden');
+                chevronUp.classList.add('hidden');
+            }
+        }
+
+        // Toggle GST Fields
+        function toggleGSTFields() {
+            const checkbox = document.getElementById('gst-checkbox');
+            const fields = document.getElementById('gst-fields');
+            
+            if (checkbox.checked) {
+                fields.classList.remove('max-h-0', 'opacity-0');
+                fields.classList.add('max-h-96', 'opacity-100');
+            } else {
+                fields.classList.add('max-h-0', 'opacity-0');
+                fields.classList.remove('max-h-96', 'opacity-100');
+            }
+        }
+
+        // Scroll input into view when focused (for mobile keyboard)
+        function scrollToInput(element) {
+            setTimeout(() => {
+                element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+        }
+        
+        // Back Button Logic & Modal
+        const modal = document.getElementById('cancel-modal');
+        const modalContent = document.getElementById('cancel-modal-content');
+
+        function handleBackClick() {
+            modal.classList.remove('hidden');
+            // Trigger reflow for transition
+            void modal.offsetWidth;
+            modal.classList.remove('opacity-0');
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
+        }
+
+        function closeCancelModal() {
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Toggle Wallet
+        function applyWallet() {
+            document.getElementById('apply-wallet-btn').classList.add('hidden');
+            document.getElementById('applied-wallet-card').classList.remove('hidden');
+            document.getElementById('applied-wallet-card').classList.add('flex');
+        }
+
+        function removeWallet() {
+            document.getElementById('apply-wallet-btn').classList.remove('hidden');
+            document.getElementById('applied-wallet-card').classList.add('hidden');
+            document.getElementById('applied-wallet-card').classList.remove('flex');
+        }
+
+        // Apply Offer Logic (Simulated for this demo, usually requires state from Coupons page)
+        // For demonstration, you might call this function if a coupon is present
+        function showAppliedCoupon() {
+             document.getElementById('apply-offers-btn').classList.add('hidden');
+             document.getElementById('applied-offer-card').classList.remove('hidden');
+             document.getElementById('applied-offer-card').classList.add('flex');
+        }
+
+        function applyOffer() {
+            // For now, navigate. To show state, we'd check storage or params on load.
+            window.location.href = 'Coupons.html';
+        }
+
+        // Check for applied coupon on load (Simulated)
+        window.addEventListener('load', () => {
+            if (localStorage.getItem('couponApplied') === 'true') {
+                showAppliedCoupon();
+            }
+        });
+
+        // Close modal if clicking outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeCancelModal();
+            }
+        });
+    </script>
+</body>
+</html>

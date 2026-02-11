@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Phone Number - Fabzia Turf</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Utility CSS (Contains Font and Root Variables) -->
+    <link rel="stylesheet" href="utility.css">
+    
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            font-family: 'Inter', 'Lato', sans-serif;
+        }
+
+        /* Mobile Container */
+        .mobile-container {
+            max-width: 430px;
+            margin: 0 auto;
+            background-color: #FFFEFE;
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        /* Input focus styles - Black border */
+        .input-field:focus {
+            outline: none;
+            border-color: var(--black);
+            box-shadow: 0 0 0 1px var(--black);
+        }
+
+        /* Input error state - Red border */
+        .input-field.error {
+            border-color: #dc2626;
+            box-shadow: 0 0 0 1px #dc2626;
+        }
+
+        .input-field.error:focus {
+            border-color: #dc2626;
+            box-shadow: 0 0 0 1px #dc2626;
+        }
+
+        /* Error message styling */
+        .error-message {
+            color: #dc2626;
+            font-size: 12px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* OTP Input styling */
+        .otp-input {
+            width: 48px;
+            height: 56px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 600;
+            border: 2px solid #D7D7D7;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .otp-input:focus {
+            border-color: var(--black);
+            box-shadow: 0 0 0 1px var(--black);
+            outline: none;
+        }
+
+        .otp-input.filled {
+            border-color: var(--green);
+        }
+
+        .otp-input.error {
+            border-color: #dc2626;
+        }
+
+        /* Continue button disabled state - Grey */
+        #continueBtn:disabled {
+            background-color: var(--black-700);
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        /* Continue button enabled state - Green */
+        #continueBtn:not(:disabled) {
+            background-color: var(--green);
+        }
+
+        #continueBtn:not(:disabled):hover {
+            opacity: 0.9;
+        }
+
+        /* Resend OTP link */
+        .resend-link {
+            color: var(--green);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .resend-link.disabled {
+            color: var(--text-body);
+            cursor: not-allowed;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container flex flex-col">
+        <!-- Main Content -->
+        <main class="flex-1 px-4 pt-8 pb-24 overflow-y-auto">
+            <!-- Header Section -->
+            <div class="flex flex-col gap-2 mb-8">
+                <!-- Back Button -->
+                <button onclick="window.history.back()" class="flex items-center justify-center w-12 h-12 -ml-3 hover:bg-gray-50 rounded-full transition-colors self-start">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M16.9662 5.25017L10.2162 12.0002L16.9662 18.7502L15.3752 20.3412L7.03418 12.0002L15.3752 3.65918L16.9662 5.25017Z" fill="var(--text-heading)"/>
+                    </svg>
+                </button>
+
+                <!-- Title and Description -->
+                <div class="flex flex-col gap-1">
+                    <h1 class="text-[var(--text-heading)] text-[20px] font-semibold leading-[28px] tracking-[0.04px]">
+                        Enter Your Phone Number
+                    </h1>
+                    <p class="text-[var(--text-body)] text-[14px] font-normal leading-[1.5]">
+                        We'll send you a verification code
+                    </p>
+                </div>
+            </div>
+
+            <!-- Phone Number Section -->
+            <div id="phoneSection" class="flex flex-col gap-6">
+                <!-- Phone Number Input -->
+                <div class="flex flex-col">
+                    <div class="flex gap-2">
+                        <!-- Country Code -->
+                        <div class="flex items-center h-12 px-3 border border-[#D7D7D7] rounded bg-white">
+                            <span class="text-[var(--text-heading)] text-[16px] font-normal">+91</span>
+                        </div>
+                        
+                        <!-- Phone Number -->
+                        <input
+                            id="phoneInput"
+                            type="tel"
+                            placeholder="Enter phone number"
+                            maxlength="10"
+                            class="input-field flex-1 h-12 px-[10px] border border-[#D7D7D7] rounded bg-white text-[var(--text-heading)] text-[16px] font-normal leading-[28px] placeholder:text-[var(--text-body)] transition-all"
+                        />
+                    </div>
+                    <span id="phoneError" class="error-message">Please enter a valid 10-digit phone number</span>
+                </div>
+
+                <!-- Send OTP Button -->
+                <button
+                    id="sendOtpBtn"
+                    class="w-full h-12 text-white rounded font-semibold text-[18px] leading-[28px] transition-all shadow-sm"
+                    disabled
+                >
+                    Send OTP
+                </button>
+            </div>
+
+            <!-- OTP Section (Hidden initially) -->
+            <div id="otpSection" class="hidden flex-col gap-6">
+                <!-- OTP Description -->
+                <div class="flex flex-col gap-1">
+                    <p class="text-[var(--text-body)] text-[14px] font-normal leading-[1.5]">
+                        Enter the 6-digit code sent to <span id="phoneDisplay" class="font-semibold text-[var(--text-heading)]"></span>
+                    </p>
+                </div>
+
+                <!-- OTP Input Fields -->
+                <div class="flex justify-between gap-2">
+                    <input type="text" maxlength="1" class="otp-input" id="otp1" />
+                    <input type="text" maxlength="1" class="otp-input" id="otp2" />
+                    <input type="text" maxlength="1" class="otp-input" id="otp3" />
+                    <input type="text" maxlength="1" class="otp-input" id="otp4" />
+                    <input type="text" maxlength="1" class="otp-input" id="otp5" />
+                    <input type="text" maxlength="1" class="otp-input" id="otp6" />
+                </div>
+                <span id="otpError" class="error-message">Invalid OTP. Please try again.</span>
+
+                <!-- Resend OTP -->
+                <div class="flex items-center justify-between">
+                    <p class="text-[var(--text-body)] text-[14px]">
+                        Didn't receive code?
+                    </p>
+                    <span id="resendLink" class="resend-link disabled text-[14px] font-medium">
+                        Resend in <span id="timer">30</span>s
+                    </span>
+                </div>
+
+                <!-- Verify OTP Button -->
+                <button
+                    id="verifyOtpBtn"
+                    class="w-full h-12 text-white rounded font-semibold text-[18px] leading-[28px] transition-all shadow-sm"
+                    disabled
+                >
+                    Verify OTP
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script src="Js/PhoneAuth.js"></script>
+</body>
+</html>
