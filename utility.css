@@ -42,6 +42,21 @@
   --btn-border-primary: var(--black-700);
   --btn-border-radius: var(--s-8px);
 
+  /* Status */
+  --red: hsl(0, 70%, 50%);
+  --green-success: #22C55E;
+  --green-light: rgba(34, 197, 94, 0.1);
+
+  /* Layout Colors */
+  --bg-soft: #F9FBF8;
+  --border-light: #F1F5F9;
+  --border-mid: #E2E8F0;
+
+  /* Text Colors Extended */
+  --text-slate-900: #0F172A;
+  --text-slate-500: #64748B;
+  --text-slate-700: #334155;
+
 }
 
 /* utility Style */

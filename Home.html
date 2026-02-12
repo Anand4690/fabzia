@@ -67,11 +67,11 @@
                         fs
                     </a>
                     <!-- Location -->
-                    <div class="flex items-center gap-1 cursor-pointer">
+                    <a href="shareLocation.html" class="flex items-center gap-1 cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
                         <span class="text-sm font-normal">Mumbai</span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="m6 9 6 6 6-6"/></svg>
-                    </div>
+                    </a>
                 </div>
 
                 <div class="flex items-center gap-2">
@@ -83,7 +83,9 @@
                     <a href="Notifications.html">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
                     </a>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
+                    <a href="wallet.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
+                    </a>
                 </div>
             </div>
         </header>
@@ -187,7 +189,7 @@
             <div class="grid grid-cols-2 gap-x-4 gap-y-10" id="turf-grid">
                 
                 <!-- Card 1 -->
-                <div class="flex flex-col gap-2 cursor-pointer group">
+                <div onclick="window.location.href='TurfDetails.html'" class="flex flex-col gap-2 cursor-pointer group">
                     <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block">
                         <img src="assets/Images/turf_placeholder.png" alt="Turf" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
                         <div class="absolute bottom-1 left-2 flex items-center gap-1 bg-[var(--green-dark)] rounded-full px-2 py-0.5">
@@ -207,12 +209,12 @@
                             </div>
                             <span class="text-xs font-normal text-[var(--green)]">₹200 onwards</span>
                         </div>
-                        <button class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Book Now</button>
+                        <button onclick="event.stopPropagation(); window.location.href='Checkout.html'" class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Book Now</button>
                     </div>
                 </div>
 
                 <!-- Card 2 -->
-                <div class="flex flex-col gap-2 cursor-pointer group">
+                <div onclick="window.location.href='TurfDetails.html'" class="flex flex-col gap-2 cursor-pointer group">
                     <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block">
                         <img src="assets/Images/turf_placeholder.png" alt="Turf" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
                         <div class="absolute bottom-2 left-2 flex items-center gap-1 bg-[var(--green-dark)] rounded-full px-2 py-0.5">
@@ -232,12 +234,12 @@
                             </div>
                             <span class="text-xs font-normal text-[var(--green)]">₹400 onwards</span>
                         </div>
-                        <button class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Enquire Now</button>
+                        <button onclick="event.stopPropagation(); window.location.href='Checkout.html'" class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Enquire Now</button>
                     </div>
                 </div>
 
                 <!-- More cards (Duplicates for display) -->
-                 <div class="flex flex-col gap-2 cursor-pointer group">
+                 <div onclick="window.location.href='TurfDetails.html'" class="flex flex-col gap-2 cursor-pointer group">
                     <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block">
                         <img src="assets/Images/turf_placeholder.png" alt="Turf" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
                         <div class="absolute bottom-2 left-2 flex items-center gap-1 bg-[var(--green-dark)] rounded-full px-2 py-0.5">
@@ -257,11 +259,11 @@
                             </div>
                             <span class="text-xs font-normal text-[var(--green)]">₹200 onwards</span>
                         </div>
-                        <button class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Book Now</button>
+                        <button onclick="event.stopPropagation(); window.location.href='Checkout.html'" class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Book Now</button>
                     </div>
                 </div>
 
-                <div class="flex flex-col gap-2 cursor-pointer group">
+                <div onclick="window.location.href='TurfDetails.html'" class="flex flex-col gap-2 cursor-pointer group">
                     <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block">
                         <img src="assets/Images/turf_placeholder.png" alt="Turf" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
                         <div class="absolute bottom-2 left-2 flex items-center gap-1 bg-[var(--green-dark)] rounded-full px-2 py-0.5">
@@ -281,12 +283,12 @@
                             </div>
                             <span class="text-xs font-normal text-[var(--green)]">₹400 onwards</span>
                         </div>
-                        <button class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Book Now</button>
+                        <button onclick="event.stopPropagation(); window.location.href='Checkout.html'" class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Book Now</button>
                     </div>
                 </div>
 
                 <!-- New Cards -->
-                <div class="flex flex-col gap-2 cursor-pointer group">
+                <div onclick="window.location.href='TurfDetails.html'" class="flex flex-col gap-2 cursor-pointer group">
                     <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block">
                         <img src="assets/Images/turf_placeholder.png" alt="Turf" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
                         <div class="absolute bottom-1 left-2 flex items-center gap-1 bg-[var(--green-dark)] rounded-full px-2 py-0.5">
@@ -306,11 +308,11 @@
                             </div>
                             <span class="text-xs font-normal text-[var(--green)]">₹600 onwards</span>
                         </div>
-                        <button class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Book Now</button>
+                        <button onclick="event.stopPropagation(); window.location.href='Checkout.html'" class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Book Now</button>
                     </div>
                 </div>
 
-                <div class="flex flex-col gap-2 cursor-pointer group">
+                <div onclick="window.location.href='TurfDetails.html'" class="flex flex-col gap-2 cursor-pointer group">
                     <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block">
                         <img src="assets/Images/turf_placeholder.png" alt="Turf" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
                         <div class="absolute bottom-1 left-2 flex items-center gap-1 bg-[var(--green-dark)] rounded-full px-2 py-0.5">
@@ -330,11 +332,11 @@
                             </div>
                             <span class="text-xs font-normal text-[var(--green)]">₹300 onwards</span>
                         </div>
-                        <button class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Book Now</button>
+                        <button onclick="event.stopPropagation(); window.location.href='Checkout.html'" class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Book Now</button>
                     </div>
                 </div>
 
-                <div class="flex flex-col gap-2 cursor-pointer group">
+                <div onclick="window.location.href='TurfDetails.html'" class="flex flex-col gap-2 cursor-pointer group">
                     <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block">
                         <img src="assets/Images/turf_placeholder.png" alt="Turf" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
                         <div class="absolute bottom-1 left-2 flex items-center gap-1 bg-[var(--green-dark)] rounded-full px-2 py-0.5">
@@ -354,11 +356,11 @@
                             </div>
                             <span class="text-xs font-normal text-[var(--green)]">₹800 onwards</span>
                         </div>
-                        <button class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Book Now</button>
+                        <button onclick="event.stopPropagation(); window.location.href='Checkout.html'" class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Book Now</button>
                     </div>
                 </div>
 
-                <div class="flex flex-col gap-2 cursor-pointer group">
+                <div onclick="window.location.href='TurfDetails.html'" class="flex flex-col gap-2 cursor-pointer group">
                     <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block">
                         <img src="assets/Images/turf_placeholder.png" alt="Turf" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
                         <div class="absolute bottom-1 left-2 flex items-center gap-1 bg-[var(--green-dark)] rounded-full px-2 py-0.5">
@@ -375,7 +377,7 @@
                             </div>
                             <span class="text-xs font-normal text-[var(--green)]">₹500 onwards</span>
                         </div>
-                        <button class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Book Now</button>
+                        <button onclick="event.stopPropagation(); window.location.href='Checkout.html'" class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Book Now</button>
                     </div>
                 </div>
             </div>
@@ -558,7 +560,7 @@
     <!-- Date Picker Modal (Bottom Sheet) -->
     <div id="date-picker-modal" class="hidden fixed inset-0 z-[60] flex items-end">
         <div class="absolute inset-0 bg-black/50" onclick="closeDatePicker()"></div>
-        <div class="relative bg-[#f5f5f5] rounded-t-2xl w-full max-w-[430px] mx-auto max-h-[90vh] overflow-hidden">
+        <div class="relative bg-[var(--bg-light)] rounded-t-2xl w-full max-w-[430px] mx-auto max-h-[90vh] overflow-hidden">
             <!-- Date Picker Header -->
             <div class="bg-white border-b border-[var(--bg-container)] px-3 py-4 flex items-center justify-between rounded-t-2xl">
                 <div class="flex items-center gap-2">

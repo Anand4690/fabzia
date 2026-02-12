@@ -20,22 +20,22 @@
             theme: {
                 extend: {
                     colors: {
-                        'text-heading': 'hsl(0, 0%, 10%)',
-                        'text-body': 'hsl(0, 0%, 24%)',
-                        'text-inverse': 'hsl(0, 0%, 64%)',
-                        'text-brand': 'hsl(150, 100%, 26%)',
-                        'brand-green': 'hsl(145, 94%, 34%)',
-                        'brand-green-dark': 'hsl(128, 100%, 21%)',
-                        'bg-page': 'hsl(0, 0%, 100%)',
-                        'container-border': 'hsl(0, 0%, 84%)',
+                        'text-heading': 'var(--text-heading)',
+                        'text-body': 'var(--text-body)',
+                        'text-inverse': 'var(--text-placeholder)',
+                        'text-brand': 'var(--green-dark)',
+                        'brand-green': 'var(--green)',
+                        'brand-green-dark': 'var(--green-dark)',
+                        'bg-page': 'var(--white-pure)',
+                        'container-border': 'var(--bg-container)',
                         'partial': 'hsl(43, 94%, 47%)',
                         'available': 'hsl(75, 99%, 34%)',
                         'sold': 'hsl(0, 0%, 93%)',
-                        'selected': 'hsl(150, 100%, 26%)',
+                        'selected': 'var(--green-dark)',
                     },
                     fontFamily: {
                         'inter': ['Inter', 'sans-serif'],
-                        'lato': ['Lato', 'sans-serif'], // From utility.css
+                        'lato': ['Lato', 'sans-serif'],
                     },
                     maxWidth: {
                         'booking': '430px',
@@ -61,7 +61,7 @@
         
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f5f5f5; /* Page background outside mobile container */
+            background-color: var(--bg-light); /* Page background outside mobile container */
         }
     </style>
 </head>
@@ -122,12 +122,27 @@
             </button>
 
             <!-- Squad Size Options -->
-            <div id="squad-options" class="hidden px-4 pb-4 pt-4 flex gap-4 bg-white border-b border-container-border animate-in slide-in-from-top duration-200">
+            <div id="squad-options" class="hidden px-4 pb-6 pt-4 flex justify-between gap-4 bg-white border-b border-container-border animate-in slide-in-from-top duration-200">
                 <div id="squad-buttons-container" class="flex flex-col gap-3 w-fit">
                     <!-- Squad buttons injected by JS -->
                 </div>
-                <!-- Visual placeholder for squad size -->
-                <div class="w-40 h-40 rounded-[9px] bg-[#22C55E] flex-shrink-0"></div>
+                <!-- Mini Pitch Visualizer -->
+                <div class="relative w-40 h-40 bg-[var(--green-success)] rounded-[9px] flex-shrink-0 overflow-hidden border-2 border-green-700 shadow-inner">
+                    <!-- Field boundary lines -->
+                    <div class="absolute inset-2 border border-white/40 rounded-sm"></div>
+                    <!-- Center line -->
+                    <div class="absolute top-1/2 left-2 right-2 h-px bg-white/40 -translate-y-1/2"></div>
+                    <!-- Center circle -->
+                    <div class="absolute top-1/2 left-1/2 w-8 h-8 -translate-x-1/2 -translate-y-1/2 border border-white/40 rounded-full"></div>
+                    <!-- Top goal box -->
+                    <div class="absolute top-2 left-1/2 -translate-x-1/2 w-8 h-2 border border-white/40 border-t-0 bg-white/10"></div>
+                    <!-- Bottom goal box -->
+                    <div class="absolute bottom-2 left-1/2 -translate-x-1/2 w-8 h-2 border border-white/40 border-b-0 bg-white/10"></div>
+                    <!-- Dynamic Selection Highlight Overlay -->
+                    <div id="turf-highlight" class="absolute bg-black/20 backdrop-blur-sm border-2 border-white transition-all duration-500 ease-out shadow-lg z-20 flex items-center justify-center text-[10px] font-bold text-white tracking-widest uppercase rounded-sm" style="top: 0; left: 0; width: 100%; height: 100%;">
+                        <div class="bg-black/15 px-2 py-0.5 rounded backdrop-blur-md">Full Pitch</div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -185,7 +200,7 @@
         
         <!-- Bottom Sheet Content -->
         <div id="bottom-sheet-content" class="fixed bottom-0 left-0 right-0 z-[70] max-w-booking mx-auto bg-white rounded-t-lg shadow-2xl transition-transform transform translate-y-full duration-300">
-            <div class="bg-[#F5F5F5] px-4 py-2 flex items-center justify-between rounded-t-lg">
+            <div class="bg-[var(--bg-light)] px-4 py-2 flex items-center justify-between rounded-t-lg">
                 <span class="text-sm text-text-heading font-medium">Confirm Your Slot</span>
                 <button onclick="closeBottomSheet()">
                     <i data-lucide="x" class="w-5 h-5 text-text-heading"></i>
@@ -439,6 +454,51 @@
         function selectSquad(size) {
             selectedSquad = size;
             renderSquadOptions(); // Re-render to show selection
+            updateTurfHighlight(size);
+        }
+
+        function updateTurfHighlight(size) {
+            const highlight = document.getElementById('turf-highlight');
+            if (!highlight) return;
+
+            let width = '100%';
+            let height = '100%';
+            let text = 'Full Pitch';
+
+            // Map squad sizes to pitch coverage using width & height
+            switch (size) {
+                case '5-a-side (5v5)':
+                    width = '50%';
+                    height = '50%';
+                    text = 'Quarter Pitch';
+                    break;
+                case '7-a-side (7v7)':
+                    width = '50%';
+                    height = '100%';
+                    text = 'Half Pitch';
+                    break;
+                case '8v8':
+                    width = '75%';
+                    height = '100%';
+                    text = '3/4 Pitch';
+                    break;
+                case '9-a-side (9v9)':
+                default:
+                    width = '100%';
+                    height = '100%';
+                    text = 'Full Pitch';
+                    break;
+            }
+
+            // Apply styles - anchored to top-left corner
+            highlight.style.top = '0';
+            highlight.style.left = '0';
+            highlight.style.width = width;
+            highlight.style.height = height;
+
+            // Update label text
+            const label = highlight.querySelector('div');
+            if (label) label.textContent = text;
         }
 
         function toggleFilter(filter) {
@@ -464,6 +524,7 @@
             renderSquadOptions();
             renderFilters();
             renderSlots();
+            updateTurfHighlight(selectedSquad);
             lucide.createIcons();
         };
 

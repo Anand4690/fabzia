@@ -60,21 +60,21 @@
                 <h2 class="text-base font-bold text-text-heading leading-7">
                     Selected Coupons
                 </h2>
-                <div class="p-4 flex flex-col gap-2 rounded-lg border border-[#07A348] bg-[#F6FBF5] transition-all duration-300">
+                <div class="p-4 flex flex-col gap-2 rounded-lg border border-[var(--green)] bg-[#F6FBF5] transition-all duration-300">
                     <div class="flex justify-between items-start">
                         <div class="flex flex-col">
-                            <h3 id="selected-code" class="text-base font-semibold text-[#008236] leading-7">
+                            <h3 id="selected-code" class="text-base font-semibold text-[var(--green)] leading-7">
                                 <!-- Code injected here -->
                             </h3>
-                            <p id="selected-savings" class="text-sm text-[#008236] leading-[21px] tracking-[0.04px]">
+                            <p id="selected-savings" class="text-sm text-[var(--green)] leading-[21px] tracking-[0.04px]">
                                 <!-- Savings injected here -->
                             </p>
                         </div>
-                        <button onclick="removeCoupon()" class="px-0 py-1 text-sm font-medium text-[#DB0303] leading-[21px] tracking-[0.04px] hover:underline transition-all">
+                        <button onclick="removeCoupon()" class="px-0 py-1 text-sm font-medium text-[var(--red)] leading-[21px] tracking-[0.04px] hover:underline transition-all">
                             Remove
                         </button>
                     </div>
-                    <div class="pt-2 border-t border-dashed border-[#07A348]/30">
+                    <div class="pt-2 border-t border-dashed border-[var(--green)]/30">
                         <p id="selected-desc" class="text-sm text-text-body leading-[21px] tracking-[0.04px]">
                             <!-- Description injected here -->
                         </p>
@@ -172,11 +172,11 @@
 
                 // Text coloring
                 const titleColor = isDisabled ? "text-text-inverse" : "text-black";
-                const savingsColor = isDisabled ? "text-text-inverse" : "text-[#008236]";
+                const savingsColor = isDisabled ? "text-text-inverse" : "text-[var(--green)]";
                 const descColor = isDisabled ? "text-text-inverse" : "text-text-body";
                 const buttonClass = isDisabled 
                     ? "text-text-inverse cursor-not-allowed" 
-                    : "text-[#008236] hover:underline";
+                    : "text-[var(--green)] hover:underline";
 
                 const card = document.createElement('div');
                 card.className = containerClasses;

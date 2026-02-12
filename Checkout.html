@@ -17,14 +17,14 @@
             theme: {
                 extend: {
                     colors: {
-                        'success-green': '#046c4e',
-                        'success-green-foreground': '#ffffff',
+                        'success-green': 'var(--green-dark)',
+                        'success-green-foreground': 'var(--white-pure)',
                         'phonepe-purple': '#5f259f',
-                        'container-border': '#e5e5e5',
-                        'bg-gray': '#f5f5f5',
-                        'text-heading': 'hsl(0, 0%, 6%)',
-                        'text-body': 'hsl(0, 0%, 30%)',
-                        'text-inverse': 'hsl(0, 0%, 70%)',
+                        'container-border': 'var(--bg-container)',
+                        'bg-gray': 'var(--bg-light)',
+                        'text-heading': 'var(--text-heading)',
+                        'text-body': 'var(--text-body)',
+                        'text-inverse': 'var(--black-700)',
                     }
                 }
             }
@@ -396,9 +396,9 @@
                         <!-- Applied Badge -->
                         <div class="flex items-center gap-1 p-1 rounded-2xl flex-shrink-0">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5.86334 10.5831L3.08334 7.80312L2.13667 8.74312L5.86334 12.4698L13.8633 4.46978L12.9233 3.52979L5.86334 10.5831Z" fill="#07A348"/>
+                                <path d="M5.86334 10.5831L3.08334 7.80312L2.13667 8.74312L5.86334 12.4698L13.8633 4.46978L12.9233 3.52979L5.86334 10.5831Z" fill="var(--green)"/>
                             </svg>
-                            <span class="text-xs leading-[150%] font-normal text-[#07A348]">Applied</span>
+                            <span class="text-xs leading-[150%] font-normal text-[var(--green)]">Applied</span>
                         </div>
                     </div>
                 </div>
@@ -442,7 +442,7 @@
                          <!-- Remove Button -->
                         <div class="flex items-center gap-1 p-1 rounded-2xl flex-shrink-0">
                             <button onclick="removeWallet()" class="px-2 py-1 hover:opacity-80 transition-opacity">
-                                <span class="text-xs leading-[160%] tracking-[-0.12px] font-semibold text-[#DB0303]">Remove</span>
+                                <span class="text-xs leading-[160%] tracking-[-0.12px] font-semibold text-[var(--red)]">Remove</span>
                             </button>
                         </div>
                     </div>
@@ -517,7 +517,7 @@
 
             <!-- Action Buttons -->
             <div class="px-4 py-4 space-y-3">
-                <button class="w-full py-3.5 bg-success-green text-success-green-foreground rounded-lg font-medium text-base hover:bg-success-green/90 transition-colors shadow-sm">
+                <button onclick="window.location.href='booking-success.html'" class="w-full py-3.5 bg-success-green text-success-green-foreground rounded-lg font-medium text-base hover:bg-success-green/90 transition-colors shadow-sm">
                     Pay ₹1951 & Book Slot
                 </button>
                 <button class="w-full py-3.5 bg-white border border-container-border text-text-heading rounded-lg font-medium text-base hover:bg-gray-50 transition-colors">
@@ -541,7 +541,7 @@
                 <button onclick="closeCancelModal()" class="flex-1 py-2.5 rounded-lg border border-container-border text-text-heading font-medium hover:bg-gray-50 transition-colors">
                     No
                 </button>
-                <button onclick="window.location.href='TurfDetails.html'" class="flex-1 py-2.5 rounded-lg bg-[#DB0303] text-white font-medium hover:bg-[#b00202] transition-colors">
+                <button onclick="window.location.href='TurfDetails.html'" class="flex-1 py-2.5 rounded-lg bg-[var(--red)] text-white font-medium hover:opacity-90 transition-colors">
                     Yes
                 </button>
             </div>

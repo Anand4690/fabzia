@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Turf Booking - Sign up</title>
 
+    <!-- Utility CSS -->
+    <link rel="stylesheet" href="utility.css">
+
     <!-- Tailwind CDN (for quick prototyping). Replace with a production build for production. -->
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -62,7 +65,7 @@
 
       <!-- Skip Button (now absolutely positioned above video) -->
       <button id="skipBtn" class="skip-btn">
-        <span class="font-roboto text-sm font-medium leading-5 tracking-[0.1px] text-[#0F0F0F]">Skip</span>
+        <span class="font-roboto text-sm font-medium leading-5 tracking-[0.1px] text-[var(--text-heading)]">Skip</span>
       </button>
 
       <!-- Content Overlay -->
@@ -75,8 +78,8 @@
           <div class="flex flex-col gap-5">
             <div class="flex flex-col gap-1">
               <div class="flex flex-col gap-2">
-                <h1 class="font-inter text-xl font-semibold leading-7 tracking-[0.04px] text-[#0F0F0F] w-full">Book Turfs Faster</h1>
-                <p class="font-inter text-sm font-normal leading-5 tracking-[0.04px] text-[#4D4D4D] w-full">Sign up to check real-time availability</p>
+                <h1 class="font-inter text-xl font-semibold leading-7 tracking-[0.04px] text-[var(--text-heading)] w-full">Book Turfs Faster</h1>
+                <p class="font-inter text-sm font-normal leading-5 tracking-[0.04px] text-[var(--text-body)] w-full">Sign up to check real-time availability</p>
               </div>
             </div>
 
@@ -90,7 +93,7 @@
                     alt="India flag"
                     class="w-[34px] h-[22.67px]"
                   />
-                  <span class="font-roboto text-sm font-medium leading-5 tracking-[0.25px] text-[#0F0F0F]">+91</span>
+                  <span class="font-roboto text-sm font-medium leading-5 tracking-[0.25px] text-[var(--text-heading)]">+91</span>
                 </div>
 
                 <!-- Phone Number Field -->
@@ -102,18 +105,18 @@
                     pattern="[0-9]*"
                     placeholder="10-digit mobile number"
                     maxlength="10"
-                    class="w-full font-roboto text-sm font-normal leading-5 tracking-[0.25px] text-[#4D4D4D] placeholder:text-[#4D4D4D] bg-transparent outline-none border-none"
+                    class="w-full font-roboto text-sm font-normal leading-5 tracking-[0.25px] text-[var(--text-body)] placeholder:text-[var(--text-body)] bg-transparent outline-none border-none"
                   />
                 </div>
               </div>
 
               <!-- Continue Button -->
-              <button id="continueBtn" aria-disabled="true" class="flex h-12 items-center justify-center gap-2.5 rounded-lg transition-colors bg-[#DEDEDE] text-[#4D4D4D] opacity-80">
+              <button id="continueBtn" aria-disabled="true" class="flex h-12 items-center justify-center gap-2.5 rounded-lg transition-colors bg-[#DEDEDE] text-[var(--text-body)] opacity-80">
                 <span class="font-roboto text-base font-normal leading-6 tracking-[0.5px]">Continue</span>
               </button>
 
               <!-- Terms and Privacy -->
-              <p class="font-roboto text-xs font-normal leading-4 tracking-[0.4px] text-[#4D4D4D] text-center">
+              <p class="font-roboto text-xs font-normal leading-4 tracking-[0.4px] text-[var(--text-body)] text-center">
                 By continuing you agree with our <span class="underline cursor-pointer">Terms of Services</span> & <span class="underline cursor-pointer">Privacy Policy</span>
               </p>
             </div>
@@ -130,13 +133,13 @@
 
         function setEnabled(enabled) {
           if (enabled) {
-            cont.classList.remove('bg-[#DEDEDE]', 'text-[#4D4D4D]', 'opacity-80');
-            cont.classList.add('bg-[#0F0F0F]', 'text-white');
+            cont.classList.remove('bg-[#DEDEDE]', 'text-[var(--text-body)]', 'opacity-80');
+            cont.classList.add('bg-[var(--text-heading)]', 'text-white');
             cont.setAttribute('aria-disabled', 'false');
             cont.disabled = false;
           } else {
-            cont.classList.remove('bg-[#0F0F0F]', 'text-white');
-            cont.classList.add('bg-[#DEDEDE]', 'text-[#4D4D4D]', 'opacity-80');
+            cont.classList.remove('bg-[var(--text-heading)]', 'text-white');
+            cont.classList.add('bg-[#DEDEDE]', 'text-[var(--text-body)]', 'opacity-80');
             cont.setAttribute('aria-disabled', 'true');
             cont.disabled = true;
           }
