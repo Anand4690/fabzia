@@ -9,7 +9,7 @@
 :root {
   /* Absolute */
   --black: hsl(0, 0%, 6%);
-  --green:hsl(145, 92%, 33%);
+  --green: hsl(145, 92%, 33%);
   --black-300: hsl(0, 0%, 30%);
   --black-700: hsl(0, 0%, 70%);
 
@@ -36,7 +36,6 @@
   --text-body: var(--black-300);
   --text-placeholder: var(--black-700);
 
-
   /* Button */
   --btn-background-primary: var(--green);
   --btn-border-primary: var(--black-700);
@@ -44,19 +43,20 @@
 
   /* Status */
   --red: hsl(0, 70%, 50%);
-  --green-success: #22C55E;
+  --error: var(--red); /* Alias for error */
+  --warning: #eab308; /* Yellow-500 for warning/payment due */
+  --green-success: #22c55e;
   --green-light: rgba(34, 197, 94, 0.1);
 
   /* Layout Colors */
-  --bg-soft: #F9FBF8;
-  --border-light: #F1F5F9;
-  --border-mid: #E2E8F0;
+  --bg-soft: #f9fbf8;
+  --border-light: #f1f5f9;
+  --border-mid: #e2e8f0;
 
   /* Text Colors Extended */
-  --text-slate-900: #0F172A;
-  --text-slate-500: #64748B;
+  --text-slate-900: #0f172a;
+  --text-slate-500: #64748b;
   --text-slate-700: #334155;
-
 }
 
 /* utility Style */
@@ -90,16 +90,16 @@ a {
   border: 1px solid var(--btn-border-primary);
 }
 
-.btn.primary.disabled{
-     opacity: 0.8;
-     color: var(--text-body);
+.btn.primary.disabled {
+  opacity: 0.8;
+  color: var(--text-body);
 }
 
 /* Form */
 
 .field {
   padding: 4px;
-  border-radius:4px;
+  border-radius: 4px;
   padding-inline: 0.6rem;
   padding-block: 0.6rem;
   border: 1px solid var(--btn-border-primary);
@@ -107,9 +107,9 @@ a {
 
 /* Page */
 
-.page{
-    padding-inline:16px;
-    padding-block: 20px;
+.page {
+  padding-inline: 16px;
+  padding-block: 20px;
 }
 
 /* Responsive Utility */

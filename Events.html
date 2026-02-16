@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - Fabzia Turf</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="utility.css">
+    <style>
+        body { font-family: 'Lato', sans-serif; }
+    </style>
+</head>
+<body class="bg-[var(--bg-light)]">
+
+    <div class="min-h-screen bg-[var(--bg-light)] flex justify-center">
+        <div class="w-full max-w-[430px] bg-[var(--white-pure)] min-h-screen flex flex-col shadow-2xl">
+
+            <!-- Nav Bar -->
+            <div class="flex items-center gap-2 px-4 py-[17px] h-14 border-b border-[var(--bg-container)] bg-[var(--white-pure)]">
+                <button onclick="window.history.back()" class="w-12 h-12 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="w-6 h-6 text-[var(--text-heading)]">
+                        <path d="m15 18-6-6 6-6" />
+                    </svg>
+                </button>
+                <h1 class="text-[20px] font-medium leading-7 tracking-[0.04px] text-[var(--text-heading)]">
+                    Events
+                </h1>
+            </div>
+
+            <!-- Coming Soon Content -->
+            <div class="flex-1 flex flex-col items-center justify-center px-6 pb-20">
+                <img src="assets/Images/coming_soon_rocket.png" alt="Coming Soon" class="w-52 h-52 object-contain">
+                <div class="flex flex-col items-center gap-3 mt-4">
+                    <h2 class="text-[var(--text-heading)] text-[22px] font-semibold leading-7">Coming Soon!</h2>
+                    <p class="text-[var(--text-body)] text-sm leading-[21px] text-center max-w-[280px]">
+                        We're working hard to bring you exciting sports events. Stay tuned!
+                    </p>
+                    <a href="Home.html" class="mt-4 px-6 py-2.5 bg-[var(--green-dark)] text-white rounded-lg text-sm font-medium hover:opacity-90 transition-opacity">
+                        Back to Home
+                    </a>
+                </div>
+            </div>
+
+            <!-- Bottom Navigation -->
+            <nav class="bg-[var(--white-pure)] border-t border-[var(--bg-container)] flex justify-center w-full z-50">
+                <div class="w-full h-16 flex items-center justify-between px-6">
+                    <a href="Home.html" class="nav-item flex flex-col items-center justify-center gap-1 min-w-0">
+                        <div class="w-6 h-6 flex items-center justify-center">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2.98416C12.1774 2.98416 12.349 3.04727 12.4844 3.1619L19.9844 9.52518H19.9854C20.0683 9.59554 20.1349 9.68334 20.1807 9.78201C20.2264 9.88075 20.25 9.98864 20.25 10.0974V19.4998C20.25 19.6986 20.1709 19.8894 20.0303 20.0301C19.8896 20.1707 19.6989 20.2498 19.5 20.2498H14.75V13.2498H9.25V20.2498H4.5C4.30109 20.2498 4.11038 20.1707 3.96973 20.0301C3.82914 19.8894 3.75 19.6986 3.75 19.4998V10.0974L3.75488 10.0154C3.76373 9.93481 3.78512 9.85592 3.81934 9.78201C3.86505 9.68334 3.93173 9.59554 4.01465 9.52518H4.01562L11.5156 3.1619L11.5146 3.16092C11.6161 3.07498 11.7388 3.01899 11.8682 2.99588L12 2.98416Z" stroke="var(--black)" stroke-width="1.5"/>
+                            </svg>
+                        </div>
+                        <span class="text-sm font-medium text-[var(--text-heading)]">Home</span>
+                    </a>
+                    <!-- Events (Active) -->
+                    <a href="Events.html" class="nav-item flex flex-col items-center justify-center gap-1 min-w-0">
+                        <div class="w-6 h-6 flex items-center justify-center">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0_events_active_e)">
+                                    <path d="M21.8944 13.3913L21.1692 13.3913C20.8 13.3913 20.4459 13.2446 20.1848 12.9835C19.9238 12.7225 19.7771 12.3684 19.7771 11.9992C19.7771 11.63 19.9238 11.2759 20.1848 11.0148C20.4459 10.7537 20.8 10.6071 21.1692 10.6071L21.8944 10.6071L21.8944 5.98522L16.0608 5.98522L15.5275 6.25337L14.9942 5.98522L2.10518 5.98522L2.10518 10.6097L2.83041 10.6097C3.19962 10.6097 3.55371 10.7564 3.81478 11.0174C4.07586 11.2785 4.22253 11.6326 4.22253 12.0018C4.22253 12.371 4.07586 12.7251 3.81478 12.9862C3.55371 13.2473 3.19962 13.3939 2.83041 13.3939L2.10518 13.3939L2.10518 18.0158L14.9922 18.0158L15.5255 17.7476L16.0588 18.0158L21.8925 18.0158L21.8944 13.3913ZM14.8016 6.65841L16.2514 6.65841L16.2514 8.84602L14.8013 8.84569L14.8016 6.65841ZM14.8016 9.50894L16.2521 9.50894V11.6647L14.8016 11.6647L14.8016 9.50894ZM14.8016 12.3303H16.2521V14.4861L14.8013 14.4891L14.8016 12.3303ZM14.8019 17.3396L14.8019 15.152L16.2521 15.1516L16.2521 17.3393L14.8019 17.3396Z" fill="var(--green)"/>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_events_active_e">
+                                        <rect width="24" height="24" fill="white"/>
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                        </div>
+                        <span class="text-sm font-medium text-[var(--green)]">Events</span>
+                    </a>
+                    <!-- Coaching (Inactive) -->
+                    <a href="Coaching.html" class="nav-item flex flex-col items-center justify-center gap-1 min-w-0">
+                        <div class="w-6 h-6 flex items-center justify-center">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8.019 10.923C6.51267 10.923 5.22908 10.3926 4.16825 9.33175C3.10725 8.27075 2.57675 6.98708 2.57675 5.48075C2.57675 5.27392 2.58992 5.06708 2.61625 4.86025C2.64258 4.65342 2.67558 4.46792 2.71525 4.30375C2.63842 4.33708 2.55125 4.36892 2.45375 4.36925C2.35625 4.37942 2.27067 4.3845 2.197 4.3845C1.57717 4.3845 1.056 4.17258 0.6335 3.74875C0.211167 3.32492 0 2.80608 0 2.19225C0 1.57842 0.201917 1.05958 0.60575 0.63575C1.00942 0.211916 1.51967 0 2.1365 0C2.64167 0 3.091 0.144583 3.4845 0.433749C3.87817 0.722749 4.141 1.08975 4.273 1.53475C4.75883 1.07308 5.32867 0.708333 5.9825 0.4405C6.63633 0.1725 7.31517 0.0384995 8.019 0.0384995H19.019V3.0385H13.4613V5.48075C13.4613 6.99242 12.9322 8.27742 11.874 9.33575C10.8158 10.3939 9.53083 10.923 8.019 10.923ZM2.19225 3.19225C2.47558 3.19225 2.71308 3.09642 2.90475 2.90475C3.09642 2.71308 3.19225 2.47558 3.19225 2.19225C3.19225 1.90892 3.09642 1.67142 2.90475 1.47975C2.71308 1.28808 2.47558 1.19225 2.19225 1.19225C1.90892 1.19225 1.67142 1.28808 1.47975 1.47975C1.28808 1.67142 1.19225 1.90892 1.19225 2.19225C1.19225 2.47558 1.28808 2.71308 1.47975 2.90475C1.67142 3.09642 1.90892 3.19225 2.19225 3.19225ZM8.0205 9.1155C9.02467 9.1155 9.88125 8.7605 10.5903 8.0505C11.2992 7.34067 11.6538 6.48367 11.6538 5.4795C11.6538 4.47517 11.2988 3.6185 10.589 2.9095C9.879 2.2005 9.02192 1.846 8.01775 1.846C7.01358 1.846 6.157 2.201 5.448 2.911C4.739 3.62083 4.3845 4.47783 4.3845 5.482C4.3845 6.48633 4.73942 7.343 5.44925 8.052C6.15908 8.761 7.01617 9.1155 8.0205 9.1155Z" fill="var(--black)" transform="translate(2, 7)"/>
+                            </svg>
+                        </div>
+                        <span class="text-sm font-medium text-[var(--text-heading)]">Coaching</span>
+                    </a>
+                    <a href="More.html" class="nav-item flex flex-col items-center justify-center gap-1 min-w-0">
+                        <div class="w-6 h-6 flex items-center justify-center">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21.25 12C21.25 6.89137 17.1086 2.75 12 2.75C6.89136 2.75 2.75 6.89136 2.75 12C2.75 17.1086 6.89137 21.25 12 21.25C17.1086 21.25 21.25 17.1086 21.25 12ZM8.25 12C8.25 12.6903 7.69039 13.25 7 13.25C6.30961 13.25 5.75 12.6903 5.75 12C5.75 11.3097 6.30961 10.75 7 10.75C7.69039 10.75 8.25 11.3097 8.25 12ZM13.25 12C13.25 12.6903 12.6903 13.25 12 13.25C11.3097 13.25 10.75 12.6903 10.75 12C10.75 11.3097 11.3097 10.75 12 10.75C12.6903 10.75 13.25 11.3097 13.25 12ZM18.25 12C18.25 12.6903 17.6903 13.25 17 13.25C16.3097 13.25 15.75 12.6903 15.75 12C15.75 11.3097 16.3097 10.75 17 10.75C17.6903 10.75 18.25 11.3097 18.25 12ZM22.75 12C22.75 17.937 17.937 22.75 12 22.75C6.06293 22.75 1.25 17.937 1.25 12C1.25 6.06294 6.06294 1.25 12 1.25C17.937 1.25 22.75 6.06293 22.75 12Z" fill="var(--black)"/>
+                            </svg>
+                        </div>
+                        <span class="text-sm font-medium text-[var(--text-heading)]">More</span>
+                    </a>
+                </div>
+            </nav>
+
+        </div>
+    </div>
+
+</body>
+</html>

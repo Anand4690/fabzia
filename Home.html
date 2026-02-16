@@ -58,17 +58,16 @@
 
     <div class="mobile-container pb-20 bg-[var(--bg-light)]">
         <!-- Top Navigation -->
-        <header class="sticky top-0 z-40 bg-white border-b border-[var(--bg-container)] px-4 py-3">
-            <div class="flex items-center justify-between">
+        <header class="sticky top-0 z-40 bg-white border-b border-[var(--bg-container)] px-4 py-3" style="height: 72px; padding-top: 12px; padding-bottom: 12px;">
+            <div class="flex items-center justify-between h-full">
                 <div class="flex items-center gap-2">
-                    <!-- Avatar -->
                     <!-- Avatar -->
                     <a href="EditProfile.html" class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-sm font-medium text-[var(--green)] cursor-pointer">
                         fs
                     </a>
                     <!-- Location -->
                     <a href="shareLocation.html" class="flex items-center gap-1 cursor-pointer">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <img src="assets/Icons/Home Screen/location-sharp.svg" alt="Location" class="w-5 h-5">
                         <span class="text-sm font-normal">Mumbai</span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="m6 9 6 6 6-6"/></svg>
                     </a>
@@ -81,10 +80,10 @@
                     </a>
                     <!-- Notification -->
                     <a href="Notifications.html">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+                        <img src="assets/Icons/Home Screen/notifications.svg" alt="Notifications" class="w-6 h-6">
                     </a>
                     <a href="wallet.html">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
+                        <img src="assets/Icons/Home Screen/wallet-outline.svg" alt="Wallet" class="w-6 h-6">
                     </a>
                 </div>
             </div>
@@ -99,14 +98,14 @@
             </a>
 
             <!-- Ad Banner with Auto-Slider -->
-            <div class="relative h-32 rounded-lg overflow-hidden shadow-md group">
+            <div id="banner-container" class="relative w-full overflow-hidden rounded-xl" style="aspect-ratio: 16/7; width: calc(100%);">
                 <div id="banner-track" class="flex transition-transform duration-500 ease-in-out h-full" style="transform: translateX(0%);">
-                    <img src="assets/Images/banner_placeholder.png" alt="Banner 1" class="w-full h-full object-cover flex-shrink-0">
-                    <img src="assets/Images/banner_placeholder.png" alt="Banner 2" class="w-full h-full object-cover flex-shrink-0">
-                    <img src="assets/Images/banner_placeholder.png" alt="Banner 3" class="w-full h-full object-cover flex-shrink-0">
+                    <img src="assets/Images/banner_placeholder.png" alt="Banner 1" >
+                    <img src="assets/Images/banner_placeholder.png" alt="Banner 2" >
+                    <img src="assets/Images/banner_placeholder.png" alt="Banner 3" >
                 </div>
                 <!-- Slider Dots -->
-                <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1" id="banner-dots">
+                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2" id="banner-dots">
                     <div class="h-2 rounded-full transition-all w-5 bg-white cursor-pointer" onclick="goToSlide(0)"></div>
                     <div class="h-2 rounded-full transition-all w-2 bg-white/50 border border-white cursor-pointer" onclick="goToSlide(1)"></div>
                     <div class="h-2 rounded-full transition-all w-2 bg-white/50 border border-white cursor-pointer" onclick="goToSlide(2)"></div>
@@ -114,7 +113,7 @@
             </div>
 
             <!-- Explore Turfs Section -->
-            <div id="explore-turf-section" class="transition-all duration-300">
+            <div id="explore-turf-section">
                 <div class="flex flex-col gap-1">
                     <!-- Title -->
                     <div class="flex items-center justify-between h-9 py-1 bg-[var(--bg-light)]"> 
@@ -133,50 +132,39 @@
                             <div class="h-8 w-px bg-[var(--black-700)] ml-2"></div>
                         </div>
 
+                        <!-- All (was View All, now first) -->
+                        <button onclick="setActiveFilter('All', this)" class="filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--bg-container)] bg-white">
+                            <span class="text-xs font-normal text-[var(--text-heading)]">All</span>
+                        </button>
+
                         <!-- Cricket -->
                         <button onclick="setActiveFilter('Cricket', this)" class="filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--bg-container)] bg-white">
-                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M2 22h20"></path><path d="M4 2v20"></path><path d="M20 2v20"></path><path d="m5 5 14 14"></path>
-                            </svg>
+                            <img src="assets/Icons/Sports/Sport=Cricket.svg" alt="Cricket" class="w-4 h-4">
                             <span class="text-xs font-normal text-[var(--text-heading)]">Cricket</span>
                         </button>
 
                         <!-- Football -->
                         <button onclick="setActiveFilter('Football', this)" class="filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--bg-container)] bg-white">
-                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"></circle><path d="m12 16 4-2-2-5-4 2 2 5"></path><path d="m8.5 7.5 7 1"></path><path d="m16.5 10 3.5 2"></path><path d="m16 14 4 4"></path><path d="m12 16-1 5"></path><path d="m8 14-4 4"></path><path d="m7.5 10-3.5 2"></path>
-                            </svg>
+                            <img src="assets/Icons/Sports/Sport=Football, Property 2=ionicons, Property 3=outline, Property 4=football-outline.svg" alt="Football" class="w-4 h-4">
                             <span class="text-xs font-normal text-[var(--text-heading)]">Football</span>
                         </button>
 
                         <!-- Badminton -->
                         <button onclick="setActiveFilter('Badminton', this)" class="filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--bg-container)] bg-white">
-                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 22v-6"></path><path d="m12 16 6.5-6.5c1.4-1.4 1.4-3.6 0-5-1.4-1.4-3.6-1.4-5 0L12 6 10.5 4.5c-1.4-1.4-3.6-1.4-5 0-1.4 1.4-1.4 3.6 0 5L12 16Z"></path>
-                            </svg>
+                            <img src="assets/Icons/Sports/Sport=Badminton.svg" alt="Badminton" class="w-4 h-4">
                             <span class="text-xs font-normal text-[var(--text-heading)]">Badminton</span>
                         </button>
 
                         <!-- Basketball -->
                         <button onclick="setActiveFilter('Basketball', this)" class="filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--bg-container)] bg-white">
-                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"></circle><path d="M5.65 17.65a6 6 0 0 0 12.7 0"></path><path d="M22 12h-6.05a5.96 5.96 0 0 1-3.95-3.95H2"></path><line x1="12" y1="2" x2="12" y2="22"></line>
-                            </svg>
+                            <img src="assets/Icons/Sports/Sport=Basketball, Property 2=iconoir, Property 3=basketball-alt.svg" alt="Basketball" class="w-4 h-4">
                             <span class="text-xs font-normal text-[var(--text-heading)]">Basketball</span>
                         </button>
 
                         <!-- Tennis -->
                         <button onclick="setActiveFilter('Tennis', this)" class="filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--bg-container)] bg-white">
-                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"></circle><path d="M2 12h20"></path><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                            </svg>
+                            <img src="assets/Icons/Sports/Sport=tennis.svg" alt="Tennis" class="w-4 h-4">
                             <span class="text-xs font-normal text-[var(--text-heading)]">Tennis</span>
-                        </button>
-
-                        <!-- View All -->
-                        <button onclick="setActiveFilter('View All', this)" class="filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--bg-container)] bg-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-[var(--text-heading)]"><path d="m6 9 6 6 6-6"/></svg>
-                            <span class="text-xs font-normal text-[var(--text-heading)]">View All</span>
                         </button>
                     </div>
                 </div>
@@ -190,194 +178,198 @@
                 
                 <!-- Card 1 -->
                 <div onclick="window.location.href='TurfDetails.html'" class="flex flex-col gap-2 cursor-pointer group">
-                    <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block">
-                        <img src="assets/Images/turf_placeholder.png" alt="Turf" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block shadow-[0_1px_4px_rgba(0,0,0,0.1)]">
+                        <img src="assets/Images/turf_placeholder.png" alt="Turf" class="w-full h-full object-cover">
                         <div class="absolute bottom-1 left-2 flex items-center gap-1 bg-[var(--green-dark)] rounded-full px-2 py-0.5">
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="w-3 h-3 text-white"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                            <span class="text-xs font-medium text-[var(--text-inverse-heading)]">4.2</span>
+                            <span class="text-xs font-medium text-white">4.2</span>
                         </div>
-                        <div class="absolute top-2 left-1 bg-white/90 rounded px-1 py-0.5">
-                            <span class="text-[10px] font-medium text-[var(--text-heading)]">50% OFF</span>
+                        <div class="absolute top-2 left-1 bg-white/90 rounded px-1.5 leading-tight">
+                            <span class="text-[10px] font-semibold text-[var(--text-heading)]">50% OFF</span>
                         </div>
                     </a>
-                    <div class="flex flex-col gap-3">
+                    <div class="flex flex-col gap-3 px-2 pb-2">
                         <div class="flex flex-col gap-1">
                             <h3 class="text-sm font-normal text-[var(--text-heading)] leading-tight">The Multisports Turf</h3>
                             <div class="flex items-center gap-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3 text-[var(--text-body)]"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <img src="assets/Icons/Home Screen/card location_on.svg" alt="Location" class="w-4 h-4">
                                 <span class="text-xs font-normal text-[var(--text-body)]">Thane west (2km)</span>
                             </div>
-                            <span class="text-xs font-normal text-[var(--green)]">₹200 onwards</span>
+                            <span class="text-xs font-normal text-[var(--green-dark)]">₹200 onwards</span>
                         </div>
-                        <button onclick="event.stopPropagation(); window.location.href='Checkout.html'" class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Book Now</button>
+                        <button onclick="event.stopPropagation(); window.location.href='BookSlot.html'" class="w-full h-10 bg-[var(--green-dark)] text-white rounded-md font-normal text-base shadow-[0_1px_3px_rgba(0,0,0,0.15)] hover:opacity-90 transition-opacity">Book Now</button>
                     </div>
                 </div>
 
                 <!-- Card 2 -->
                 <div onclick="window.location.href='TurfDetails.html'" class="flex flex-col gap-2 cursor-pointer group">
-                    <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block">
-                        <img src="assets/Images/turf_placeholder.png" alt="Turf" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute bottom-2 left-2 flex items-center gap-1 bg-[var(--green-dark)] rounded-full px-2 py-0.5">
+                    <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block shadow-[0_1px_4px_rgba(0,0,0,0.1)]">
+                        <img src="assets/Images/turf_placeholder.png" alt="Turf" class="w-full h-full object-cover">
+                        <div class="absolute bottom-0 left-2 flex items-center gap-1 bg-[var(--green-dark)] rounded-full px-2 py-0.5">
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="w-3 h-3 text-white"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                            <span class="text-xs font-medium text-[var(--text-inverse-heading)]">4.2</span>
+                            <span class="text-xs font-medium text-white">4.2</span>
                         </div>
-                        <div class="absolute top-2 left-1 bg-white/90 rounded px-1 py-0.5">
-                            <span class="text-[10px] font-medium text-[var(--text-heading)]">50% OFF</span>
+                        <div class="absolute top-2 left-1 bg-white/90 rounded px-1.5 leading-tight">
+                            <span class="text-[10px] font-semibold text-[var(--text-heading)]">50% OFF</span>
                         </div>
                     </a>
-                    <div class="flex flex-col gap-3">
+                    <div class="flex flex-col gap-3 px-2 pb-2">
                         <div class="flex flex-col gap-1">
                             <h3 class="text-sm font-normal text-[var(--text-heading)] leading-tight">Play Field Turf</h3>
                             <div class="flex items-center gap-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3 text-[var(--text-body)]"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <img src="assets/Icons/Home Screen/card location_on.svg" alt="Location" class="w-4 h-4">
                                 <span class="text-xs font-normal text-[var(--text-body)]">Thane Station (3km)</span>
                             </div>
-                            <span class="text-xs font-normal text-[var(--green)]">₹400 onwards</span>
+                            <span class="text-xs font-normal text-[var(--green-dark)]">₹400 onwards</span>
                         </div>
-                        <button onclick="event.stopPropagation(); window.location.href='Checkout.html'" class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Enquire Now</button>
+                        <button onclick="event.stopPropagation(); window.location.href='Checkout.html'" class="w-full h-10 bg-[var(--green-dark)] text-white rounded-md font-normal text-base shadow-[0_1px_3px_rgba(0,0,0,0.15)] hover:opacity-90 transition-opacity">Enquire Now</button>
                     </div>
                 </div>
 
                 <!-- More cards (Duplicates for display) -->
                  <div onclick="window.location.href='TurfDetails.html'" class="flex flex-col gap-2 cursor-pointer group">
-                    <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block">
+                    <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block shadow-[0_1px_4px_rgba(0,0,0,0.1)]">
                         <img src="assets/Images/turf_placeholder.png" alt="Turf" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute bottom-2 left-2 flex items-center gap-1 bg-[var(--green-dark)] rounded-full px-2 py-0.5">
+                        <div class="absolute bottom-1 left-2 flex items-center gap-1 bg-[var(--green-dark)] rounded-full px-2 py-0.5">
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="w-3 h-3 text-white"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                            <span class="text-xs font-medium text-[var(--text-inverse-heading)]">4.2</span>
+                            <span class="text-xs font-medium text-white">4.2</span>
                         </div>
-                         <div class="absolute top-2 left-1 bg-white/90 rounded px-1 py-0.5">
-                            <span class="text-[10px] font-medium text-[var(--text-heading)]">50% OFF</span>
+                        <div class="absolute top-2 left-1 bg-white/90 rounded px-1.5 leading-tight">
+                            <span class="text-[10px] font-semibold text-[var(--text-heading)]">50% OFF</span>
                         </div>
                     </a>
-                    <div class="flex flex-col gap-3">
+                    <div class="flex flex-col gap-3 px-2 pb-2">
                         <div class="flex flex-col gap-1">
                             <h3 class="text-sm font-normal text-[var(--text-heading)] leading-tight">The Multisports Turf</h3>
                             <div class="flex items-center gap-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3 text-[var(--text-body)]"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <img src="assets/Icons/Home Screen/card location_on.svg" alt="Location" class="w-4 h-4">
                                 <span class="text-xs font-normal text-[var(--text-body)]">Thane west (2km)</span>
                             </div>
-                            <span class="text-xs font-normal text-[var(--green)]">₹200 onwards</span>
+                            <span class="text-xs font-normal text-[var(--green-dark)]">₹200 onwards</span>
                         </div>
-                        <button onclick="event.stopPropagation(); window.location.href='Checkout.html'" class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Book Now</button>
+                        <button onclick="event.stopPropagation(); window.location.href='BookSlot.html'" class="w-full h-10 bg-[var(--green-dark)] text-white rounded-md font-normal text-base shadow-[0_1px_3px_rgba(0,0,0,0.15)] hover:opacity-90 transition-opacity">Book Now</button>
                     </div>
                 </div>
 
                 <div onclick="window.location.href='TurfDetails.html'" class="flex flex-col gap-2 cursor-pointer group">
-                    <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block">
+                    <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block shadow-[0_1px_4px_rgba(0,0,0,0.1)]">
                         <img src="assets/Images/turf_placeholder.png" alt="Turf" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute bottom-2 left-2 flex items-center gap-1 bg-[var(--green-dark)] rounded-full px-2 py-0.5">
+                        <div class="absolute bottom-1 left-2 flex items-center gap-1 bg-[var(--green-dark)] rounded-full px-2 py-0.5">
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="w-3 h-3 text-white"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                            <span class="text-xs font-medium text-[var(--text-inverse-heading)]">4.2</span>
+                            <span class="text-xs font-medium text-white">4.2</span>
                         </div>
-                        <div class="absolute top-2 left-1 bg-white/90 rounded px-1 py-0.5">
-                            <span class="text-[10px] font-medium text-[var(--text-heading)]">50% OFF</span>
+                        <div class="absolute top-2 left-1 bg-white/90 rounded px-1.5 leading-tight">
+                            <span class="text-[10px] font-semibold text-[var(--text-heading)]">50% OFF</span>
                         </div>
                     </a>
-                    <div class="flex flex-col gap-3">
+                    <div class="flex flex-col gap-3 px-2 pb-2">
                         <div class="flex flex-col gap-1">
                             <h3 class="text-sm font-normal text-[var(--text-heading)] leading-tight">Play Field Turf</h3>
                             <div class="flex items-center gap-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3 text-[var(--text-body)]"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <img src="assets/Icons/Home Screen/card location_on.svg" alt="Location" class="w-4 h-4">
                                 <span class="text-xs font-normal text-[var(--text-body)]">Thane Station (3km)</span>
                             </div>
-                            <span class="text-xs font-normal text-[var(--green)]">₹400 onwards</span>
+                            <span class="text-xs font-normal text-[var(--green-dark)]">₹400 onwards</span>
                         </div>
-                        <button onclick="event.stopPropagation(); window.location.href='Checkout.html'" class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Book Now</button>
+                        <button onclick="event.stopPropagation(); window.location.href='BookSlot.html'" class="w-full h-10 bg-[var(--green-dark)] text-white rounded-md font-normal text-base shadow-[0_1px_3px_rgba(0,0,0,0.15)] hover:opacity-90 transition-opacity">Book Now</button>
                     </div>
                 </div>
 
                 <!-- New Cards -->
                 <div onclick="window.location.href='TurfDetails.html'" class="flex flex-col gap-2 cursor-pointer group">
-                    <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block">
+                    <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block shadow-[0_1px_4px_rgba(0,0,0,0.1)]">
                         <img src="assets/Images/turf_placeholder.png" alt="Turf" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
                         <div class="absolute bottom-1 left-2 flex items-center gap-1 bg-[var(--green-dark)] rounded-full px-2 py-0.5">
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="w-3 h-3 text-white"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                            <span class="text-xs font-medium text-[var(--text-inverse-heading)]">4.5</span>
+                            <span class="text-xs font-medium text-white">4.5</span>
                         </div>
-                        <div class="absolute top-2 left-1 bg-white/90 rounded px-1 py-0.5">
-                            <span class="text-[10px] font-medium text-[var(--text-heading)]">20% OFF</span>
+                        <div class="absolute top-2 left-1 bg-white/90 rounded px-1.5 leading-tight">
+                            <span class="text-[10px] font-semibold text-[var(--text-heading)]">20% OFF</span>
                         </div>
                     </a>
-                    <div class="flex flex-col gap-3">
+                    <div class="flex flex-col gap-3 px-2 pb-2">
                         <div class="flex flex-col gap-1">
                             <h3 class="text-sm font-normal text-[var(--text-heading)] leading-tight">Super Strikers</h3>
                             <div class="flex items-center gap-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3 text-[var(--text-body)]"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <img src="assets/Icons/Home Screen/card location_on.svg" alt="Location" class="w-4 h-4">
                                 <span class="text-xs font-normal text-[var(--text-body)]">Mulund (4km)</span>
                             </div>
-                            <span class="text-xs font-normal text-[var(--green)]">₹600 onwards</span>
+                            <span class="text-xs font-normal text-[var(--green-dark)]">₹600 onwards</span>
                         </div>
-                        <button onclick="event.stopPropagation(); window.location.href='Checkout.html'" class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Book Now</button>
+                        <button onclick="event.stopPropagation(); window.location.href='BookSlot.html'" class="w-full h-10 bg-[var(--green-dark)] text-white rounded-md font-normal text-base shadow-[0_1px_3px_rgba(0,0,0,0.15)] hover:opacity-90 transition-opacity">Book Now</button>
                     </div>
                 </div>
 
                 <div onclick="window.location.href='TurfDetails.html'" class="flex flex-col gap-2 cursor-pointer group">
-                    <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block">
+                    <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block shadow-[0_1px_4px_rgba(0,0,0,0.1)]">
                         <img src="assets/Images/turf_placeholder.png" alt="Turf" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
                         <div class="absolute bottom-1 left-2 flex items-center gap-1 bg-[var(--green-dark)] rounded-full px-2 py-0.5">
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="w-3 h-3 text-white"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                            <span class="text-xs font-medium text-[var(--text-inverse-heading)]">3.8</span>
+                            <span class="text-xs font-medium text-white">3.8</span>
                         </div>
-                        <div class="absolute top-2 left-1 bg-white/90 rounded px-1 py-0.5">
-                            <span class="text-[10px] font-medium text-[var(--text-heading)]">10% OFF</span>
+                        <div class="absolute top-2 left-1 bg-white/90 rounded px-1.5 leading-tight">
+                            <span class="text-[10px] font-semibold text-[var(--text-heading)]">10% OFF</span>
                         </div>
                     </a>
-                    <div class="flex flex-col gap-3">
+                    <div class="flex flex-col gap-3 px-2 pb-2">
                         <div class="flex flex-col gap-1">
                             <h3 class="text-sm font-normal text-[var(--text-heading)] leading-tight">Box Cricket Arena</h3>
                             <div class="flex items-center gap-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3 text-[var(--text-body)]"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <img src="assets/Icons/Home Screen/card location_on.svg" alt="Location" class="w-4 h-4">
                                 <span class="text-xs font-normal text-[var(--text-body)]">Airoli (5km)</span>
                             </div>
-                            <span class="text-xs font-normal text-[var(--green)]">₹300 onwards</span>
+                            <span class="text-xs font-normal text-[var(--green-dark)]">₹300 onwards</span>
                         </div>
-                        <button onclick="event.stopPropagation(); window.location.href='Checkout.html'" class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Book Now</button>
+                        <button onclick="event.stopPropagation(); window.location.href='BookSlot.html'" class="w-full h-10 bg-[var(--green-dark)] text-white rounded-md font-normal text-base shadow-[0_1px_3px_rgba(0,0,0,0.15)] hover:opacity-90 transition-opacity">Book Now</button>
                     </div>
                 </div>
 
                 <div onclick="window.location.href='TurfDetails.html'" class="flex flex-col gap-2 cursor-pointer group">
-                    <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block">
+                    <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block shadow-[0_1px_4px_rgba(0,0,0,0.1)]">
                         <img src="assets/Images/turf_placeholder.png" alt="Turf" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute bottom-1 left-2 flex items-center gap-1 bg-[var(--green-dark)] rounded-full px-2 py-0.5">
+
+                        <div class="absolute bottom-0  left-2 flex items-center gap-0.5 bg-[var(--green-dark)] rounded-full px-2 py-0.5">
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="w-3 h-3 text-white"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                            <span class="text-xs font-medium text-[var(--text-inverse-heading)]">4.8</span>
+                            <span class="text-xs font-medium text-white">4.8</span>
                         </div>
-                        <div class="absolute top-2 left-1 bg-white/90 rounded px-1 py-0.5">
-                            <span class="text-[10px] font-medium text-[var(--text-heading)]">Flat ₹100 OFF</span>
+                        <div class="absolute top-2 left-1 bg-white/90 rounded px-1.5 leading-tight">
+                            <span class="text-[10px] font-semibold text-[var(--text-heading)]">Flat ₹100 OFF</span>
                         </div>
                     </a>
-                    <div class="flex flex-col gap-3">
+                    <div class="flex flex-col gap-3 px-2 pb-2">
                         <div class="flex flex-col gap-1">
                             <h3 class="text-sm font-normal text-[var(--text-heading)] leading-tight">Champions Turf</h3>
                             <div class="flex items-center gap-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3 text-[var(--text-body)]"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <img src="assets/Icons/Home Screen/card location_on.svg" alt="Location" class="w-4 h-4">
                                 <span class="text-xs font-normal text-[var(--text-body)]">Vashi (8km)</span>
                             </div>
-                            <span class="text-xs font-normal text-[var(--green)]">₹800 onwards</span>
+                            <span class="text-xs font-normal text-[var(--green-dark)]">₹800 onwards</span>
                         </div>
-                        <button onclick="event.stopPropagation(); window.location.href='Checkout.html'" class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Book Now</button>
+                        <button onclick="event.stopPropagation(); window.location.href='BookSlot.html'" class="w-full h-10 bg-[var(--green-dark)] text-white rounded-md font-normal text-base shadow-[0_1px_3px_rgba(0,0,0,0.15)] hover:opacity-90 transition-opacity">Book Now</button>
                     </div>
                 </div>
 
                 <div onclick="window.location.href='TurfDetails.html'" class="flex flex-col gap-2 cursor-pointer group">
-                    <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block">
+                    <a href="TurfDetails.html" class="relative h-40 rounded-lg overflow-hidden block shadow-[0_1px_4px_rgba(0,0,0,0.1)]">
                         <img src="assets/Images/turf_placeholder.png" alt="Turf" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
                         <div class="absolute bottom-1 left-2 flex items-center gap-1 bg-[var(--green-dark)] rounded-full px-2 py-0.5">
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="w-3 h-3 text-white"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                            <span class="text-xs font-medium text-[var(--text-inverse-heading)]">4.0</span>
+                            <span class="text-xs font-medium text-white">4.0</span>
+                        </div>
+                        <div class="absolute top-2 left-1 bg-white/90 rounded px-1.5 leading-tight">
+                            <span class="text-[10px] font-semibold text-[var(--text-heading)]">30% OFF</span>
                         </div>
                     </a>
-                    <div class="flex flex-col gap-3">
+                    <div class="flex flex-col gap-3 px-2 pb-2">
                         <div class="flex flex-col gap-1">
                             <h3 class="text-sm font-normal text-[var(--text-heading)] leading-tight">Urban Sports</h3>
                             <div class="flex items-center gap-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3 text-[var(--text-body)]"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <img src="assets/Icons/Home Screen/card location_on.svg" alt="Location" class="w-4 h-4">
                                 <span class="text-xs font-normal text-[var(--text-body)]">Ghatkopar (10km)</span>
                             </div>
-                            <span class="text-xs font-normal text-[var(--green)]">₹500 onwards</span>
+                            <span class="text-xs font-normal text-[var(--green-dark)]">₹500 onwards</span>
                         </div>
-                        <button onclick="event.stopPropagation(); window.location.href='Checkout.html'" class="w-full h-10 bg-[var(--green-dark)] text-[var(--text-inverse-heading)] rounded-md font-normal text-base shadow-sm hover:opacity-90 transition-opacity">Book Now</button>
+                        <button onclick="event.stopPropagation(); window.location.href='BookSlot.html'" class="w-full h-10 bg-[var(--green-dark)] text-white rounded-md font-normal text-base shadow-[0_1px_3px_rgba(0,0,0,0.15)] hover:opacity-90 transition-opacity">Book Now</button>
                     </div>
                 </div>
             </div>
@@ -392,7 +384,7 @@
                 <div class="w-6 h-6 flex items-center justify-center icon-container">
                     <!-- Active Icon (Hidden by default) -->
                     <svg class="active-icon hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2.73416C12.2368 2.73416 12.4658 2.81834 12.6465 2.97147L20.1465 9.33475C20.2571 9.42854 20.3462 9.54498 20.4072 9.67654C20.4682 9.80825 20.5 9.95229 20.5 10.0974V19.4998C20.5 19.765 20.3945 20.0193 20.207 20.2068C20.0195 20.3944 19.7652 20.4998 19.5 20.4998H14.75C14.6121 20.4998 14.5 20.3876 14.5 20.2498V13.4998H9.5V20.2498C9.5 20.316 9.47357 20.3797 9.42676 20.4265C9.37987 20.4734 9.3163 20.4998 9.25 20.4998H4.5C4.23478 20.4998 3.98051 20.3944 3.79297 20.2068C3.6055 20.0193 3.5 19.765 3.5 19.4998V10.0974L3.50586 9.98904C3.51759 9.88117 3.54696 9.77543 3.59277 9.67654C3.65377 9.54497 3.7429 9.42854 3.85352 9.33475L11.3535 2.97147C11.5342 2.81834 11.7632 2.73416 12 2.73416Z" fill="var(--green)" stroke="var(--green)"/>
+                        <path d="M12 2.73416C12.2368 2.73416 12.4658 2.81834 12.6465 2.97147L20.1465 9.33475C20.2571 9.42854 20.3462 9.54498 20.4072 9.67654C20.4682 9.80825 20.5 9.95229 20.5 10.0974V19.4998C20.5 19.765 20.3945 20.0193 20.207 20.2068C20.0195 20.3944 19.7652 20.4998 19.5 20.4998H14.75C14.6121 20.4998 14.5 20.3876 14.5 20.2498V13.4998H9.5V20.2498C9.5 20.316 9.47357 20.3797 9.42676 20.4265C9.37987 20.4734 9.3163 20.4998 9.25 20.4998H4.5C4.23478 20.4998 3.98051 20.3944 3.79297 20.2068C3.6055 20.0193 3.5 19.765 3.5 19.4998V10.0974L3.50586 9.98904C3.51759 9.88117 3.54696 9.77543 3.59277 9.67654C3.65377 9.54497 3.7429 9.42854 3.85352 9.33475L11.3535 2.97147C11.5342 2.81834 11.7632 2.73416 12 2.73416Z" fill="var(--green-dark)" stroke="var(--green-dark)"/>
                     </svg>
                     <!-- Inactive Icon (Shown by default) -->
                     <svg class="inactive-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -403,12 +395,12 @@
             </a>
 
             <!-- Events Item -->
-            <a href="#" class="nav-item flex flex-col items-center justify-center gap-1 min-w-0 group" data-target="events" onclick="setActive('events')">
+            <a href="Events.html" class="nav-item flex flex-col items-center justify-center gap-1 min-w-0 group" data-target="events" onclick="setActive('events')">
                 <div class="w-6 h-6 flex items-center justify-center icon-container">
                     <!-- Active Icon -->
                     <svg class="active-icon hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_events_active)">
-                            <path d="M21.8944 13.3913L21.1692 13.3913C20.8 13.3913 20.4459 13.2446 20.1848 12.9835C19.9238 12.7225 19.7771 12.3684 19.7771 11.9992C19.7771 11.63 19.9238 11.2759 20.1848 11.0148C20.4459 10.7537 20.8 10.6071 21.1692 10.6071L21.8944 10.6071L21.8944 5.98522L16.0608 5.98522L15.5275 6.25337L14.9942 5.98522L2.10518 5.98522L2.10518 10.6097L2.83041 10.6097C3.19962 10.6097 3.55371 10.7564 3.81478 11.0174C4.07586 11.2785 4.22253 11.6326 4.22253 12.0018C4.22253 12.371 4.07586 12.7251 3.81478 12.9862C3.55371 13.2473 3.19962 13.3939 2.83041 13.3939L2.10518 13.3939L2.10518 18.0158L14.9922 18.0158L15.5255 17.7476L16.0588 18.0158L21.8925 18.0158L21.8944 13.3913ZM14.8016 6.65841L16.2514 6.65841L16.2514 8.84602L14.8013 8.84569L14.8016 6.65841ZM14.8016 9.50894L16.2521 9.50894V11.6647L14.8016 11.6647L14.8016 9.50894ZM14.8016 12.3303H16.2521V14.4861L14.8013 14.4891L14.8016 12.3303ZM14.8019 17.3396L14.8019 15.152L16.2521 15.1516L16.2521 17.3393L14.8019 17.3396Z" fill="var(--green)"/>
+                            <path d="M21.8944 13.3913L21.1692 13.3913C20.8 13.3913 20.4459 13.2446 20.1848 12.9835C19.9238 12.7225 19.7771 12.3684 19.7771 11.9992C19.7771 11.63 19.9238 11.2759 20.1848 11.0148C20.4459 10.7537 20.8 10.6071 21.1692 10.6071L21.8944 10.6071L21.8944 5.98522L16.0608 5.98522L15.5275 6.25337L14.9942 5.98522L2.10518 5.98522L2.10518 10.6097L2.83041 10.6097C3.19962 10.6097 3.55371 10.7564 3.81478 11.0174C4.07586 11.2785 4.22253 11.6326 4.22253 12.0018C4.22253 12.371 4.07586 12.7251 3.81478 12.9862C3.55371 13.2473 3.19962 13.3939 2.83041 13.3939L2.10518 13.3939L2.10518 18.0158L14.9922 18.0158L15.5255 17.7476L16.0588 18.0158L21.8925 18.0158L21.8944 13.3913ZM14.8016 6.65841L16.2514 6.65841L16.2514 8.84602L14.8013 8.84569L14.8016 6.65841ZM14.8016 9.50894L16.2521 9.50894V11.6647L14.8016 11.6647L14.8016 9.50894ZM14.8016 12.3303H16.2521V14.4861L14.8013 14.4891L14.8016 12.3303ZM14.8019 17.3396L14.8019 15.152L16.2521 15.1516L16.2521 17.3393L14.8019 17.3396Z" fill="var(--green-dark)"/>
                         </g>
                         <defs>
                             <clippath id="clip0_events_active">
@@ -436,11 +428,11 @@
             </a>
 
             <!-- Coaching Item -->
-            <a href="#" class="nav-item flex flex-col items-center justify-center gap-1 min-w-0 group" data-target="coaching" onclick="setActive('coaching')">
+            <a href="Coaching.html" class="nav-item flex flex-col items-center justify-center gap-1 min-w-0 group" data-target="coaching" onclick="setActive('coaching')">
                 <div class="w-6 h-6 flex items-center justify-center icon-container">
                     <!-- Active Icon -->
                     <svg class="active-icon hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9 12C7.33333 12 5.91667 11.4167 4.75 10.25C3.58333 9.08333 3 7.66667 3 6C3 5.81667 3.00833 5.63333 3.025 5.45C3.04167 5.26667 3.06667 5.08333 3.1 4.9C3.01667 4.93333 2.91667 4.95833 2.8 4.975C2.68333 4.99167 2.58333 5 2.5 5C1.8 5 1.20833 4.75833 0.725 4.275C0.241667 3.79167 0 3.2 0 2.5C0 1.8 0.229167 1.20833 0.6875 0.725C1.14583 0.241667 1.725 0 2.425 0C2.975 0 3.47083 0.154167 3.9125 0.4625C4.35417 0.770833 4.66667 1.16667 4.85 1.65C5.4 1.15 6.02917 0.75 6.7375 0.45C7.44583 0.15 8.2 0 9 0H20V4H15V6C15 7.66667 14.4167 9.08333 13.25 10.25C12.0833 11.4167 10.6667 12 9 12ZM2.5 3.5C2.78333 3.5 3.02083 3.40417 3.2125 3.2125C3.40417 3.02083 3.5 2.78333 3.5 2.5C3.5 2.21667 3.40417 1.97917 3.2125 1.7875C3.02083 1.59583 2.78333 1.5 2.5 1.5C2.21667 1.5 1.97917 1.59583 1.7875 1.7875C1.59583 1.97917 1.5 2.21667 1.5 2.5C1.5 2.78333 1.59583 3.02083 1.7875 3.2125C1.97917 3.40417 2.21667 3.5 2.5 3.5ZM9 9.5C9.96667 9.5 10.7917 9.15833 11.475 8.475C12.1583 7.79167 12.5 6.96667 12.5 6C12.5 5.03333 12.1583 4.20833 11.475 3.525C10.7917 2.84167 9.96667 2.5 9 2.5C8.03333 2.5 7.20833 2.84167 6.525 3.525C5.84167 4.20833 5.5 5.03333 5.5 6C5.5 6.96667 5.84167 7.79167 6.525 8.475C7.20833 9.15833 8.03333 9.5 9 9.5ZM9 8C9.55 8 10.0208 7.80417 10.4125 7.4125C10.8042 7.02083 11 6.55 11 6C11 5.45 10.8042 4.97917 10.4125 4.5875C10.0208 4.19583 9.55 4 9 4C8.45 4 7.97917 4.19583 7.5875 4.5875C7.19583 4.97917 7 5.45 7 6C7 6.55 7.19583 7.02083 7.5875 7.4125C7.97917 7.80417 8.45 8 9 8Z" fill="var(--green)" transform="translate(2, 6)"/>
+                        <path d="M9 12C7.33333 12 5.91667 11.4167 4.75 10.25C3.58333 9.08333 3 7.66667 3 6C3 5.81667 3.00833 5.63333 3.025 5.45C3.04167 5.26667 3.06667 5.08333 3.1 4.9C3.01667 4.93333 2.91667 4.95833 2.8 4.975C2.68333 4.99167 2.58333 5 2.5 5C1.8 5 1.20833 4.75833 0.725 4.275C0.241667 3.79167 0 3.2 0 2.5C0 1.8 0.229167 1.20833 0.6875 0.725C1.14583 0.241667 1.725 0 2.425 0C2.975 0 3.47083 0.154167 3.9125 0.4625C4.35417 0.770833 4.66667 1.16667 4.85 1.65C5.4 1.15 6.02917 0.75 6.7375 0.45C7.44583 0.15 8.2 0 9 0H20V4H15V6C15 7.66667 14.4167 9.08333 13.25 10.25C12.0833 11.4167 10.6667 12 9 12ZM2.5 3.5C2.78333 3.5 3.02083 3.40417 3.2125 3.2125C3.40417 3.02083 3.5 2.78333 3.5 2.5C3.5 2.21667 3.40417 1.97917 3.2125 1.7875C3.02083 1.59583 2.78333 1.5 2.5 1.5C2.21667 1.5 1.97917 1.59583 1.7875 1.7875C1.59583 1.97917 1.5 2.21667 1.5 2.5C1.5 2.78333 1.59583 3.02083 1.7875 3.2125C1.97917 3.40417 2.21667 3.5 2.5 3.5ZM9 9.5C9.96667 9.5 10.7917 9.15833 11.475 8.475C12.1583 7.79167 12.5 6.96667 12.5 6C12.5 5.03333 12.1583 4.20833 11.475 3.525C10.7917 2.84167 9.96667 2.5 9 2.5C8.03333 2.5 7.20833 2.84167 6.525 3.525C5.84167 4.20833 5.5 5.03333 5.5 6C5.5 6.96667 5.84167 7.79167 6.525 8.475C7.20833 9.15833 8.03333 9.5 9 9.5ZM9 8C9.55 8 10.0208 7.80417 10.4125 7.4125C10.8042 7.02083 11 6.55 11 6C11 5.45 10.8042 4.97917 10.4125 4.5875C10.0208 4.19583 9.55 4 9 4C8.45 4 7.97917 4.19583 7.5875 4.5875C7.19583 4.97917 7 5.45 7 6C7 6.55 7.19583 7.02083 7.5875 7.4125C7.97917 7.80417 8.45 8 9 8Z" fill="var(--green-dark)" transform="translate(2, 6)"/>
                     </svg>
                     <!-- Inactive Icon -->
                     <svg class="inactive-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -455,7 +447,7 @@
                 <div class="w-6 h-6 flex items-center justify-center icon-container">
                     <!-- Active Icon -->
                     <svg class="active-icon hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 22.75C17.937 22.75 22.75 17.937 22.75 12C22.75 6.06294 17.937 1.25 12 1.25C6.06294 1.25 1.25 6.06294 1.25 12C1.25 17.937 6.06294 22.75 12 22.75Z" fill="var(--green)"/>
+                        <path d="M12 22.75C17.937 22.75 22.75 17.937 22.75 12C22.75 6.06294 17.937 1.25 12 1.25C6.06294 1.25 1.25 6.06294 1.25 12C1.25 17.937 6.06294 22.75 12 22.75Z" fill="var(--green-dark)"/>
                         <path d="M7.96875 12C7.96875 12.742 7.36717 13.3438 6.625 13.3438C5.88283 13.3438 5.28125 12.742 5.28125 12C5.28125 11.258 5.88283 10.6562 6.625 10.6562C7.36717 10.6562 7.96875 11.258 7.96875 12Z" fill="#EDEDED"/>
                         <path d="M13.3438 12C13.3438 12.7421 12.7421 13.3438 12 13.3438C11.2579 13.3438 10.6562 12.7421 10.6562 12C10.6562 11.2579 11.2579 10.6562 12 10.6562C12.7421 10.6562 13.3438 11.2579 13.3438 12Z" fill="#EDEDED"/>
                         <path d="M18.7188 12C18.7188 12.7421 18.1171 13.3438 17.375 13.3438C16.6329 13.3438 16.0313 12.7421 16.0313 12C16.0313 11.2579 16.6329 10.6562 17.375 10.6562C18.1171 10.6562 18.7188 11.2579 18.7188 12Z" fill="#EDEDED"/>
@@ -644,11 +636,11 @@
         const topNavSearch = document.getElementById('top-nav-search');
         
         // Correct header height calculation (approx 56px + border)
-        const headerHeight = 57; 
+        const headerHeight = 72; 
         const gap = 16; // reduced gap
 
         window.addEventListener('scroll', () => {
-            const banner = document.querySelector('.relative.h-32');
+            const banner = document.querySelector('#banner-container') || document.querySelector('main .relative.w-full');
             if (!banner) return;
             
             const bannerRect = banner.getBoundingClientRect();
@@ -656,7 +648,7 @@
             // Check if banner is fully scrolled out of view plus the gap
             if (bannerRect.bottom <= (headerHeight - gap)) {
                  if (!exploreSection.classList.contains('fixed')) {
-                     exploreSection.classList.add('fixed', 'top-[57px]', 'left-0', 'right-0', 'bg-[var(--bg-light)]', 'z-30', 'px-4', 'pt-3', 'pb-2', 'max-w-[430px]', 'mx-auto', 'border-b', 'border-[var(--bg-container)]', 'shadow-sm');
+                     exploreSection.classList.add('fixed', 'top-[72px]', 'left-0', 'right-0', 'bg-[var(--bg-light)]', 'z-30', 'px-4', 'pt-3', 'pb-2', 'max-w-[430px]', 'mx-auto', 'border-b', 'border-[var(--bg-container)]', 'shadow-sm');
                      stickySpacer.classList.remove('hidden');
                      
                      // Show search icon in top nav
@@ -664,7 +656,7 @@
                  }
             } else {
                  if (exploreSection.classList.contains('fixed')) {
-                     exploreSection.classList.remove('fixed', 'top-[57px]', 'left-0', 'right-0', 'bg-[var(--bg-light)]', 'z-30', 'px-4', 'pt-3', 'pb-2', 'max-w-[430px]', 'mx-auto', 'border-b', 'border-[var(--bg-container)]', 'shadow-sm');
+                     exploreSection.classList.remove('fixed', 'top-[72px]', 'left-0', 'right-0', 'bg-[var(--bg-light)]', 'z-30', 'px-4', 'pt-3', 'pb-2', 'max-w-[430px]', 'mx-auto', 'border-b', 'border-[var(--bg-container)]', 'shadow-sm');
                      stickySpacer.classList.add('hidden');
                      
                       // Hide search icon in top nav
@@ -679,12 +671,10 @@
             buttons.forEach(btn => {
                 // Reset to default style
                 btn.className = "filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--bg-container)] bg-white transition-colors duration-200";
-                
-                // Reset SVG color if needed (logic can be extended here)
             });
 
-            // Set active style (Brand Green tint)
-            btnElement.className = "filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--green)] bg-[var(--green)]/10 transition-colors duration-200";
+            // Set active style - light green background with green border
+            btnElement.className = "filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--green-dark)] bg-[var(--green-dark)]/10 transition-colors duration-200";
         }    
 
         function setActive(targetId) {
@@ -701,12 +691,12 @@
                     activeIcon.classList.remove('hidden');
                     inactiveIcon.classList.add('hidden');
                     label.classList.remove('text-[var(--text-heading)]');
-                    label.classList.add('text-[var(--green)]');
+                    label.classList.add('text-[var(--green-dark)]');
                 } else {
                     activeIcon.classList.add('hidden');
                     inactiveIcon.classList.remove('hidden');
                     label.classList.add('text-[var(--text-heading)]');
-                    label.classList.remove('text-[var(--green)]');
+                    label.classList.remove('text-[var(--green-dark)]');
                 }
             });
         }

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & Support - Fabzia Turf</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="utility.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    maxWidth: {
+                        'mobile': '430px',
+                    },
+                    fontFamily: {
+                        'lato': ['Lato', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .faq-answer.open {
+            max-height: 200px;
+            transition: max-height 0.4s ease-in;
+        }
+
+        .faq-chevron {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-chevron.open {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+
+<body class="bg-[var(--bg-light)]">
+
+    <div class="min-h-screen bg-[var(--bg-light)] flex justify-center">
+        <div class="w-full max-w-mobile bg-[var(--bg-light)]">
+
+            <!-- Nav Bar -->
+            <div class="flex items-center gap-2 px-4 py-[17px] h-14 border-b border-[var(--bg-container)] bg-[var(--white-pure)]">
+                <button onclick="window.history.back()" class="w-12 h-12 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="w-6 h-6 text-[var(--text-heading)]">
+                        <path d="m15 18-6-6 6-6" />
+                    </svg>
+                </button>
+                <h1 class="text-[20px] font-medium leading-7 tracking-[0.04px] text-[var(--black)]">
+                    Help & Support
+                </h1>
+            </div>
+
+            <!-- Scrollable Content -->
+            <div class="flex flex-col gap-4 px-4 py-6 pb-8 overflow-y-auto no-scrollbar">
+
+                <!-- Contact Info Row -->
+                <div class="flex flex-col gap-3">
+                    <!-- Email -->
+                    <div class="flex items-center gap-3 bg-[var(--white-pure)] rounded-lg px-4 py-3">
+                        <div class="w-10 h-10 bg-[var(--bg-light)] rounded-lg flex items-center justify-center flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--text-heading)]">
+                                <rect width="20" height="16" x="2" y="4" rx="2"/>
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                            </svg>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-[var(--text-heading)] text-sm font-medium leading-[21px]">Email</span>
+                            <span class="text-[var(--green-dark)] text-sm leading-[21px]">support@fabzia.com</span>
+                        </div>
+                    </div>
+                    <!-- Phone -->
+                    <div class="flex items-center gap-3 bg-[var(--white-pure)] rounded-lg px-4 py-3">
+                        <div class="w-10 h-10 bg-[var(--bg-light)] rounded-lg flex items-center justify-center flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--text-heading)]">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                            </svg>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-[var(--text-heading)] text-sm font-medium leading-[21px]">Phone</span>
+                            <span class="text-[var(--green-dark)] text-sm leading-[21px]">+91 98765 43210</span>
+                        </div>
+                    </div>
+                    <!-- Timing -->
+                    <div class="flex items-center gap-3 bg-[var(--white-pure)] rounded-lg px-4 py-3">
+                        <div class="w-10 h-10 bg-[var(--bg-light)] rounded-lg flex items-center justify-center flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[var(--text-heading)]">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-[var(--text-heading)] text-sm font-medium leading-[21px]">Working Hours</span>
+                            <span class="text-[var(--text-body)] text-sm leading-[21px]">Mon - Sat, 9:00 AM - 8:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQs Header -->
+                <h2 class="text-[var(--text-heading)] text-base font-semibold leading-6 mt-2">Frequently Asked Questions</h2>
+
+                <!-- FAQ Accordion -->
+                <div class="flex flex-col gap-2">
+
+                    <!-- FAQ 1 -->
+                    <div class="bg-[var(--white-pure)] rounded-lg overflow-hidden">
+                        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-4 py-3.5 text-left">
+                            <span class="text-[var(--text-heading)] text-sm font-semibold leading-[21px] pr-2">How do I book a turf?</span>
+                            <svg class="faq-chevron w-5 h-5 flex-shrink-0 text-[var(--text-body)]" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m6 9 6 6 6-6"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p class="text-[var(--text-body)] text-sm leading-[21px] px-4 pb-4">
+                                Browse available turfs on the Home screen, select your preferred turf, choose your date, time slot and squad size, then proceed to payment. You'll receive a booking confirmation once payment is successful.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 2 -->
+                    <div class="bg-[var(--white-pure)] rounded-lg overflow-hidden">
+                        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-4 py-3.5 text-left">
+                            <span class="text-[var(--text-heading)] text-sm font-semibold leading-[21px] pr-2">How can I cancel my booking?</span>
+                            <svg class="faq-chevron w-5 h-5 flex-shrink-0 text-[var(--text-body)]" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m6 9 6 6 6-6"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p class="text-[var(--text-body)] text-sm leading-[21px] px-4 pb-4">
+                                Go to your Bookings page, select the booking you wish to cancel, and tap "Cancel Booking". Cancellations made at least 2 hours before the slot time are eligible for a full refund to your Fabzia Wallet.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 3 -->
+                    <div class="bg-[var(--white-pure)] rounded-lg overflow-hidden">
+                        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-4 py-3.5 text-left">
+                            <span class="text-[var(--text-heading)] text-sm font-semibold leading-[21px] pr-2">How do refunds work?</span>
+                            <svg class="faq-chevron w-5 h-5 flex-shrink-0 text-[var(--text-body)]" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m6 9 6 6 6-6"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p class="text-[var(--text-body)] text-sm leading-[21px] px-4 pb-4">
+                                Refunds are processed to your Fabzia Wallet within 24 hours of a successful cancellation. You can use your wallet balance for future bookings or request a bank transfer from the Wallet page.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 4 -->
+                    <div class="bg-[var(--white-pure)] rounded-lg overflow-hidden">
+                        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-4 py-3.5 text-left">
+                            <span class="text-[var(--text-heading)] text-sm font-semibold leading-[21px] pr-2">Can I reschedule my booking?</span>
+                            <svg class="faq-chevron w-5 h-5 flex-shrink-0 text-[var(--text-body)]" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m6 9 6 6 6-6"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p class="text-[var(--text-body)] text-sm leading-[21px] px-4 pb-4">
+                                Currently, rescheduling is not supported directly. You can cancel your existing booking and create a new one with your preferred date and time. The refund from the cancelled booking will be available in your wallet.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 5 -->
+                    <div class="bg-[var(--white-pure)] rounded-lg overflow-hidden">
+                        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-4 py-3.5 text-left">
+                            <span class="text-[var(--text-heading)] text-sm font-semibold leading-[21px] pr-2">What payment methods are accepted?</span>
+                            <svg class="faq-chevron w-5 h-5 flex-shrink-0 text-[var(--text-body)]" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m6 9 6 6 6-6"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p class="text-[var(--text-body)] text-sm leading-[21px] px-4 pb-4">
+                                We accept UPI, credit/debit cards, net banking, and Fabzia Wallet balance. You can also combine wallet balance with other payment methods during checkout.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 6 -->
+                    <div class="bg-[var(--white-pure)] rounded-lg overflow-hidden">
+                        <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between px-4 py-3.5 text-left">
+                            <span class="text-[var(--text-heading)] text-sm font-semibold leading-[21px] pr-2">How do I report an issue with a turf?</span>
+                            <svg class="faq-chevron w-5 h-5 flex-shrink-0 text-[var(--text-body)]" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m6 9 6 6 6-6"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p class="text-[var(--text-body)] text-sm leading-[21px] px-4 pb-4">
+                                If you face any issues with the turf condition or facilities, please contact our support team via email or phone within 24 hours of your booking. We'll investigate and take appropriate action.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleFaq(button) {
+            const answer = button.nextElementSibling;
+            const chevron = button.querySelector('.faq-chevron');
+
+            // Close all other FAQs
+            document.querySelectorAll('.faq-answer').forEach(item => {
+                if (item !== answer) {
+                    item.classList.remove('open');
+                }
+            });
+            document.querySelectorAll('.faq-chevron').forEach(icon => {
+                if (icon !== chevron) {
+                    icon.classList.remove('open');
+                }
+            });
+
+            // Toggle current FAQ
+            answer.classList.toggle('open');
+            chevron.classList.toggle('open');
+        }
+    </script>
+
+</body>
+
+</html>

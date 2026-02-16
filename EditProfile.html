@@ -72,6 +72,31 @@
             color: var(--green);
             font-weight: bold;
         }
+
+        /* Error message styling */
+        .error-message {
+            color: #dc2626;
+            font-size: 12px;
+            margin-top: 4px;
+            display: none;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .error-message.show {
+            display: flex;
+        }
+
+        .error-message .warning-icon {
+            flex-shrink: 0;
+            width: 12px;
+            height: 12px;
+        }
+
+        .input-group.error {
+            border-color: #dc2626 !important;
+            box-shadow: 0 0 0 1px #dc2626 !important;
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-lato text-[var(--text-body)] antialiased flex items-center justify-center min-h-screen">
@@ -114,13 +139,25 @@
             <div class="flex flex-col gap-5">
                 
                 <!-- Name Input -->
-                <div class="input-group flex h-12 px-[10px] items-center gap-[10px] rounded-[4px] border border-[var(--black-700)] bg-[var(--white-pure)] transition-colors focus-within:border-[var(--green)] focus-within:ring-1 focus-within:ring-[var(--green)]">
-                    <input type="text" id="nameInput" value="Anand" class="flex-1 text-[var(--text-body)] font-inter text-[16px] font-medium leading-[28px] outline-none bg-transparent placeholder-[var(--text-placeholder)]">
+                <div class="flex flex-col">
+                    <div id="nameInputGroup" class="input-group flex h-12 px-[10px] items-center gap-[10px] rounded-[4px] border border-[var(--black-700)] bg-[var(--white-pure)] transition-colors focus-within:border-[var(--green)] focus-within:ring-1 focus-within:ring-[var(--green)]">
+                        <input type="text" id="nameInput" value="Anand" class="flex-1 text-[var(--text-body)] font-inter text-[16px] font-medium leading-[28px] outline-none bg-transparent placeholder-[var(--text-placeholder)]">
+                    </div>
+                    <span id="nameError" class="error-message">
+                        <svg class="warning-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+                        Name is required
+                    </span>
                 </div>
 
                 <!-- Email Input -->
-                <div class="input-group flex h-12 px-[10px] items-center gap-[10px] rounded-[4px] border border-[var(--black-700)] bg-[var(--white-pure)] transition-colors focus-within:border-[var(--green)] focus-within:ring-1 focus-within:ring-[var(--green)]">
-                    <input type="email" id="emailInput" value="anand@gmail.com" class="flex-1 text-[var(--text-body)] font-inter text-[16px] font-medium leading-[28px] outline-none bg-transparent placeholder-[var(--text-placeholder)]">
+                <div class="flex flex-col">
+                    <div id="emailInputGroup" class="input-group flex h-12 px-[10px] items-center gap-[10px] rounded-[4px] border border-[var(--black-700)] bg-[var(--white-pure)] transition-colors focus-within:border-[var(--green)] focus-within:ring-1 focus-within:ring-[var(--green)]">
+                        <input type="email" id="emailInput" value="anand@gmail.com" class="flex-1 text-[var(--text-body)] font-inter text-[16px] font-medium leading-[28px] outline-none bg-transparent placeholder-[var(--text-placeholder)]">
+                    </div>
+                    <span id="emailError" class="error-message">
+                        <svg class="warning-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+                        <span class="error-text">Please enter a valid email</span>
+                    </span>
                 </div>
 
                 <!-- Phone Input (Read-only) -->
@@ -170,16 +207,20 @@
                 <!-- Community Checkboxes -->
                 <div class="flex flex-col">
                     <button id="whatsappCheckbox" class="flex py-3 items-center gap-2 group">
-                        <div class="w-5 h-5 rounded-full border-[1.5px] border-[var(--text-heading)] flex items-center justify-center flex-shrink-0 transition-colors">
-                            <div class="w-2.5 h-2.5 rounded-full bg-[var(--green)] scale-0 transition-transform duration-200 indicator"></div>
+                        <div class="checkbox-box w-5 h-5 rounded border-[1.5px] border-[var(--text-heading)] flex items-center justify-center flex-shrink-0 transition-all duration-200">
+                            <svg class="checkbox-tick w-3.5 h-3.5 hidden" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M11.6667 3.5L5.25 9.91667L2.33333 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
                         </div>
                         <span class="text-[var(--text-heading)] font-inter text-[14px] font-medium leading-[150%] tracking-[0.04px] text-left">
                             Add me to Whats app Community
                         </span>
                     </button>
                     <button id="instagramCheckbox" class="flex py-3 items-center gap-2 group">
-                        <div class="w-5 h-5 rounded-full border-[1.5px] border-[var(--text-heading)] flex items-center justify-center flex-shrink-0 transition-colors">
-                            <div class="w-2.5 h-2.5 rounded-full bg-[var(--green)] scale-0 transition-transform duration-200 indicator"></div>
+                        <div class="checkbox-box w-5 h-5 rounded border-[1.5px] border-[var(--text-heading)] flex items-center justify-center flex-shrink-0 transition-all duration-200">
+                            <svg class="checkbox-tick w-3.5 h-3.5 hidden" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M11.6667 3.5L5.25 9.91667L2.33333 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
                         </div>
                         <span class="text-[var(--text-heading)] font-inter text-[14px] font-medium leading-[150%] tracking-[0.04px] text-left">
                             Add me to Instagram Community

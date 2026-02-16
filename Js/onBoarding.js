@@ -27,7 +27,7 @@
         cont.addEventListener('click', function () {
           if (cont.disabled) return;
           // navigate to OTP screen
-          window.location.href = `otpVerification.html?phone=${phone.value}`;
+          window.location.href = 'Home.html';
         });
 
         // skip button (example behavior)

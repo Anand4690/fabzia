@@ -80,10 +80,18 @@
             font-size: 12px;
             margin-top: 4px;
             display: none;
+            align-items: center;
+            gap: 4px;
         }
 
         .error-message.show {
-            display: block;
+            display: flex;
+        }
+
+        .error-message .warning-icon {
+            flex-shrink: 0;
+            width: 12px;
+            height: 12px;
         }
 
         /* Chip styles for selected sports */
@@ -157,7 +165,7 @@
             <!-- Header Section -->
             <div class="flex flex-col gap-2 mb-6">
                 <!-- Back Button -->
-                <button onclick="window.location.href='PhoneAuth.html'" class="flex items-center justify-center w-12 h-12 -ml-3 hover:bg-gray-50 rounded-full transition-colors self-start">
+                <button onclick="window.location.href='onBoarding.html'" class="flex items-center justify-center w-12 h-12 -ml-3 hover:bg-gray-50 rounded-full transition-colors self-start">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M16.9662 5.25017L10.2162 12.0002L16.9662 18.7502L15.3752 20.3412L7.03418 12.0002L15.3752 3.65918L16.9662 5.25017Z" fill="var(--text-heading)"/>
                     </svg>
@@ -186,7 +194,10 @@
                         onblur="validateName()"
                         class="input-field w-full h-12 px-[10px] border border-[#D7D7D7] rounded bg-white text-[var(--text-heading)] text-[16px] font-normal leading-[28px] placeholder:text-[var(--text-body)] transition-all"
                     />
-                    <span id="nameError" class="error-message">Name is required</span>
+                    <span id="nameError" class="error-message">
+                        <svg class="warning-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+                        Name is required
+                    </span>
                 </div>
 
                 <!-- Email Input -->
@@ -199,7 +210,10 @@
                         onblur="validateEmail()"
                         class="input-field w-full h-12 px-[10px] border border-[#D7D7D7] rounded bg-white text-[var(--text-heading)] text-[16px] font-normal leading-[28px] placeholder:text-[var(--text-body)] transition-all"
                     />
-                    <span id="emailError" class="error-message">Please enter a valid email address</span>
+                    <span id="emailError" class="error-message">
+                        <svg class="warning-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+                        <span class="error-text">Please enter a valid email address</span>
+                    </span>
                 </div>
 
                 <!-- Sports Selection Dropdown -->
@@ -227,7 +241,34 @@
                     <div id="selectedSportsChips" class="flex flex-wrap gap-2 min-h-[32px] hidden">
                         <!-- Chips will be dynamically added here -->
                     </div>
-                    <span id="sportsError" class="error-message">Please select at least one sport</span>
+                    <span id="sportsError" class="error-message">
+                        <svg class="warning-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+                        Please select at least one sport
+                    </span>
+                </div>
+
+                <!-- Community Checkboxes -->
+                <div class="flex flex-col">
+                    <button id="whatsappCheckbox" class="flex py-3 items-center gap-2 group">
+                        <div class="checkbox-box w-5 h-5 rounded border-[1.5px] border-[#D7D7D7] flex items-center justify-center flex-shrink-0 transition-all duration-200">
+                            <svg class="checkbox-tick w-3.5 h-3.5 hidden" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M11.6667 3.5L5.25 9.91667L2.33333 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <span class="text-[var(--text-heading)] font-inter text-[14px] font-medium leading-[150%] tracking-[0.04px] text-left">
+                            Add me to Whats app Community
+                        </span>
+                    </button>
+                    <button id="instagramCheckbox" class="flex py-3 items-center gap-2 group">
+                        <div class="checkbox-box w-5 h-5 rounded border-[1.5px] border-[#D7D7D7] flex items-center justify-center flex-shrink-0 transition-all duration-200">
+                            <svg class="checkbox-tick w-3.5 h-3.5 hidden" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M11.6667 3.5L5.25 9.91667L2.33333 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <span class="text-[var(--text-heading)] font-inter text-[14px] font-medium leading-[150%] tracking-[0.04px] text-left">
+                            Add me to Instagram Community
+                        </span>
+                    </button>
                 </div>
             </div>
         </main>

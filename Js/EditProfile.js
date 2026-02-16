@@ -47,6 +47,11 @@
     const nameInput = document.getElementById('nameInput');
     const emailInput = document.getElementById('emailInput');
     const addressInput = document.getElementById('addressInput');
+    
+    const nameError = document.getElementById('nameError');
+    const emailError = document.getElementById('emailError');
+    const nameInputGroup = document.getElementById('nameInputGroup');
+    const emailInputGroup = document.getElementById('emailInputGroup');
 
 
     // --- Initialization ---
@@ -131,8 +136,14 @@
         inputs.forEach(input => {
             if (!input) return;
             input.addEventListener('input', (e) => {
-                 if (input === nameInput) state.name = e.target.value;
-                 if (input === emailInput) state.email = e.target.value;
+                 if (input === nameInput) {
+                     state.name = e.target.value;
+                     if (state.name.trim().length > 0) hideFieldError('name');
+                 }
+                 if (input === emailInput) {
+                     state.email = e.target.value;
+                     if (state.email.trim().length > 0) hideFieldError('email');
+                 }
                  if (input === addressInput) state.address = e.target.value;
             });
             
@@ -246,16 +257,43 @@
     }
 
     function updateCheckboxUI(btnElement, isChecked) {
-        const indicator = btnElement.querySelector('.indicator');
+        const box = btnElement.querySelector('.checkbox-box');
+        const tick = btnElement.querySelector('.checkbox-tick');
         
         if (isChecked) {
-            indicator.classList.remove('scale-0');
+            box.style.backgroundColor = 'var(--green)';
+            box.style.borderColor = 'var(--green)';
+            tick.classList.remove('hidden');
         } else {
-            indicator.classList.add('scale-0');
+            box.style.backgroundColor = '';
+            box.style.borderColor = '';
+            tick.classList.add('hidden');
         }
     }
 
     function handleUpdate() {
+        // Validate fields
+        let valid = true;
+        
+        if (!state.name || state.name.trim().length === 0) {
+            showFieldError('name');
+            valid = false;
+        }
+        
+        if (!state.email || state.email.trim().length === 0) {
+            const emailErrorText = emailError ? emailError.querySelector('.error-text') : null;
+            if (emailErrorText) emailErrorText.textContent = 'Email is required';
+            showFieldError('email');
+            valid = false;
+        } else if (!isValidEmail(state.email)) {
+            const emailErrorText = emailError ? emailError.querySelector('.error-text') : null;
+            if (emailErrorText) emailErrorText.textContent = 'Please enter a valid email';
+            showFieldError('email');
+            valid = false;
+        }
+        
+        if (!valid) return;
+        
         console.log("Updating Profile:", state);
         
         // Visual feedback
@@ -267,6 +305,31 @@
             updateBtn.querySelector('span').textContent = originalText;
             updateBtn.classList.remove('bg-green-700');
         }, 1500);
+    }
+    
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+    
+    function showFieldError(field) {
+        if (field === 'name' && nameError && nameInputGroup) {
+            nameError.classList.add('show');
+            nameInputGroup.classList.add('error');
+        } else if (field === 'email' && emailError && emailInputGroup) {
+            emailError.classList.add('show');
+            emailInputGroup.classList.add('error');
+        }
+    }
+    
+    function hideFieldError(field) {
+        if (field === 'name' && nameError && nameInputGroup) {
+            nameError.classList.remove('show');
+            nameInputGroup.classList.remove('error');
+        } else if (field === 'email' && emailError && emailInputGroup) {
+            emailError.classList.remove('show');
+            emailInputGroup.classList.remove('error');
+        }
     }
 
     // Run init

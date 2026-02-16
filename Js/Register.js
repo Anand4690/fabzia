@@ -28,7 +28,9 @@
             name: false,
             email: false,
             sports: false
-        }
+        },
+        whatsappCommunity: false,
+        instagramCommunity: false
     };
 
     // --- Elements ---
@@ -44,6 +46,8 @@
     const nameError = document.getElementById('nameError');
     const emailError = document.getElementById('emailError');
     const sportsError = document.getElementById('sportsError');
+    const whatsappCheckbox = document.getElementById('whatsappCheckbox');
+    const instagramCheckbox = document.getElementById('instagramCheckbox');
 
     // --- Initialization ---
     function init() {
@@ -103,6 +107,21 @@
 
         // Continue Button
         continueBtn.addEventListener('click', handleContinue);
+
+        // Community Checkboxes
+        if (whatsappCheckbox) {
+            whatsappCheckbox.addEventListener('click', () => {
+                state.whatsappCommunity = !state.whatsappCommunity;
+                updateCheckboxUI(whatsappCheckbox, state.whatsappCommunity);
+            });
+        }
+        
+        if (instagramCheckbox) {
+            instagramCheckbox.addEventListener('click', () => {
+                state.instagramCommunity = !state.instagramCommunity;
+                updateCheckboxUI(instagramCheckbox, state.instagramCommunity);
+            });
+        }
     }
 
     function toggleDropdown(forceState = null) {
@@ -220,6 +239,22 @@
         return chip;
     }
 
+    function updateCheckboxUI(btnElement, isChecked) {
+        const box = btnElement.querySelector('.checkbox-box');
+        const tick = btnElement.querySelector('.checkbox-tick');
+        if (box && tick) {
+            if (isChecked) {
+                box.style.backgroundColor = 'var(--green)';
+                box.style.borderColor = 'var(--green)';
+                tick.classList.remove('hidden');
+            } else {
+                box.style.backgroundColor = '';
+                box.style.borderColor = '';
+                tick.classList.add('hidden');
+            }
+        }
+    }
+
     // --- Validation Functions ---
     
     function validateName() {
@@ -233,12 +268,13 @@
     }
 
     function validateEmail() {
+        const emailErrorText = emailError.querySelector('.error-text');
         if (state.email.length === 0) {
-            emailError.textContent = "Email is required";
+            if (emailErrorText) emailErrorText.textContent = "Email is required";
             showError('email');
             return false;
         } else if (!isValidEmail(state.email)) {
-            emailError.textContent = "Please enter a valid email address";
+            if (emailErrorText) emailErrorText.textContent = "Please enter a valid email address";
             showError('email');
             return false;
         } else {
