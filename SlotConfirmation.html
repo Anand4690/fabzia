@@ -14,14 +14,13 @@
             theme: {
                 extend: {
                     colors: {
-                        'success': 'var(--green-success)',
-                        'bg-soft': 'var(--bg-soft)',
-                        'border-light': 'var(--border-light)',
-                        
-                        // Text colors
-                        'slate-900': 'var(--text-slate-900)',
-                        'slate-700': 'var(--text-slate-700)',
-                        'slate-500': 'var(--text-slate-500)',
+                        'success': 'var(--green-success)', // #22c55e
+                        'text-heading': 'var(--text-heading)', // #1A1A1A
+                        'text-body': 'var(--text-body)', // #4D4D4D
+                        'slate-900': 'var(--text-slate-900)', // #0f172a
+                        'slate-500': 'var(--text-slate-500)', // #64748b
+                        'slate-700': 'var(--text-slate-700)', // #334155
+                        'container-border': 'var(--bg-container)', // #D7D7D7 in utility or standard border color
                     },
                     fontFamily: {
                         'lato': ['Lato', 'sans-serif'],
@@ -42,132 +41,164 @@
     
     <style>
         body {
-            background-color: var(--bg-light);
             font-family: 'Lato', sans-serif;
-            overflow: hidden; /* Prevent body scroll */
+            background-color: var(--bg-light); /* Fallback */
         }
         
-        .checkmark-animate {
-            stroke-dasharray: 50;
-            stroke-dashoffset: 50;
-            animation: dash 0.5s ease-in-out forwards 0.3s;
+        /* Mobile container centering */
+        .mobile-wrapper {
+            max-width: 430px;
+            margin: 0 auto;
+            position: relative;
+            min-height: 100vh;
+            background-color: rgba(0, 0, 0, 0.6); /* Backdrop */
+            display: flex;
+            align-items: flex-end; /* Bottom sheet alignment */
+            justify-content: center;
         }
         
-        @keyframes dash {
-            to { stroke-dashoffset: 0; }
+        /* Disable scroll on body when modal is open */
+        html, body {
+            overflow: hidden;
+            height: 100%;
         }
     </style>
 </head>
 <body>
 
-    <!-- Background Layer (Mocking the Bookings Page) -->
-    <div class="max-w-[430px] mx-auto min-h-screen bg-[var(--bg-light)] opacity-30 pointer-events-none" aria-hidden="true">
-        <!-- Header -->
-        <header class="sticky top-0 z-40 bg-white border-b border-[var(--bg-container)] px-4 py-3 h-16 flex items-center gap-2">
-            <div class="flex items-center justify-center w-12 h-12 flex-shrink-0">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="stroke-[var(--text-heading)]">
-                    <path d="M15 18L9 12L15 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </div>
-            <h1 class="text-[var(--text-heading)] text-lg font-normal">Bookings</h1>
-        </header>
-
-        <!-- Tabs -->
-        <div class="sticky top-16 z-30 bg-white border-b border-[var(--bg-container)] px-4 flex justify-between">
-            <button class="w-1/2 py-[17px] text-center text-[16px] font-semibold text-[var(--text-heading)] border-b-2 border-[var(--green)]">
-                Upcoming
-            </button>
-            <button class="w-1/2 py-[17px] text-center text-[16px] font-medium text-[var(--text-body)]">
-                Previous
-            </button>
-        </div>
-        
-        <!-- Mock Content -->
-        <div class="p-4 space-y-3 mt-2">
-             <div class="bg-white rounded-lg h-32 border-l-[6px] border-l-[var(--green)]"></div>
-             <div class="bg-white rounded-lg h-32 border-l-[6px] border-l-[var(--warning)]"></div>
-        </div>
-    </div>
-
-    <!-- Overlay & Bottom Sheet -->
-    <div class="fixed inset-0 bg-black/60 z-50 flex items-end justify-center backdrop-blur-sm">
-        <!-- Bottom Sheet Container (No Scroll) -->
-        <div class="w-full max-w-[430px] bg-white rounded-t-2xl animate-slide-up shadow-2xl flex flex-col max-h-[95vh]">
+    <div class="mobile-wrapper">
+        <!-- Bottom Sheet Container -->
+        <div class="w-full bg-white rounded-t-2xl overflow-hidden animate-slide-up shadow-2xl relative">
             
-            <div class="p-6 pb-6 overflow-hidden flex flex-col h-full">
-                
-                <!-- Handle Bar -->
-                <div class="w-12 h-1 bg-gray-300 rounded-full mx-auto mb-4 flex-shrink-0"></div>
-
-                <!-- Success Header (Compact) -->
-                <div class="flex flex-col items-center gap-3 mb-5 flex-shrink-0">
-                    <!-- Icon -->
-                    <div class="relative w-[50px] h-[50px] rounded-full bg-success flex items-center justify-center shadow-lg shadow-success/20">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path class="checkmark-animate" d="M20 6L9 17L4 12" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
+            <!-- Top Section with Radial Gradient -->
+            <div 
+                class="flex flex-col justify-center items-center px-6 py-8"
+                style="background: radial-gradient(90.49% 59.99% at 50% 50%, rgba(34, 197, 94, 0.10) 0%, rgba(34, 197, 94, 0.00) 70%);"
+            >
+                <!-- Check Icon with Overlays -->
+                <div class="relative mb-6">
+                    <!-- Outer overlay -->
+                    <div class="w-[88.5px] h-[88.5px] rounded-full bg-[var(--green-light)] flex items-center justify-center">
+                        <!-- Main green circle with shadow -->
+                        <div 
+                            class="w-[59px] h-[59px] rounded-full bg-success flex items-center justify-center"
+                            style="box-shadow: 0 9.219px 13.828px -2.766px rgba(34, 197, 94, 0.30), 0 3.688px 5.531px -3.687px rgba(34, 197, 94, 0.30);"
+                        >
+                            <!-- Check SVG -->
+                            <svg 
+                                width="24" 
+                                height="24" 
+                                viewBox="0 0 24 24" 
+                                fill="none" 
+                                stroke="white" 
+                                stroke-width="3" 
+                                stroke-linecap="round" 
+                                stroke-linejoin="round"
+                            >
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
                     </div>
-
-                    <!-- Text -->
-                    <div class="text-center">
-                        <h1 class="text-[20px] font-bold leading-tight text-[var(--text-heading)]">
-                            Hurray Anand!
-                        </h1>
-                        <p class="text-[14px] font-normal text-slate-500 mt-1">
-                            Your Slot Booked Successfully
-                        </p>
-                    </div>
+                    
+                    <!-- Small decorative overlay - top right -->
+                    <div 
+                        class="absolute -top-2 -right-2 w-[11.063px] h-[11.063px] rounded-full bg-[rgba(34,197,94,0.40)]"
+                    ></div>
+                    
+                    <!-- Small decorative overlay - bottom left -->
+                    <div 
+                        class="absolute -bottom-1 -left-5 w-[7.375px] h-[7.375px] rounded-full bg-[rgba(34,197,94,0.60)]"
+                    ></div>
                 </div>
 
-                <!-- Booking Details Card (Compact) -->
-                <div class="bg-bg-soft border border-border-light rounded-xl p-4 mb-5 flex-shrink-0">
-                    <!-- Arena Name -->
-                    <div class="flex items-center justify-between mb-3">
-                        <h2 class="text-[16px] font-semibold text-slate-900">Fabzia Arena</h2>
-                        <span class="px-2 py-0.5 rounded-full bg-success/10 text-[10px] font-bold text-success uppercase">Confirmed</span>
-                    </div>
-
-                    <div class="border-t border-dashed border-gray-200 mb-3"></div>
-
-                    <!-- Grid Info -->
-                    <div class="grid grid-cols-2 gap-y-3 gap-x-4 mb-3">
-                        <div>
-                            <span class="block text-[10px] font-bold text-[#A6A6A6] uppercase">Date</span>
-                            <span class="text-[13px] font-semibold text-slate-700">22-12-2025</span>
-                        </div>
-                        <div>
-                            <span class="block text-[10px] font-bold text-[#A6A6A6] uppercase">Booking ID</span>
-                            <span class="text-[13px] font-semibold text-slate-700">#30C7</span>
-                        </div>
-                        <div>
-                            <span class="block text-[10px] font-bold text-[#A6A6A6] uppercase">Time Slot</span>
-                            <span class="text-[13px] font-semibold text-slate-700">06:00 - 07:00</span>
-                        </div>
-                        <div>
-                            <span class="block text-[10px] font-bold text-[#A6A6A6] uppercase">Turf Size</span>
-                            <span class="text-[13px] font-semibold text-slate-700">5V5 Arena</span>
-                        </div>
-                    </div>
-
-                    <div class="border-t border-dashed border-gray-200 mb-3"></div>
-
-                    <!-- Payment -->
-                    <div class="flex items-center justify-between">
-                        <span class="text-[14px] font-semibold text-slate-900">Pending Balance</span>
-                        <span class="text-[16px] font-bold text-slate-900">₹1,451</span>
-                    </div>
+                <!-- Heading -->
+                <div class="flex flex-col items-center gap-1">
+                    <h1 class="text-slate-900 text-center font-semibold text-lg leading-7">
+                        Hurray Anand !
+                    </h1>
+                    <p class="text-slate-500 text-center font-medium text-sm leading-[21px] tracking-[0.04px]">
+                        Your Slot Booked Successful
+                    </p>
                 </div>
+            </div>
 
-                <!-- Action Buttons -->
-                <div class="space-y-3 mt-auto flex-shrink-0">
-                    <button onclick="window.location.href='Home.html'" class="w-full bg-success hover:bg-[#16A34A] active:scale-[0.98] transition-all text-white text-[16px] font-semibold py-3 rounded-xl shadow-lg shadow-success/20">
+            <!-- Details Section -->
+            <div class="px-4 pb-4">
+                <div class="px-8 py-3">
+                    <!-- Venue Name and ID -->
+                    <div class="flex justify-between items-center mb-1">
+                        <h2 class="text-text-heading font-semibold text-xl leading-7 tracking-[0.04px]">
+                            Fabzia Arena
+                        </h2>
+                        <span class="text-text-heading font-semibold text-sm leading-[22.4px] tracking-[0.04px]">
+                            #30C7
+                        </span>
+                    </div>
+
+                    <!-- Date, Time, Format -->
+                    <p class="text-text-body text-sm font-normal leading-[21px] tracking-[0.04px] mb-4">
+                        12 Jan 2026 • 5-6pm • 5v5
+                    </p>
+
+                    <!-- Payment Details Table -->
+                    <div class="space-y-3">
+                        <!-- Total Amount -->
+                        <div class="flex justify-between items-center">
+                            <span class="text-text-body text-sm font-normal leading-[21px] tracking-[0.04px]">
+                                Total Amount
+                            </span>
+                            <span class="text-text-heading text-sm font-semibold leading-[21px] tracking-[0.04px]">
+                                ₹2,051
+                            </span>
+                        </div>
+
+                        <!-- Advance Paid -->
+                        <div class="flex justify-between items-center">
+                            <span class="text-text-body text-sm font-normal leading-[21px] tracking-[0.04px]">
+                                Advance Paid
+                            </span>
+                            <span class="text-text-heading text-sm font-semibold leading-[21px] tracking-[0.04px]">
+                                ₹600
+                            </span>
+                        </div>
+
+                        <!-- Promo Discount -->
+                        <div class="flex justify-between items-center">
+                            <span class="text-text-body text-sm font-normal leading-[21px] tracking-[0.04px]">
+                                Promo Discount
+                            </span>
+                            <span class="text-text-heading text-sm font-semibold leading-[21px] tracking-[0.04px]">
+                                -₹0
+                            </span>
+                        </div>
+
+                        <!-- Divider -->
+                        <div class="border-t border-[#D7D7D7] my-4"></div>
+
+                        <!-- Pending Balance -->
+                        <div class="flex justify-between items-center">
+                            <span class="text-text-heading text-base font-semibold leading-[22.4px] tracking-[0.04px]">
+                                Pending Balance
+                            </span>
+                            <span class="text-text-heading text-base font-semibold leading-[22.4px] tracking-[0.04px]">
+                                ₹1,451
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Done Button -->
+                    <button 
+                        onclick="window.location.href='Home.html'"
+                        class="w-full mt-6 bg-[var(--green)] text-white font-semibold text-base leading-6 py-3.5 rounded-xl hover:opacity-90 transition-colors"
+                    >
                         Done
                     </button>
-                    <button onclick="window.location.href='Booking.html'" class="w-full text-[16px] font-medium text-slate-500 hover:text-slate-700 transition-colors py-2">
-                        View Details
+
+                    <!-- Booking Details Link -->
+                    <button onclick="window.location.href='Booking.html'" class="w-full mt-3 text-text-heading font-medium text-sm leading-[21px] tracking-[0.04px] py-2 hover:underline">
+                        Booking Details
                     </button>
                 </div>
-
             </div>
         </div>
     </div>

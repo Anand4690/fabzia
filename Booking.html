@@ -271,28 +271,12 @@
                     { time: '12 AM- 12.30 PM', type: '7v7 (Half 1)' },
                     { time: '1 PM- 2.30 PM', type: '5v5 (Half 2)' }
                 ]
-            },
-            {
-                id: '4',
-                title: 'The Multi-Sports Turf (7v7)',
-                date: '12 Jan 2026',
-                time: '5-6pm',
-                status: 'booked',
-                borderColor: '',
-                bookingId: '12VB',
-                bookingDate: '12/12/26',
-                totalAmount: '₹2,051',
-                advancePaid: '₹600',
-                pendingBalance: '₹1,451',
-                slots: [
-                    { time: '12 AM- 12.30 PM', type: '7v7 (Half 1)' },
-                    { time: '1 PM- 2.30 PM', type: '5v5 (Half 2)' }
-                ]
             }
         ];
 
         // State similar to React
-        let expandedCards = new Set(['4']);
+        // State similar to React
+        let expandedCards = new Set(['1']);
         let selectedBookingId = null;
 
         function init() {
@@ -374,18 +358,20 @@
                                     <span class="text-sm text-[var(--text-body)]">Advance Paid</span>
                                     <span class="text-sm text-[var(--text-heading)]">${booking.advancePaid}</span>
                                 </div>
+                                ${booking.status !== 'booked' && booking.status !== 'cancelled' ? `
                                 <div class="flex justify-between items-center">
                                     <span class="text-sm text-[var(--text-body)]">Pending Balance</span>
                                     <span class="text-sm text-[var(--error)]">${booking.pendingBalance}</span>
-                                </div>
+                                </div>` : ''}
                             </div>
 
                             <!-- Cancel Link -->
+                            ${booking.status !== 'cancelled' ? `
                             <div>
                                 <button onclick="openPolicySheet('${booking.bookingId}')" class="text-sm text-[var(--text-body)] underline hover:text-[var(--text-heading)]">
                                     Cancel Booking
                                 </button>
-                            </div>
+                            </div>` : ''}
 
                             <!-- Horizontal Time Slots -->
                             <div class="flex gap-2 overflow-x-auto pb-2 -mx-4 px-4 no-scrollbar">
@@ -398,9 +384,10 @@
                             </div>
 
                             <!-- Pay Due Button -->
+                            ${booking.status !== 'booked' && booking.status !== 'cancelled' ? `
                             <button class="w-full bg-[var(--green-dark)] text-white py-3 rounded-lg font-medium hover:opacity-90 transition-opacity">
                                 Pay Due
-                            </button>
+                            </button>` : ''}
                         </div>
                     </div>
                 </div>

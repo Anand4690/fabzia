@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lovable Slot – Fabzia Turf</title>
+
+  <!-- utility.css (Lato font + CSS variables) -->
+  <link rel="stylesheet" href="utility.css" />
+  <!-- Import Inter for design accuracy as per Figma -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            /* Design tokens from Figma nodes */
+            'brand-green':      '#07a348',   /* shades/brand/green */
+            'brand-text':       '#34733d',   /* text/brand (Selected Ring/Selected Partial) */
+            'brand-green-dark': '#008236',   /* shades/brand/brand-text (Current Day Name/Buttons) */
+            'text-heading':     '#1a1a1a',
+            'text-body':        '#3d3d3d',
+            'text-label':       '#666666',
+            'text-inverse-body':'#a3a3a3',
+            'text-inverse-hd':  '#f9f6f3',
+            'container-border': '#d7d7d7',
+            'bg-page':          '#fffefe',
+            'slot-partial':     '#eeaf02',   /* Amber for partial status */
+            'slot-success-bg':  '#f6fbf5',   /* Selected partial bg */
+            'sq-unsel':         '#f5f7f6',
+            'border-light':     '#b2b2b2',
+          },
+          fontFamily: { 
+            inter: ['Inter', 'sans-serif'],
+            lato: ['Lato', 'sans-serif'] 
+          },
+          maxWidth: { mobile: '430px' },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* ── Base ── */
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      font-family: 'Inter', 'Lato', sans-serif;
+      background-color: #f5f5f5;
+      margin: 0; padding: 0;
+    }
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       CALENDAR DAY BUTTON (Refined from Figma 1406:8879)
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .day-btn {
+      display: flex; flex-direction: column; align-items: center;
+      flex: 1 0 0; min-width: 54px; max-width: 54px;
+      gap: 4px; padding: 4px 8px; height: 70px;
+      cursor: pointer; border: none; background: transparent; transition: all 0.2s;
+    }
+    .day-name {
+      font-size: 12px; font-weight: 600; line-height: 1.6;
+      letter-spacing: -0.12px; color: #1a1a1a;
+    }
+    .day-btn.rest .day-name { color: #3d3d3d; }
+    .day-btn.current .day-name { color: #008236; }
+    .day-btn.selected-day .day-name { color: #008236; }
+
+    /* Day States */
+    .date-circle {
+      display: flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; border-radius: 14px;
+      font-size: 14px; font-weight: 500; letter-spacing: 0.04px;
+    }
+    /* state: Selected Day (Filled) */
+    .date-filled { background: #07a348; color: #fffefe; }
+    /* state: Selected (Ring) */
+    .date-ring { border: 1px solid #34733d; color: #34733d; }
+    /* state: Regular */
+    .date-plain { color: #1a1a1a; line-height: 1.5; font-size: 14px; font-weight: 500; }
+    /* Today dot */
+    .today-dot { width: 5px; height: 5px; border-radius: 50%; background: #07a348; margin-top: -2px; }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SQUAD SIZE PILLS (Figma 1613:6571)
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .squad-pill {
+      height: 36px; padding: 4px 16px; border-radius: 4px;
+      font-size: 12px; font-weight: 400; line-height: 1.5;
+      white-space: nowrap; cursor: pointer; transition: all 0.15s;
+    }
+    .squad-pill.unselected { background: #f5f7f6; border: 1px solid #b2b2b2; color: #1a1a1a; }
+    .squad-pill.selected { background: #07a348; border: 1px solid #07a348; color: #f9f6f3; }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       SLOT CARDS (Figma 1406:8907)
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .slot-card {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 4px; height: 48px; border-radius: 4px; padding: 8px 16px;
+      cursor: pointer; transition: all 0.15s ease; border: 1px solid #d7d7d7;
+    }
+    /* available / unselected */
+    .slot-card.available { background: transparent; }
+    .slot-card.available .slot-time { color: #a3a3a3; font-weight: 600; }
+    .slot-card.available .slot-price { color: #666; }
+    
+    /* disabled / sold */
+    .slot-card.disabled { background: transparent; opacity: 1; cursor: not-allowed; }
+    .slot-card.disabled .slot-time { color: #a3a3a3; font-weight: 600; }
+    .slot-card.disabled .slot-price { color: #666; }
+
+    /* selected (ring) */
+    .slot-card.selected { border: 1px solid #34733d; background: transparent; }
+    .slot-card.selected .slot-time { color: #1a1a1a; font-weight: 600; }
+    .slot-card.selected .slot-price { color: #3d3d3d; }
+
+    /* partial (amber left thick border) */
+    .slot-card.partial { border: 2px solid #eeaf02; border-left-width: 6px; background: transparent; }
+    .slot-card.partial .slot-time { font-weight: 600; color: #1a1a1a; }
+    .slot-card.partial .slot-price { color: #3d3d3d; }
+
+    /* partial-selected (green left thick border + bg) */
+    .slot-card.partial-selected { background: #f6fbf5; border: 2px solid #34733d; border-left-width: 6px; }
+    .slot-card.partial-selected .slot-time { font-weight: 600; color: #1a1a1a; }
+    .slot-card.partial-selected .slot-price { color: #3d3d3d; }
+
+    .slot-time { font-size: 12px; line-height: 1.6; letter-spacing: -0.12px; }
+    .slot-price { font-size: 12px; line-height: 1.5; color: #666; }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       BOTTOM SHEETS
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .bs-overlay {
+      position: fixed; inset: 0; z-index: 60;
+      background: rgba(0, 0, 0, 0.45);
+      display: none; align-items: flex-end; justify-content: center;
+    }
+    .bs-overlay.open { display: flex; }
+    .bs-panel {
+      position: relative; width: 100%; max-width: 430px; background: #fff;
+      border-radius: 8px 8px 0 0; animation: bsSlideUp 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    @keyframes bsSlideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+    .bs-header {
+      height: 45px; display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 16px; background: #f5f5f5; border-radius: 8px 8px 0 0;
+    }
+    .bs-title { font-size: 14px; font-weight: 400; color: #1a1a1a; letter-spacing: 0.04px; }
+
+    /* Radio button */
+    .radio-btn { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid #b2b2b2; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+    .radio-btn.active { border-color: #07a348; background: #07a348; }
+    .radio-btn.active::after { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #fff; }
+  </style>
+</head>
+<body>
+
+<div id="app" class="w-full max-w-mobile mx-auto bg-white min-h-screen flex flex-col relative"
+     style="box-shadow: 0 0 50px rgba(0,0,0,0.12);">
+
+  <!-- ── Top Navigation (Figma 1406:8886) ── -->
+  <div class="sticky top-0 z-50 bg-white h-16 flex items-center px-1"
+       style="border-bottom: 1px solid #d7d7d7; box-shadow: 0px 1px 2px rgba(0,0,0,0.15);">
+    <button onclick="window.history.back()" class="w-12 h-12 flex items-center justify-center shrink-0">
+      <i data-lucide="chevron-left" class="w-6 h-6 text-text-heading"></i>
+    </button>
+    <div class="flex-1 flex flex-col justify-center gap-0.5 min-w-0">
+      <h1 class="text-[18px] font-normal leading-[28px] text-text-heading truncate">The Multisports Turf</h1>
+      <p class="text-[12px] font-normal leading-[1.3] text-text-body truncate">Manpada, Thane west , Mumbai</p>
+    </div>
+  </div>
+
+  <!-- ── Month Header ── -->
+  <div class="sticky top-[64px] z-40 bg-white border-b border-container-border py-2">
+    <p class="text-sm font-medium text-center text-text-body tracking-[0.04px]">December,2025</p>
+  </div>
+
+  <!-- ── Calendar Strip (Figma 1406:8885) ── -->
+  <div class="sticky top-[101px] z-40 bg-white border-b border-container-border h-[86px] flex items-center px-1 gap-1">
+    <button onclick="scrollCal('left')" class="w-8 h-8 flex items-center justify-center shrink-0">
+      <i data-lucide="chevron-left" class="w-6 h-6 text-text-heading rotate-0"></i>
+    </button>
+    <div id="cal-strip" class="flex-1 overflow-x-auto scrollbar-hide flex gap-1 items-center">
+      <!-- Injected by JS -->
+    </div>
+    <button onclick="scrollCal('right')" class="w-8 h-8 flex items-center justify-center shrink-0">
+      <i data-lucide="chevron-right" class="w-6 h-6 text-text-heading"></i>
+    </button>
+  </div>
+
+  <!-- ── Squad Selector (Figma 1613:6571) ── -->
+  <div class="sticky top-[187px] z-30 bg-white border-b border-container-border">
+    <div class="flex items-center justify-between h-10 px-4">
+      <span class="text-sm font-medium text-text-heading tracking-[0.04px]">Select Squad Size</span>
+      <button onclick="openBS('preview')" class="flex items-center gap-1 text-sm font-normal text-text-heading tracking-[0.04px]">
+        <span>Preview</span>
+        <i data-lucide="chevron-right" class="w-4 h-4 mt-0.5"></i>
+      </button>
+    </div>
+    <div class="px-4 pb-3 overflow-x-auto scrollbar-hide">
+      <div id="squad-row" class="flex gap-2">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Slots Header ── -->
+  <div class="sticky top-[261px] z-20 bg-white border-b border-container-border flex items-center justify-between h-[45px] px-4">
+    <span class="text-sm font-medium text-text-heading tracking-[0.04px]">Select Slots</span>
+    <button onclick="openBS('filter')" class="w-[45px] h-[45px] flex items-center justify-center">
+      <i data-lucide="sliders-horizontal" class="w-5 h-5 text-text-heading"></i>
+    </button>
+  </div>
+
+  <!-- ── Main Grid (Figma 1406:8907) ── -->
+  <div class="flex-1 overflow-y-auto px-4 py-2 bg-white">
+    <div id="slot-grid" class="grid grid-cols-2" style="gap: 13px 17px;">
+      <!-- Injected by JS -->
+    </div>
+
+    <!-- Partial Half Banner -->
+    <div class="mt-4 border-t border-container-border bg-white flex items-center justify-between h-11">
+      <div class="flex items-center gap-2">
+        <div class="w-5 h-5 rounded-[4px] bg-[#f0b102]"></div>
+        <span class="text-sm font-normal text-black tracking-[0.04px]">Available in other Half</span>
+      </div>
+      <button class="flex items-center gap-1 text-sm font-normal text-black">
+        <span>View</span>
+        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+      </button>
+    </div>
+    <div class="h-20"></div>
+  </div>
+
+  <!-- ── Bottom Bar (Figma 1406:8920) ── -->
+  <div class="fixed bottom-0 left-0 right-0 z-50 max-w-mobile mx-auto bg-white border-t border-container-border px-4 py-3 flex items-center justify-between">
+    <button onclick="openBS('confirm')" class="flex items-center gap-1 px-2 py-2.5">
+      <span id="slots-count-text" class="text-base font-normal text-text-heading tracking-[0.5px]">3 Slots</span>
+      <i data-lucide="chevron-up" class="w-4 h-4 text-text-heading"></i>
+    </button>
+    <button onclick="handlePay()" class="bg-brand-text w-[201px] h-12 rounded-lg flex items-center justify-center gap-2 px-5 py-2.5">
+      <span class="text-base font-semibold text-text-inverse-hd">Pay</span>
+      <span id="total-price-text" class="text-base font-semibold text-text-inverse-hd">₹1500</span>
+    </button>
+  </div>
+</div>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     MODALS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+
+<!-- ── Confirm Sheet ── -->
+<div id="bs-confirm" class="bs-overlay" onclick="closeBS('confirm')">
+  <div class="bs-panel" onclick="event.stopPropagation()">
+    <div class="bs-header">
+      <span class="bs-title">Confirm Your Slot</span>
+      <button onclick="closeBS('confirm')"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <div id="confirm-list" class="flex flex-col">
+      <!-- Injected by JS -->
+    </div>
+    <div class="p-4">
+      <button onclick="closeBS('confirm')" class="bg-brand-text w-full h-12 rounded-lg text-base font-semibold text-text-inverse-hd">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Preview Sheet ── -->
+<div id="bs-preview" class="bs-overlay" onclick="closeBS('preview')">
+  <div class="bs-panel" onclick="event.stopPropagation()">
+    <div class="bs-header">
+      <span class="bs-title">Preview</span>
+      <button onclick="closeBS('preview')"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <div class="h-[189px] w-full overflow-hidden">
+      <img src="http://localhost:3845/assets/ac0590eddb2485add277822afba7d25eba758498.png" 
+           class="w-full h-full object-cover" 
+           onerror="this.parentElement.style.background='#07a348'">
+    </div>
+    <div class="p-4">
+      <button onclick="closeBS('preview')" class="bg-brand-text w-full h-12 rounded-lg text-base font-semibold text-text-inverse-hd">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Filter Sheet ── -->
+<div id="bs-filter" class="bs-overlay" onclick="closeBS('filter')">
+  <div class="bs-panel" onclick="event.stopPropagation()">
+    <div class="bs-header">
+      <span class="bs-title">Select Preferred Time</span>
+      <button onclick="closeBS('filter')"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <div class="flex flex-col pt-2">
+      <div onclick="toggleFilter('Morning')" class="flex items-center justify-between px-4 py-2 h-[50px] cursor-pointer">
+        <div class="flex flex-col"><span class="text-sm font-medium text-text-heading">Morning</span><span class="text-xs text-text-body">12:00 AM - 11:59 AM</span></div>
+        <div id="chk-Morning" class="radio-btn"></div>
+      </div>
+      <div onclick="toggleFilter('Afternoon')" class="flex items-center justify-between px-4 py-2 h-[50px] cursor-pointer border-y border-container-border">
+        <div class="flex flex-col"><span class="text-sm font-medium text-text-heading">Afternoon</span><span class="text-xs text-text-body">12:00 AM - 11:59 AM</span></div>
+        <div id="chk-Afternoon" class="radio-btn"></div>
+      </div>
+      <div onclick="toggleFilter('Evening')" class="flex items-center justify-between px-4 py-2 h-[50px] cursor-pointer">
+        <div class="flex flex-col"><span class="text-sm font-medium text-text-heading">Evening</span><span class="text-xs text-text-body">12:00 AM - 11:59 AM</span></div>
+        <div id="chk-Evening" class="radio-btn"></div>
+      </div>
+    </div>
+    <div class="flex gap-4 p-4 mt-2">
+      <button onclick="resetFilters()" class="flex-1 h-10 border border-brand-green rounded-[4px] text-brand-green-dark text-sm font-medium">Reset</button>
+      <button onclick="closeBS('filter')" class="flex-1 h-10 bg-brand-green-dark rounded-[4px] text-text-inverse-hd text-sm font-medium">Apply Filters</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ─── Data ───
+  const squadSizes = ['5-a-side (5v5)', '7-a-side (7v7)', '8v8', '9-a-side (9v9)'];
+  const baseSlots = [
+    { id: 1, time: '16:00 to 16:30', price: 750, status: 'disabled' },
+    { id: 2, time: '16:00 to 16:30', price: 750, status: 'disabled' },
+    { id: 3, time: '16:00 to 16:30', price: 750, status: 'disabled' },
+    { id: 4, time: '16:00 to 16:30', price: 750, status: 'disabled' },
+    { id: 5, time: '16:00 to 16:30', price: 750, status: 'disabled' },
+    { id: 6, time: '16:00 to 16:30', price: 750, status: 'disabled' },
+    { id: 7, time: '16:30 - 17:00', price: 750, status: 'available' },
+    { id: 8, time: '16:30 - 17:00', price: 750, status: 'selected' },
+    { id: 9, time: '16:30 - 17:00', price: 750, status: 'selected' },
+    { id: 10, time: '16:00 to 16:30', price: 750, status: 'partial-selected' },
+    { id: 11, time: '16:00 to 16:30', price: 750, status: 'partial' },
+    { id: 12, time: '16:00 to 16:30', price: 750, status: 'available' },
+  ];
+
+  // ─── State ───
+  let selectedSquad = '5-a-side (5v5)';
+  let selectedDateIndex = 0;
+  let activeFilters = new Set();
+  let slots = [...baseSlots];
+
+  // ─── Functions ───
+  function scrollCal(dir) {
+    document.getElementById('cal-strip').scrollBy({ left: dir==='left' ? -200:200, behavior: 'smooth' });
+  }
+
+  function renderCalendar() {
+    const strip = document.getElementById('cal-strip'); 
+    const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const today = new Date();
+    strip.innerHTML = '';
+    for(let i=0; i<30; i++) {
+      const d = new Date(); d.setDate(today.getDate() + i);
+      // Logic from Figma node screenshots:
+      // Mon 10 = Selected (Ring)
+      // Tue 11 = Selected Day (Filled)
+      // Wed 12 = Current Day (Dot below)
+      const isSelected = i === 1; 
+      const isRing = i === 0;
+      const isCurrent = i === 2;
+      
+      const btn = document.createElement('button');
+      btn.className = 'day-btn ' + (i>3?'rest':'');
+      if (isCurrent) btn.classList.add('current');
+      if (isSelected || isRing) btn.classList.add('selected-day');
+
+      let circle = `<div class="date-plain">${d.getDate()}</div>`;
+      if (isSelected) circle = `<div class="date-circle date-filled">${d.getDate()}</div>`;
+      if (isRing) circle = `<div class="date-circle date-ring">${d.getDate()}</div>`;
+
+      btn.innerHTML = `<span class="day-name">${days[d.getDay()]}</span>${circle}${isCurrent?'<div class="today-dot"></div>':''}`;
+      strip.appendChild(btn);
+    }
+  }
+
+  function renderSquad() {
+    const row = document.getElementById('squad-row');
+    row.innerHTML = '';
+    squadSizes.forEach(s => {
+      const b = document.createElement('button');
+      b.className = 'squad-pill ' + (s===selectedSquad ? 'selected' : 'unselected');
+      b.textContent = s;
+      b.onclick = () => { selectedSquad = s; renderSquad(); };
+      row.appendChild(b);
+    });
+  }
+
+  function renderSlots() {
+    const grid = document.getElementById('slot-grid');
+    grid.innerHTML = '';
+    slots.forEach(s => {
+      const b = document.createElement('button');
+      b.className = `slot-card ${s.status}`;
+      b.onclick = () => toggleSlot(s.id);
+      b.innerHTML = `<span class="slot-time">${s.time}</span><span class="slot-price">₹${s.price}</span>`;
+      grid.appendChild(b);
+    });
+    updateBottom();
+  }
+
+  function toggleSlot(id) {
+    const s = slots.find(x => x.id === id);
+    if (!s || s.status === 'disabled') return;
+    if (s.status === 'available') s.status = 'selected';
+    else if (s.status === 'selected') s.status = 'available';
+    else if (s.status === 'partial') s.status = 'partial-selected';
+    else if (s.status === 'partial-selected') s.status = 'partial';
+    renderSlots();
+  }
+
+  function updateBottom() {
+    const sel = slots.filter(x => x.status === 'selected' || x.status === 'partial-selected');
+    document.getElementById('slots-count-text').textContent = sel.length + ' Slots';
+    document.getElementById('total-price-text').textContent = '₹' + (sel.reduce((a,b)=>a+b.price, 0));
+  }
+
+  function openBS(id) { 
+    if(id === 'confirm') renderConfirm();
+    document.getElementById('bs-'+id).classList.add('open'); 
+    lucide.createIcons();
+  }
+  function closeBS(id) { document.getElementById('bs-'+id).classList.remove('open'); }
+
+  function renderConfirm() {
+    const list = document.getElementById('confirm-list');
+    list.innerHTML = '';
+    slots.filter(x=>x.status==='selected' || x.status==='partial-selected').forEach((s, i)=>{
+      const row = document.createElement('div');
+      row.className = 'px-4 py-2 border-b border-container-border flex flex-col gap-1';
+      row.innerHTML = `<span class="text-sm font-medium text-text-heading">${s.time}</span><span class="text-xs text-text-body">7v7 (Half ${i%2+1})</span>`;
+      list.appendChild(row);
+    });
+  }
+
+  function toggleFilter(f) {
+    if(activeFilters.has(f)) activeFilters.delete(f); else activeFilters.add(f);
+    document.getElementById('chk-'+f).className = 'radio-btn ' + (activeFilters.has(f)?'active':'');
+  }
+  function resetFilters() { activeFilters.clear(); document.querySelectorAll('.radio-btn').forEach(x=>x.classList.remove('active')); }
+  function handlePay() { window.location.href = 'Checkout.html'; }
+
+  window.onload = () => { renderCalendar(); renderSquad(); renderSlots(); lucide.createIcons(); };
+</script>
+
+</body>
+</html>
