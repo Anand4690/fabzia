@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write a Review - Fabzia Turf</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Utility CSS -->
+    <link rel="stylesheet" href="utility.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lato:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Lato', sans-serif;
+        }
+        
+        .font-inter {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Animation for the bottom sheet */
+        .bottom-sheet {
+            animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        /* Hide scrollbar */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Custom transitions */
+        .star {
+            transition: all 0.2s ease;
+        }
+        
+        .star:active {
+            scale: 0.9;
+        }
+
+        .btn-hover:active {
+            scale: 0.98;
+        }
+    </style>
+</head>
+<body class="bg-black/50 min-h-screen antialiased overflow-hidden">
+
+    <!-- Mobile View Container -->
+    <div class="max-w-[430px] mx-auto min-h-screen relative flex flex-col justify-end">
+        
+        <!-- Backdrop - clicking this should navigate back -->
+        <a href="Reviews.html" class="absolute inset-0 z-0"></a>
+
+        <!-- Bottom Sheet Container -->
+        <div class="bottom-sheet bg-white rounded-t-[20px] w-full p-4 pb-8 flex flex-col gap-4 shadow-[0_-8px_30px_rgb(0,0,0,0.12)] z-10 safe-area-inset-bottom">
+            
+            <!-- Handle bar for visual sheet feel -->
+            <div class="flex justify-center -mt-2 mb-1">
+                <div class="w-10 h-1 bg-gray-200 rounded-full"></div>
+            </div>
+
+            <!-- Header Section -->
+            <div class="flex items-center justify-between">
+                <h2 class="text-[#1A1A1A] font-inter font-semibold text-base leading-7 tracking-[0.04px]">
+                    Review The Multisports Turf
+                </h2>
+                <!-- Close Button -->
+                <a href="Reviews.html" class="w-12 h-12 -mr-3 flex items-center justify-center cursor-pointer active:bg-gray-100 rounded-full transition-colors">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 18L18 6M6 6L18 18" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- User Information -->
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-full bg-[#415963] flex items-center justify-center shrink-0 shadow-sm">
+                    <span class="text-white font-inter font-medium text-base">A</span>
+                </div>
+                <span class="text-[#1A1A1A] font-inter text-sm font-normal tracking-[0.04px]">
+                    Anand Suthar
+                </span>
+            </div>
+
+            <!-- Interactive Star Rating -->
+            <div id="star-rating" class="flex gap-1 items-center h-10">
+                <!-- Stars are 1-indexed -->
+                <button type="button" class="star-btn p-0.5 group" data-rating="1">
+                    <svg class="star w-7 h-7 text-[#E5E5E5] transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                </button>
+                <button type="button" class="star-btn p-0.5 group" data-rating="2">
+                    <svg class="star w-7 h-7 text-[#E5E5E5] transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                </button>
+                <button type="button" class="star-btn p-0.5 group" data-rating="3">
+                    <svg class="star w-7 h-7 text-[#E5E5E5] transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                </button>
+                <button type="button" class="star-btn p-0.5 group" data-rating="4">
+                    <svg class="star w-7 h-7 text-[#E5E5E5] transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                </button>
+                <button type="button" class="star-btn p-0.5 group" data-rating="5">
+                    <svg class="star w-7 h-7 text-[#E5E5E5] transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Review Textarea Section -->
+            <div class="flex flex-col gap-1">
+                <div class="border border-[#B2B2B2] rounded-[4px] px-2.5 py-2 transition-all focus-within:border-[var(--green)] focus-within:ring-1 focus-within:ring-[var(--green)]/20">
+                    <textarea 
+                        id="review-textarea"
+                        maxlength="300"
+                        placeholder="Describe your experience (optional)"
+                        class="w-full h-[83px] font-inter text-sm leading-[21px] text-[#3D3D3D] placeholder-[#3D3D3D]/60 focus:outline-none resize-none bg-transparent"
+                    ></textarea>
+                </div>
+                <!-- Character Counter -->
+                <div class="text-right font-inter text-[12px] leading-[18px] text-[#3D3D3D]">
+                    <span id="char-count">0</span>/300
+                </div>
+            </div>
+
+            <!-- Action Button -->
+            <button class="btn-hover w-full h-[48px] bg-[#008236] text-[#F9F6F3] font-inter font-semibold text-base leading-7 rounded-[8px] transition-all shadow-md active:shadow-sm" id="done-btn">
+                Done
+            </button>
+
+        </div>
+    </div>
+
+    <!-- Interaction Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const starBtns = document.querySelectorAll('.star-btn');
+            const textarea = document.getElementById('review-textarea');
+            const charCount = document.getElementById('char-count');
+            const doneBtn = document.getElementById('done-btn');
+            
+            let currentRating = 0;
+
+            // Rating logic
+            starBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    currentRating = parseInt(btn.getAttribute('data-rating'));
+                    updateStars(currentRating);
+                });
+            });
+
+            function updateStars(rating) {
+                starBtns.forEach((btn, index) => {
+                    const star = btn.querySelector('.star');
+                    if (index < rating) {
+                        // Active state: filled with brand green
+                        star.classList.add('text-[var(--green)]', 'fill-[var(--green)]');
+                        star.classList.remove('text-[#E5E5E5]');
+                    } else {
+                        // Inactive state: outline light gray, no fill
+                        star.classList.remove('text-[var(--green)]', 'fill-[var(--green)]');
+                        star.classList.add('text-[#E5E5E5]');
+                    }
+                });
+            }
+
+            // Character count tracking
+            textarea.addEventListener('input', () => {
+                const length = textarea.value.length;
+                charCount.textContent = length;
+            });
+
+            // Done button action (mock)
+            doneBtn.addEventListener('click', () => {
+                if (currentRating === 0) {
+                    alert('Please provide a rating');
+                    return;
+                }
+                
+                // Add a little feedback animation or just redirect
+                doneBtn.innerHTML = '<svg class="animate-spin h-5 w-5 text-white mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
+                
+                setTimeout(() => {
+                    window.location.href = 'Reviews.html';
+                }, 600);
+            });
+        });
+    </script>
+
+</body>
+</html>

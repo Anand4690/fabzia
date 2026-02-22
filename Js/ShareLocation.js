@@ -60,7 +60,12 @@ const CITY_ICONS = {
 
   function selectCity(city) {
     selectedCity = city;
+    localStorage.setItem('selectedCity', city);
     renderDefault();
+    // Navigate to Home after selection
+    setTimeout(() => {
+      window.location.href = 'Home.html';
+    }, 300);
   }
 
   searchInput.addEventListener('input', e => {
@@ -69,3 +74,12 @@ const CITY_ICONS = {
   });
 
   renderDefault();
+
+  // Auto Detect listener
+  if (autoDetect) {
+    autoDetect.querySelector('button').addEventListener('click', () => {
+      const detectedCity = "Near Mumbai";
+      localStorage.setItem('selectedCity', detectedCity);
+      window.location.href = 'Home.html';
+    });
+  }

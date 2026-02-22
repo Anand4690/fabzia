@@ -448,8 +448,8 @@ function updateAvailabilityButton() {
     const filterCount = getFilterCount();
     
     if (filterCount > 0) {
-        // Update button to show active state with badge
-        availabilityBtn.className = 'filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--green)] bg-[var(--green)]/10 transition-colors duration-200';
+        // Update button to show active state with badge (using px-4 for consistent width)
+        availabilityBtn.className = 'filter-btn flex items-center gap-1 px-4 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--green)] bg-[var(--green)]/10 transition-colors duration-200';
         
         // Update or create badge
         let badge = availabilityBtn.querySelector('.filter-badge');
@@ -460,25 +460,29 @@ function updateAvailabilityButton() {
         }
         badge.textContent = filterCount;
         
-        // Update text to show date if available
+        // Update text to show date if available, otherwise show 'Today'
         const btnText = availabilityBtn.querySelector('span:not(.filter-badge)');
-        if (availabilityFilterState.date && btnText) {
-            const date = new Date(availabilityFilterState.date);
-            const formattedDate = date.toLocaleDateString('en-US', { 
-                month: 'short', 
-                day: 'numeric' 
-            });
-            btnText.textContent = formattedDate;
+        if (btnText) {
+            if (availabilityFilterState.date) {
+                const date = new Date(availabilityFilterState.date);
+                const formattedDate = date.toLocaleDateString('en-US', { 
+                    month: 'short', 
+                    day: 'numeric' 
+                });
+                btnText.textContent = formattedDate;
+            } else {
+                btnText.textContent = 'Today';
+            }
         }
     } else {
-        // Reset to default state
-        availabilityBtn.className = 'filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--text-heading)] bg-[hsl(0,0%,6%,0.05)] shadow-sm';
+        // Reset to default state (using px-4 for consistent width)
+        availabilityBtn.className = 'filter-btn flex items-center gap-1 px-4 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--text-heading)] bg-[hsl(0,0%,6%,0.05)] shadow-sm';
         
         const badge = availabilityBtn.querySelector('.filter-badge');
         if (badge) badge.remove();
         
         const btnText = availabilityBtn.querySelector('span:not(.filter-badge)');
-        if (btnText) btnText.textContent = 'Availability';
+        if (btnText) btnText.textContent = 'Today';
     }
 }
 

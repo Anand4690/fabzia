@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enquiry Success - Fabzia Turf</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Utility CSS -->
+    <link rel="stylesheet" href="utility.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lato:wght@400;700&family=Roboto:wght@400;500&display=swap');
+        
+        body {
+            font-family: 'Lato', sans-serif;
+        }
+        
+        .font-inter {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .font-roboto {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        /* Backdrop animation */
+        .backdrop {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        /* Material Design 3 Modal animation */
+        .modal-content {
+            animation: m3Pop 0.4s cubic-bezier(0.05, 0.7, 0.1, 1.0);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes m3Pop {
+            from { 
+                opacity: 0;
+                transform: scale(0.92) translateY(8px); 
+            }
+            to { 
+                opacity: 1;
+                transform: scale(1) translateY(0); 
+            }
+        }
+
+        /* Material Ripple effect simulation */
+        .m3-btn {
+            position: relative;
+            overflow: hidden;
+            transition: background-color 0.2s ease;
+        }
+        .m3-btn:active {
+            background-color: rgba(0, 130, 54, 0.12);
+        }
+    </style>
+</head>
+<body class="bg-black/30 min-h-screen flex items-center justify-center p-8 antialiased backdrop">
+
+    <!-- Mobile Container -->
+    <div class="max-w-[430px] w-full flex items-center justify-center">
+        
+        <!-- M3 Dialog Card -->
+        <div class="modal-content bg-[#F9FBF8] w-[312px] rounded-[28px] flex flex-col items-center overflow-hidden shadow-[0_24px_48px_-12px_rgba(0,0,0,0.18)] border border-white/20">
+            
+            <!-- Content Container -->
+            <div class="w-full flex flex-col items-center pt-8 px-6 pb-6 text-center">
+                
+                <!-- Icon Section (M3 uses 24dp or 32dp icons in dialogs) -->
+                <div class="mb-4">
+                    <div class="w-12 h-12 rounded-full bg-[var(--green)]/10 flex items-center justify-center">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM16.59 7.58L10 14.17L7.41 11.59L6 13L10 17L18 9L16.59 7.58Z" fill="var(--green)"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Headline (Title Large) -->
+                <h1 class="font-inter font-medium text-[22px] leading-7 text-[#1A1A1A] mb-4">
+                    Thank you for Enquiry!
+                </h1>
+                
+                <!-- Supporting Text (Body Medium) -->
+                <p class="font-inter font-normal text-sm leading-5 text-[#444746] tracking-[0.25px]">
+                    Our Support team would Connect with you shortly to assist with your request.
+                </p>
+            </div>
+
+            <!-- M3 Dialog Actions (Right Aligned) -->
+            <div class="w-full h-16 flex justify-end items-center px-6 pb-2">
+                <a href="Home.html" class="m3-btn h-10 min-w-[64px] flex items-center justify-center px-4 rounded-full transition-colors cursor-pointer">
+                    <span class="font-roboto font-medium text-sm leading-5 tracking-[0.1px] text-[var(--green)]">
+                        Done
+                    </span>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Backdrop return logic -->
+    <a href="Home.html" class="fixed inset-0 -z-10"></a>
+
+</body>
+</html>

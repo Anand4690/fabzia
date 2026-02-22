@@ -27,13 +27,13 @@
         cont.addEventListener('click', function () {
           if (cont.disabled) return;
           // navigate to OTP screen
-          window.location.href = 'Home.html';
+          window.location.href = 'otpVerification.html';
         });
 
         // skip button (example behavior)
         document.getElementById('skipBtn').addEventListener('click', function () {
           // navigate to home
-          window.location.href = 'Home.html';
+          window.location.href = 'otpVerification.html';
         });
 
         // initialize state

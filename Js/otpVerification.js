@@ -144,7 +144,7 @@
           updateInputStyles();
           // navigate to next screen
           setTimeout(() => {
-            window.location.href = 'shareLocation.html';
+            window.location.href = 'Register.html';
           }, 800);
         } else {
           isError = true;
@@ -171,7 +171,7 @@
 
       // back button
       backBtn.addEventListener('click', () => {
-        window.history.back();
+        window.location.href = 'onBoarding.html';
       });
 
       // Countdown timer

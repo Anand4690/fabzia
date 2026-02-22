@@ -68,7 +68,7 @@
                     <!-- Location -->
                     <a href="shareLocation.html" class="flex items-center gap-1 cursor-pointer">
                         <img src="assets/Icons/Home Screen/location-sharp.svg" alt="Location" class="w-5 h-5">
-                        <span class="text-sm font-normal">Mumbai</span>
+                        <span id="current-location" class="text-sm font-normal">Mumbai</span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="m6 9 6 6 6-6"/></svg>
                     </a>
                 </div>
@@ -122,9 +122,10 @@
 
                     <!-- Sports Filter - Horizontal Scrollable -->
                     <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide py-1 bg-[var(--bg-light)]">
+                        
                         <!-- Availability Button (Sticky) -->
                         <div class="sticky left-0 z-10 flex items-center bg-[var(--bg-light)] pr-2">
-                             <button id="availability-filter-btn" onclick="openAvailabilityFilter()" class="filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--text-heading)] bg-[hsl(0,0%,6%,0.05)] shadow-sm">
+                             <button id="availability-filter-btn" onclick="openAvailabilityFilter()" class="filter-btn flex items-center gap-1 px-4 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--text-heading)] bg-[hsl(0,0%,6%,0.05)] shadow-sm">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-[var(--text-heading)]"><line x1="4" x2="20" y1="21" y2="21"/><line x1="4" x2="20" y1="14" y2="14"/><line x1="4" x2="20" y1="7" y2="7"/><circle cx="12" cy="14" r="2"/><circle cx="8" cy="7" r="2"/><circle cx="16" cy="21" r="2"/></svg>
                                 <span class="text-sm font-normal text-[var(--text-heading)]">Today</span>
                             </button>
@@ -133,36 +134,36 @@
                         </div>
 
                         <!-- All (was View All, now first) -->
-                        <button onclick="setActiveFilter('All', this)" class="filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--bg-container)] bg-white">
+                        <button onclick="setActiveFilter('All', this)" class="filter-btn flex items-center gap-1 px-4 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--bg-container)] bg-white">
                             <span class="text-xs font-normal text-[var(--text-heading)]">All</span>
                         </button>
 
                         <!-- Cricket -->
-                        <button onclick="setActiveFilter('Cricket', this)" class="filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--bg-container)] bg-white">
+                        <button onclick="setActiveFilter('Cricket', this)" class="filter-btn flex items-center gap-1 px-4 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--bg-container)] bg-white">
                             <img src="assets/Icons/Sports/Sport=Cricket.svg" alt="Cricket" class="w-4 h-4">
                             <span class="text-xs font-normal text-[var(--text-heading)]">Cricket</span>
                         </button>
 
                         <!-- Football -->
-                        <button onclick="setActiveFilter('Football', this)" class="filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--bg-container)] bg-white">
+                        <button onclick="setActiveFilter('Football', this)" class="filter-btn flex items-center gap-1 px-4 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--bg-container)] bg-white">
                             <img src="assets/Icons/Sports/Sport=Football, Property 2=ionicons, Property 3=outline, Property 4=football-outline.svg" alt="Football" class="w-4 h-4">
                             <span class="text-xs font-normal text-[var(--text-heading)]">Football</span>
                         </button>
 
                         <!-- Badminton -->
-                        <button onclick="setActiveFilter('Badminton', this)" class="filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--bg-container)] bg-white">
+                        <button onclick="setActiveFilter('Badminton', this)" class="filter-btn flex items-center gap-1 px-4 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--bg-container)] bg-white">
                             <img src="assets/Icons/Sports/Sport=Badminton.svg" alt="Badminton" class="w-4 h-4">
                             <span class="text-xs font-normal text-[var(--text-heading)]">Badminton</span>
                         </button>
 
                         <!-- Basketball -->
-                        <button onclick="setActiveFilter('Basketball', this)" class="filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--bg-container)] bg-white">
+                        <button onclick="setActiveFilter('Basketball', this)" class="filter-btn flex items-center gap-1 px-4 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--bg-container)] bg-white">
                             <img src="assets/Icons/Sports/Sport=Basketball, Property 2=iconoir, Property 3=basketball-alt.svg" alt="Basketball" class="w-4 h-4">
                             <span class="text-xs font-normal text-[var(--text-heading)]">Basketball</span>
                         </button>
 
                         <!-- Tennis -->
-                        <button onclick="setActiveFilter('Tennis', this)" class="filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--bg-container)] bg-white">
+                        <button onclick="setActiveFilter('Tennis', this)" class="filter-btn flex items-center gap-1 px-4 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--bg-container)] bg-white">
                             <img src="assets/Icons/Sports/Sport=tennis.svg" alt="Tennis" class="w-4 h-4">
                             <span class="text-xs font-normal text-[var(--text-heading)]">Tennis</span>
                         </button>
@@ -197,7 +198,7 @@
                             </div>
                             <span class="text-xs font-normal text-[var(--green-dark)]">₹200 onwards</span>
                         </div>
-                        <button onclick="event.stopPropagation(); window.location.href='BookSlot.html'" class="w-full h-10 bg-[var(--green-dark)] text-white rounded-md font-normal text-base shadow-[0_1px_3px_rgba(0,0,0,0.15)] hover:opacity-90 transition-opacity">Book Now</button>
+                        <button onclick="event.stopPropagation(); window.location.href='SlotBooking.html'" class="w-full h-10 bg-[var(--green-dark)] text-white rounded-md font-normal text-base shadow-[0_1px_3px_rgba(0,0,0,0.15)] hover:opacity-90 transition-opacity">Book Now</button>
                     </div>
                 </div>
 
@@ -222,7 +223,7 @@
                             </div>
                             <span class="text-xs font-normal text-[var(--green-dark)]">₹400 onwards</span>
                         </div>
-                        <button onclick="event.stopPropagation(); window.location.href='Checkout.html'" class="w-full h-10 bg-[var(--green-dark)] text-white rounded-md font-normal text-base shadow-[0_1px_3px_rgba(0,0,0,0.15)] hover:opacity-90 transition-opacity">Enquire Now</button>
+                        <button onclick="event.stopPropagation(); window.location.href='EnquiryPop.html'" class="w-full h-10 bg-[var(--green-dark)] text-white rounded-md font-normal text-base shadow-[0_1px_3px_rgba(0,0,0,0.15)] hover:opacity-90 transition-opacity">Enquire Now</button>
                     </div>
                 </div>
 
@@ -247,7 +248,7 @@
                             </div>
                             <span class="text-xs font-normal text-[var(--green-dark)]">₹200 onwards</span>
                         </div>
-                        <button onclick="event.stopPropagation(); window.location.href='BookSlot.html'" class="w-full h-10 bg-[var(--green-dark)] text-white rounded-md font-normal text-base shadow-[0_1px_3px_rgba(0,0,0,0.15)] hover:opacity-90 transition-opacity">Book Now</button>
+                        <button onclick="event.stopPropagation(); window.location.href='SlotBooking.html'" class="w-full h-10 bg-[var(--green-dark)] text-white rounded-md font-normal text-base shadow-[0_1px_3px_rgba(0,0,0,0.15)] hover:opacity-90 transition-opacity">Book Now</button>
                     </div>
                 </div>
 
@@ -271,7 +272,7 @@
                             </div>
                             <span class="text-xs font-normal text-[var(--green-dark)]">₹400 onwards</span>
                         </div>
-                        <button onclick="event.stopPropagation(); window.location.href='BookSlot.html'" class="w-full h-10 bg-[var(--green-dark)] text-white rounded-md font-normal text-base shadow-[0_1px_3px_rgba(0,0,0,0.15)] hover:opacity-90 transition-opacity">Book Now</button>
+                        <button onclick="event.stopPropagation(); window.location.href='SlotBooking.html'" class="w-full h-10 bg-[var(--green-dark)] text-white rounded-md font-normal text-base shadow-[0_1px_3px_rgba(0,0,0,0.15)] hover:opacity-90 transition-opacity">Book Now</button>
                     </div>
                 </div>
 
@@ -296,7 +297,7 @@
                             </div>
                             <span class="text-xs font-normal text-[var(--green-dark)]">₹600 onwards</span>
                         </div>
-                        <button onclick="event.stopPropagation(); window.location.href='BookSlot.html'" class="w-full h-10 bg-[var(--green-dark)] text-white rounded-md font-normal text-base shadow-[0_1px_3px_rgba(0,0,0,0.15)] hover:opacity-90 transition-opacity">Book Now</button>
+                        <button onclick="event.stopPropagation(); window.location.href='SlotBooking.html'" class="w-full h-10 bg-[var(--green-dark)] text-white rounded-md font-normal text-base shadow-[0_1px_3px_rgba(0,0,0,0.15)] hover:opacity-90 transition-opacity">Book Now</button>
                     </div>
                 </div>
 
@@ -320,7 +321,7 @@
                             </div>
                             <span class="text-xs font-normal text-[var(--green-dark)]">₹300 onwards</span>
                         </div>
-                        <button onclick="event.stopPropagation(); window.location.href='BookSlot.html'" class="w-full h-10 bg-[var(--green-dark)] text-white rounded-md font-normal text-base shadow-[0_1px_3px_rgba(0,0,0,0.15)] hover:opacity-90 transition-opacity">Book Now</button>
+                        <button onclick="event.stopPropagation(); window.location.href='SlotBooking.html'" class="w-full h-10 bg-[var(--green-dark)] text-white rounded-md font-normal text-base shadow-[0_1px_3px_rgba(0,0,0,0.15)] hover:opacity-90 transition-opacity">Book Now</button>
                     </div>
                 </div>
 
@@ -345,7 +346,7 @@
                             </div>
                             <span class="text-xs font-normal text-[var(--green-dark)]">₹800 onwards</span>
                         </div>
-                        <button onclick="event.stopPropagation(); window.location.href='BookSlot.html'" class="w-full h-10 bg-[var(--green-dark)] text-white rounded-md font-normal text-base shadow-[0_1px_3px_rgba(0,0,0,0.15)] hover:opacity-90 transition-opacity">Book Now</button>
+                        <button onclick="event.stopPropagation(); window.location.href='SlotBooking.html'" class="w-full h-10 bg-[var(--green-dark)] text-white rounded-md font-normal text-base shadow-[0_1px_3px_rgba(0,0,0,0.15)] hover:opacity-90 transition-opacity">Book Now</button>
                     </div>
                 </div>
 
@@ -369,7 +370,7 @@
                             </div>
                             <span class="text-xs font-normal text-[var(--green-dark)]">₹500 onwards</span>
                         </div>
-                        <button onclick="event.stopPropagation(); window.location.href='BookSlot.html'" class="w-full h-10 bg-[var(--green-dark)] text-white rounded-md font-normal text-base shadow-[0_1px_3px_rgba(0,0,0,0.15)] hover:opacity-90 transition-opacity">Book Now</button>
+                        <button onclick="event.stopPropagation(); window.location.href='SlotBooking.html'" class="w-full h-10 bg-[var(--green-dark)] text-white rounded-md font-normal text-base shadow-[0_1px_3px_rgba(0,0,0,0.15)] hover:opacity-90 transition-opacity">Book Now</button>
                     </div>
                 </div>
             </div>
@@ -473,7 +474,7 @@
         <div class="relative bg-[var(--bg-light)] w-full max-w-[430px] mx-auto rounded-t-[20px] max-h-[90vh] overflow-hidden flex flex-col">
             <!-- Header -->
             <div class="bg-white border-b border-[var(--bg-container)] flex items-center justify-between px-4 py-3 rounded-t-[20px]">
-                <h2 class="font-medium text-lg text-[var(--text-heading)]">Availability</h2>
+                <h2 class="font-medium text-lg text-[var(--text-heading)]">Today</h2>
                 <button onclick="closeAvailabilityFilter()" class="bg-[var(--bg-light)] w-10 h-10 rounded-full flex items-center justify-center">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M18 6L6 18M6 6L18 18" stroke="var(--text-heading)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -669,12 +670,17 @@
         function setActiveFilter(filterName, btnElement) {
             const buttons = document.querySelectorAll('.filter-btn');
             buttons.forEach(btn => {
-                // Reset to default style
-                btn.className = "filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--bg-container)] bg-white transition-colors duration-200";
+                // Skip the availability filter button if it has a different ID
+                if (btn.id === 'availability-filter-btn') return;
+                
+                // Reset to default style (using px-4 for width)
+                btn.className = "filter-btn flex items-center gap-1 px-4 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--bg-container)] bg-white transition-colors duration-200";
             });
 
-            // Set active style - light green background with green border
-            btnElement.className = "filter-btn flex items-center gap-1 px-2 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--green-dark)] bg-[var(--green-dark)]/10 transition-colors duration-200";
+            // Set active style - light green highlight with px-4 preserved
+            if (btnElement.id !== 'availability-filter-btn') {
+                btnElement.className = "filter-btn flex items-center gap-1 px-4 h-10 rounded-lg border whitespace-nowrap flex-shrink-0 border-[var(--green-dark)] bg-[#E7F7EF] transition-colors duration-200";
+            }
         }    
 
         function setActive(targetId) {
@@ -703,6 +709,15 @@
 
         // Set default active tab
         setActive('home');
+
+        // Update Location from localStorage
+        const storedCity = localStorage.getItem('selectedCity');
+        if (storedCity) {
+            const locationSpan = document.getElementById('current-location');
+            if (locationSpan) {
+                locationSpan.textContent = storedCity;
+            }
+        }
     </script>
 </body>
 </html>

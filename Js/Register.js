@@ -358,7 +358,7 @@
         
         setTimeout(() => {
             // Navigate to Select City page
-            window.location.href = 'SelectCity.html';
+            window.location.href = 'shareLocation.html';
         }, 1000);
     }
 

@@ -97,6 +97,29 @@
             border-color: #dc2626 !important;
             box-shadow: 0 0 0 1px #dc2626 !important;
         }
+
+        /* Hide scrollbars but keep functionality */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Toast Styles */
+        #toast {
+            font-weight: 500;
+            z-index: 100;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            pointer-events: none;
+            opacity: 0;
+        }
+        #toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-lato text-[var(--text-body)] antialiased flex items-center justify-center min-h-screen">
@@ -121,7 +144,7 @@
 
 
         <!-- Form Section -->
-        <div class="flex-1 px-4 pt-0 pb-4 overflow-y-auto scrollbar-custom">
+        <div class="flex-1 px-4 pt-0 pb-4 overflow-y-auto no-scrollbar scrollbar-custom">
             
             <!-- Profile Image Section (Moved inside scrollable area) -->
             <div class="flex justify-center items-center h-[141px] flex-shrink-0 relative">
@@ -200,8 +223,8 @@
                 </div>
 
                 <!-- Address Input -->
-                <div class="input-group flex h-12 px-[10px] items-center gap-[10px] rounded-[4px] border border-[var(--black-700)] bg-[var(--white-pure)] transition-colors focus-within:border-[var(--green)] focus-within:ring-1 focus-within:ring-[var(--green)]">
-                    <input type="text" id="addressInput" placeholder="Enter Address" class="flex-1 text-[var(--text-body)] font-inter text-[16px] font-medium leading-[28px] outline-none bg-transparent placeholder-[var(--text-placeholder)]">
+                <div class="input-group flex min-h-[140px] px-[10px] items-start py-3 gap-[10px] rounded-[4px] border border-[var(--black-700)] bg-[var(--white-pure)] transition-colors focus-within:border-[var(--green)] focus-within:ring-1 focus-within:ring-[var(--green)]">
+                    <textarea id="addressInput" placeholder="Enter Address" class="flex-1 text-[var(--text-body)] font-inter text-[16px] font-medium leading-[28px] outline-none bg-transparent placeholder-[var(--text-placeholder)] resize-none h-full"></textarea>
                 </div>
 
                 <!-- Community Checkboxes -->
@@ -244,6 +267,10 @@
             </button>
         </div>
 
+        <!-- Toast Notification (Inside container, above the action buttons) -->
+        <div id="toast" class="absolute bottom-20 left-1/2 -translate-x-1/2 bg-[#0F172A] text-white px-6 py-3 rounded-lg text-sm font-medium z-[60] opacity-0 pointer-events-none transition-all duration-300 translate-y-4">
+            Profile is updated
+        </div>
     </div>
 
     <!-- Logic Script -->

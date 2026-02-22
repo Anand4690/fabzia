@@ -257,84 +257,81 @@
             </section>
 
             <!-- Booking Summary -->
-            <section class="px-4 py-6 space-y-6">
-                <h2 class="text-base font-medium text-text-heading">
-                    Booking summary
-                </h2>
+            <section class="border-b border-container-border">
+                <button
+                    onclick="toggleBookingSummary()"
+                    class="w-full px-4 py-3 flex items-center justify-between hover:bg-gray-50 transition-colors"
+                >
+                    <div class="flex items-center justify-between w-full pr-2">
+                        <h2 class="text-base font-medium text-text-heading leading-7">
+                            Booking summary
+                        </h2>
+                    </div>
+                    <div class="w-10 h-10 flex items-center justify-center rounded-full bg-bg-gray flex-shrink-0">
+                        <!-- Chevron Down Icon -->
+                        <svg id="summary-chevron-down" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-text-heading">
+                            <path d="m6 9 6 6 6-6"/>
+                        </svg>
+                        <!-- Chevron Up Icon -->
+                        <svg id="summary-chevron-up" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-text-heading hidden">
+                            <path d="m18 15-6-6-6 6"/>
+                        </svg>
+                    </div>
+                </button>
 
-                <!-- Total Amount -->
-                <div class="border border-container-border rounded bg-white">
-                    <button
-                        onclick="toggleTotalAmount()"
-                        class="w-full p-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
-                    >
-                        <div class="flex items-center gap-1">
-                            <span class="text-base font-medium text-text-heading leading-7">
-                                Total Amount
+                <!-- Expandable Price Breakdown -->
+                <div id="booking-summary-content" class="expandable-content max-h-0 opacity-0">
+                    <div class="px-4 pb-4 pt-2 space-y-3.5">
+                        <div class="flex items-center justify-between h-[21px]">
+                            <span class="text-sm text-text-body leading-[21px] tracking-[0.04px]">
+                                Total Slot Base Price (Incl. Taxes)
                             </span>
-                            <!-- Chevron Down Icon -->
-                            <svg id="total-chevron-down" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-text-heading">
-                                <path d="m6 9 6 6 6-6"/>
-                            </svg>
-                            <!-- Chevron Up Icon -->
-                            <svg id="total-chevron-up" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-text-heading hidden">
-                                <path d="m18 15-6-6-6 6"/>
-                            </svg>
+                            <span class="text-sm text-text-heading leading-[21px] tracking-[0.04px]">
+                                ₹2,000
+                            </span>
                         </div>
-                        <span class="text-base font-medium text-text-heading leading-7">
-                            ₹1,770
-                        </span>
-                    </button>
-
-                    <!-- Expandable Price Breakdown -->
-                    <div id="total-breakdown" class="expandable-content max-h-0 opacity-0">
-                        <div class="px-4 pb-3 space-y-3.5">
-                            <div class="flex items-center justify-between h-[21px]">
-                                <span class="text-sm text-text-body leading-[21px] tracking-[0.04px]">
-                                    Total Slot Base Price (Incl. Taxes)
-                                </span>
-                                <span class="text-sm text-text-heading leading-[21px] tracking-[0.04px]">
-                                    ₹2,000
-                                </span>
-                            </div>
-                            <div class="flex items-center justify-between h-[21px]">
-                                <span class="text-sm text-text-body leading-[21px] tracking-[0.04px]">
-                                    Convenience Fees
-                                </span>
-                                <span class="text-sm text-text-heading leading-[21px] tracking-[0.04px]">
-                                    + ₹0
-                                </span>
-                            </div>
-                            <div class="flex items-center justify-between h-[21px]">
-                                <span class="text-sm text-text-body leading-[21px] tracking-[0.04px]">
-                                    wallet
-                                </span>
-                                <span class="text-sm text-text-heading leading-[21px] tracking-[0.04px]">
-                                    - ₹150
-                                </span>
-                            </div>
-                            <div class="flex items-center justify-between h-[21px]">
-                                <span class="text-sm text-text-body leading-[21px] tracking-[0.04px]">
-                                    Promo code
-                                </span>
-                                <span class="text-sm text-text-heading leading-[21px] tracking-[0.04px]">
-                                    - ₹100
-                                </span>
-                            </div>
+                        <div class="flex items-center justify-between h-[21px]">
+                            <span class="text-sm text-text-body leading-[21px] tracking-[0.04px]">
+                                Convenience Fees
+                            </span>
+                            <span class="text-sm text-text-heading leading-[21px] tracking-[0.04px]">
+                                + ₹0
+                            </span>
                         </div>
+                        <div id="breakdown-wallet" class="hidden flex items-center justify-between h-[21px]">
+                            <span class="text-sm text-text-body leading-[21px] tracking-[0.04px]">
+                                wallet
+                            </span>
+                            <span class="text-sm text-text-heading leading-[21px] tracking-[0.04px]">
+                                - ₹150
+                            </span>
+                        </div>
+                        <div id="breakdown-promo" class="hidden flex items-center justify-between h-[21px]">
+                            <span class="text-sm text-text-body leading-[21px] tracking-[0.04px]">
+                                Promo code
+                            </span>
+                            <span class="text-sm text-text-heading leading-[21px] tracking-[0.04px]">
+                                - ₹100
+                            </span>
+                        </div>
+                        <div class="flex items-center justify-between h-[21px] pt-4 border-t border-dashed border-container-border mt-2">
+                             <span class="text-sm font-semibold text-text-heading leading-[21px] tracking-[0.04px]">
+                                 Total Amount
+                             </span>
+                             <span class="text-sm font-semibold text-text-heading leading-[21px] tracking-[0.04px]">
+                                 ₹1,700
+                             </span>
+                         </div>
                     </div>
                 </div>
+            </section>
+
+            <section class="px-4 py-6 space-y-6">
 
                 <!-- Fab Cash Reward -->
                 <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 rounded-full bg-yellow-400 flex items-center justify-center flex-shrink-0">
-                        <!-- Coins Icon -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-white">
-                            <circle cx="8" cy="8" r="6"/>
-                            <path d="M18.09 10.37A6 6 0 1 1 10.34 18"/>
-                            <path d="M7 6h1v4"/>
-                            <path d="m16.71 13.88.7.71-2.82 2.82"/>
-                        </svg>
+                    <div class="w-8 h-8 rounded-full bg-yellow-400 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                        <img src="assets/Icons/New folder/reward.svg" alt="Reward" class="w-5 h-5 object-contain">
                     </div>
                     <p class="text-sm text-text-heading">
                         You earn 50 Fab cash
@@ -344,14 +341,9 @@
                 <!-- Apply Offers Section -->
                 <div id="offers-section">
                     <!-- Default State: Button -->
-                    <button id="apply-offers-btn" onclick="applyOffer()" class="w-full p-4 flex items-center justify-between border border-container-border rounded-lg hover:bg-gray-50 transition-colors">
+                    <button id="apply-offers-btn" onclick="applyOffer()" class="w-full h-[48px] px-4 flex items-center justify-between border border-container-border rounded-lg hover:bg-gray-50 transition-colors">
                         <div class="flex items-center gap-3">
-                            <!-- Percent Icon -->
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-text-heading">
-                                <line x1="19" x2="5" y1="5" y2="19"/>
-                                <circle cx="6.5" cy="6.5" r="2.5"/>
-                                <circle cx="17.5" cy="17.5" r="2.5"/>
-                            </svg>
+                            <img src="assets/Icons/New folder/discount.svg" alt="Offers" class="w-5 h-5">
                             <span class="text-base text-text-heading">
                                 Apply Offers
                             </span>
@@ -406,13 +398,9 @@
                 <!-- Apply Wallet Balance -->
                 <div id="wallet-section">
                      <!-- Default State: Button -->
-                    <button id="apply-wallet-btn" onclick="applyWallet()" class="w-full p-4 flex items-center justify-between border border-container-border rounded-lg hover:bg-gray-50 transition-colors">
+                    <button id="apply-wallet-btn" onclick="applyWallet()" class="w-full h-[48px] px-4 flex items-center justify-between border border-container-border rounded-lg hover:bg-gray-50 transition-colors">
                         <div class="flex items-center gap-3">
-                            <!-- Wallet Icon -->
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-text-heading">
-                                <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/>
-                                <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>
-                            </svg>
+                            <img src="assets/Icons/New folder/wallet-outline.svg" alt="Wallet" class="w-5 h-5">
                             <span class="text-base text-text-heading">
                                 Apply Wallet Balance
                             </span>
@@ -481,13 +469,12 @@
                             onfocus="scrollToInput(this)"
                             class="w-full h-12 px-3 border border-container-border rounded bg-white text-sm text-text-heading placeholder:text-text-inverse leading-[21px] tracking-[0.04px] focus:outline-none focus:border-text-heading transition-colors"
                         />
-                        <input
+                        <textarea
                             id="address-input"
-                            type="text"
                             placeholder="Address"
                             onfocus="scrollToInput(this)"
-                            class="w-full h-12 px-3 border border-container-border rounded bg-white text-sm text-text-heading placeholder:text-text-inverse leading-[21px] tracking-[0.04px] focus:outline-none focus:border-text-heading transition-colors"
-                        />
+                            class="w-full min-h-[100px] px-3 py-2 border border-container-border rounded bg-white text-sm text-text-heading placeholder:text-text-inverse leading-[21px] tracking-[0.04px] focus:outline-none focus:border-text-heading transition-colors resize-none"
+                        ></textarea>
                     </div>
                 </div>
             </section>
@@ -495,18 +482,11 @@
 
         <!-- Sticky Bottom - Payment Section -->
         <div class="sticky bottom-0 bg-white border-t border-container-border z-30 mt-auto">
-            <!-- Total and Payment Method -->
-            <div class="px-4 py-3 flex items-center justify-between border-b border-container-border">
-                <div>
-                    <p class="text-xs text-text-body mb-0.5">Total</p>
-                    <p class="text-xl font-semibold text-text-heading">₹1,700</p>
-                </div>
-            </div>
 
             <!-- Action Buttons -->
             <div class="px-4 py-4 space-y-3">
                 <button onclick="window.location.href='SlotConfirmation.html'" class="w-full py-3.5 bg-success-green text-success-green-foreground rounded-lg font-medium text-base hover:bg-success-green/90 transition-colors shadow-sm">
-                    Pay ₹1951 & Book Slot
+                    Pay ₹1,700 & Book Slot
                 </button>
                 <button onclick="window.location.href='SlotConfirmation.html'" class="w-full py-3.5 bg-white border border-container-border text-text-heading rounded-lg font-medium text-base hover:bg-gray-50 transition-colors">
                     Pay ₹300 to reserve Slot
@@ -529,7 +509,7 @@
                 <button onclick="closeCancelModal()" class="flex-1 py-2.5 rounded-lg border border-container-border text-text-heading font-medium hover:bg-gray-50 transition-colors">
                     No
                 </button>
-                <button onclick="window.location.href='TurfDetails.html'" class="flex-1 py-2.5 rounded-lg bg-[var(--red)] text-white font-medium hover:opacity-90 transition-colors">
+                <button onclick="window.location.href='SlotBooking.html'" class="flex-1 py-2.5 rounded-lg bg-[var(--red)] text-white font-medium hover:opacity-90 transition-colors">
                     Yes
                 </button>
             </div>
@@ -560,20 +540,20 @@
             }
         }
 
-        // Toggle Total Amount
-        function toggleTotalAmount() {
-            const breakdown = document.getElementById('total-breakdown');
-            const chevronDown = document.getElementById('total-chevron-down');
-            const chevronUp = document.getElementById('total-chevron-up');
+        // Toggle Booking Summary
+        function toggleBookingSummary() {
+            const content = document.getElementById('booking-summary-content');
+            const chevronDown = document.getElementById('summary-chevron-down');
+            const chevronUp = document.getElementById('summary-chevron-up');
             
-            if (breakdown.classList.contains('max-h-0')) {
-                breakdown.classList.remove('max-h-0', 'opacity-0');
-                breakdown.classList.add('max-h-96', 'opacity-100');
+            if (content.classList.contains('max-h-0')) {
+                content.classList.remove('max-h-0', 'opacity-0');
+                content.classList.add('max-h-96', 'opacity-100');
                 chevronDown.classList.add('hidden');
                 chevronUp.classList.remove('hidden');
             } else {
-                breakdown.classList.add('max-h-0', 'opacity-0');
-                breakdown.classList.remove('max-h-96', 'opacity-100');
+                content.classList.add('max-h-0', 'opacity-0');
+                content.classList.remove('max-h-96', 'opacity-100');
                 chevronDown.classList.remove('hidden');
                 chevronUp.classList.add('hidden');
             }
@@ -587,6 +567,10 @@
             if (checkbox.checked) {
                 fields.classList.remove('max-h-0', 'opacity-0');
                 fields.classList.add('max-h-96', 'opacity-100');
+                // Scroll to see text fields
+                setTimeout(() => {
+                    fields.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
             } else {
                 fields.classList.add('max-h-0', 'opacity-0');
                 fields.classList.remove('max-h-96', 'opacity-100');
@@ -628,12 +612,16 @@
             document.getElementById('apply-wallet-btn').classList.add('hidden');
             document.getElementById('applied-wallet-card').classList.remove('hidden');
             document.getElementById('applied-wallet-card').classList.add('flex');
+            document.getElementById('breakdown-wallet').classList.remove('hidden');
+            document.getElementById('breakdown-wallet').classList.add('flex');
         }
 
         function removeWallet() {
             document.getElementById('apply-wallet-btn').classList.remove('hidden');
             document.getElementById('applied-wallet-card').classList.add('hidden');
             document.getElementById('applied-wallet-card').classList.remove('flex');
+            document.getElementById('breakdown-wallet').classList.add('hidden');
+            document.getElementById('breakdown-wallet').classList.remove('flex');
         }
 
         // Apply Offer Logic (Simulated for this demo, usually requires state from Coupons page)
@@ -642,6 +630,8 @@
              document.getElementById('apply-offers-btn').classList.add('hidden');
              document.getElementById('applied-offer-card').classList.remove('hidden');
              document.getElementById('applied-offer-card').classList.add('flex');
+             document.getElementById('breakdown-promo').classList.remove('hidden');
+             document.getElementById('breakdown-promo').classList.add('flex');
         }
 
         function applyOffer() {
